@@ -46,7 +46,7 @@ The order of preferred topics: 5-4-1-2-3
 
 4. **Personal errand routing | trip planner**
 
-	Use case A user wants to do several things in a day, what is a sequence of activities that she/he should do in order to take the shortest time to complete all tasks. For example, on Saturday, Madame Smith wants to go to Gord's No Frills on Clarence & Taylor, J.S. Wood Library, Home Depot in Stonebridge, Shaw Centre, Corman Park Vet Service, Floral Acres Greenhouses, and Scotia Bank on CumberLand & 8th. In what order should she take to visit all the places in the shortest time? Assume that all the places always open when she arrives, and traveling time is deterministic. These two assumptions can be relaxed as the next step of the project.
+	Use case: A user wants to do several things in a day, what is a sequence of activities that she/he should do in order to take the shortest time to complete all tasks. For example, on Saturday, Madame Smith wants to go to Gord's No Frills on Clarence & Taylor, J.S. Wood Library, Home Depot in Stonebridge, Shaw Centre, Corman Park Vet Service, Floral Acres Greenhouses, and Scotia Bank on CumberLand & 8th. In what order should she take to visit all the places in the shortest time? Assume that all the places always open when she arrives, and traveling time is deterministic. These two assumptions can be relaxed as the next step of the project.
 	
 	Approach: 'traveling salesman problem' -> user's input location's names (frontend) -> system gets a collection of geographical locations (from where?) (backend) -> system calculate sequences using TSP (backend) -> system tells user the solution (frontend)
 	
