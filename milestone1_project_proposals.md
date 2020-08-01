@@ -4,7 +4,7 @@ Draft v.2
 
 1. **Web application for (chronic disease e.g. cancer) patient scheduling**
 
-	An application to assist health administrators to schedule patient visits under limited time availability. Assume no walk-in patients as the application is for chronic disease clinics which patients would be previously diagnosed from elsewhere and referred to. The goal is to have patients treated as soon as possible under given resources. Certain facilities can accommodate only some number of patients at a time. For example, there may be four rooms for chemotherapy. Patients will need continuous time slot to complete treatment such as 30 days in a row for radition. 
+	An application to assist health administrators to schedule patient visits under limited time availability. Assume no walk-in patients as the application is for chronic disease clinics which patients would be previously diagnosed from elsewhere and referred to. The goal is to have patients treated as soon as possible under given resources. Certain facilities can accommodate only some number of patients at a time. For example, there may be four rooms for chemotherapy. Patients will need continuous time slot to complete treatment such as 30 days in a row for radiation. 
 
 	1.1 demand forecast: how many incoming patients and what are their characteristics of treatment needed (chemotherapy or radiotherapy, how many courses and duration), weekly -> either Holt-Winter's exponential smoothing method for trend and seasonality, or machine learning, i.e. regression on some predictors
 
