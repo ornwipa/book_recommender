@@ -1,74 +1,32 @@
 # Proposals
 
-Draft v.1
+Draft v.2
 
-The order of preferred topics: 5-4-1-2-3
+1. **Web application for (chronic disease e.g. cancer) patient scheduling**
 
-1. **Cancer patient scheduling**
+	An application to assist health administrators to schedule patient visits under limited time availability. Assume no walk-in patients as the application is for chronic disease clinics which patients would be previously diagnosed from elsewhere and referred to. The goal is to have patients treated as soon as possible under given resources. Certain facilities can accommodate only some number of patients at a time. For example, there may be four rooms for chemotherapy. Patients will need continuous time slot to complete treatment such as 30 days in a row for radition. 
 
 	1.1 demand forecast: how many incoming patients and what are their characteristics of treatment needed (chemotherapy or radiotherapy, how many courses and duration), weekly -> either Holt-Winter's exponential smoothing method for trend and seasonality, or machine learning, i.e. regression on some predictors
 
-	1.2 scheduling solutions: exact (optimization to minimize wait time/days or number of patients waiting for their first treatment session -> mixed integer programming) and/or heuristic (good enough algorithm for tree search --> decompose into several small strips and model small a piece as knapsack problem)
+	1.2 scheduling solutions: exact (optimization to minimize wait time/days or number of patients waiting for their first treatment session -> mixed integer programming) and/or heuristic (good enough algorithm for consolidation or to guide a tree search)
 
-	1.3 interface for administrators: how to display solution to the users (preferably as a table), how to add the next patient into the system/queue
+	1.3 interface for administrators: how to display solution to the users (preferably as an interactive table), how to add the next patient into the system/queue
 
 	Pros: can show lots of other skills - statistics / data science (1.1), operation research (1.2), etc. although those skills might not be among employers' interest
 
-	Cons/Challenges: need input data from reliable source to get started; can get lost into developing solutions; difficult stakeholders; maybe too much focus on backend
+	Cons/Challenges: may need input data from reliable source to get started if not making assumptions; can get lost into developing solutions; difficult stakeholders
 
-2. **Data visualization dashboard**
+2. **Web application as simple chatbot on product (e.g. movie, book) ratings**
 
-	- Interactive web application similar to [IHME's GBD Compare](https://vizhub.healthdata.org/gbd-compare/) or [WHO monitoring health for SDGs](https://apps.who.int/gho/data/node.sdg)
+	A chatbot asking users to comment on a given product $"What do you think about {product}?" Then the system take this input and process to decide whether the particular user likes or dislikes a particular product. Finally, the robot talks to the users $"We think you like {product}." or $"We think you dislike {product}." Optionally, the next phase is to allow the system to collect more data by asking if the prediction is correct and record the new input: X = features derived from users' comments, y = 0/1 representing negative/positive sentiment of users. This way, the model will always adapt and re-train itself.
 	
-	- Examples of data/information to display: individual-level blood glucose to help control diabetes
-
-	Pros: can show creativity and attract diverse employers if it is very good
-
-	Cons: lack of uniqueness, can easily fade out as there are many other existing works, show only frontend 
-
-3. **Foreign language e-learning platform**
-
-	Description: a language-learning web application, inspired by Clic en Ligne, taylored to new immigrants in Canada.
-
-	3.1 Student
-		- Reading: text + comprehension questions
-		- Listening: audio + comprehension questions
-		- Writing: instructions + submission channel
-		- Speaking: features to schedule a video-call with teacher
+	2.1 user interface of the chatbot: a web application, something newly-learned from ComIT
 	
-	3.2 Teacher
-		- Writing: access to assignment, grading rubric, features to make comments/corrections
-		- Speaking: choose availability, set up group video-calls
-		
-	Pros: not sure, but interesting and can be helpful for people
-
-	Cons: features are mostly independent from one another, maybe tedious on relatively easier tasks but fewer complicated tasks to present
-
-4. **Personal errand routing | trip planner**
-
-	Use case: A user wants to do several things in a day, what is a sequence of activities that she/he should do in order to take the shortest time to complete all tasks. For example, on Saturday, Madame Smith wants to go to Gord's No Frills on Clarence & Taylor, J.S. Wood Library, Home Depot in Stonebridge, Shaw Centre, Corman Park Vet Service, Floral Acres Greenhouses, and Scotia Bank on CumberLand & 8th. In what order should she take to visit all the places in the shortest time? Assume that all the places always open when she arrives, and traveling time is deterministic. These two assumptions can be relaxed as the next step of the project.
+	2.2 natural language processing: build bags of words as n-gram to practice/demonstrate working with string commands for tokenization, uses of iterations and conditional statements, understanding of human languages e.g. importance of removing stop words.
 	
-	Approach: 'traveling salesman problem' -> user's input location's names (frontend) -> system gets a collection of geographical locations (from where?) (backend) -> system calculate sequences using TSP (backend) -> system tells user the solution (frontend)
+	2.3 training models: split data for training and testing, split data for k-fold cross validation, train models with artificial neural network (either build ANN algorithm from scratch will be a good knowledge review, or use an opensource package will develop/show ability to code from previous work)
 	
-	Pros: simple enough?, show both IEOR skills (math) and user's interface (aesthetic), show data collection capacity
-
-	Cons/Challenges: need base map (shape files for road and business location?) ... google? openstreetmap?
-	
-	Other aspects: time of the day matter! ... to add a brach or an issue for the next development if not considered at the beginning
-
-5. **Simple chatbot on movie ratings**
-
-	Use case: A console asking users to comment on a given movie if they already watch it e.g. "What do you think about The Lion King movie?" Then the system take this input and process to decide whether the particular user likes or dislikes a particular movie. Finally, the console talks to the users "We think you like this movie." or "We think you dislike this movie." Optionally, the next phase is to allow the system to collect more data by asking if the prediction is correct and record the new input: X = comments, y = 0/1 representing negative/positive sentiment of users. This way, the model will always adapt and re-train itself.
-	
-	Approach: based on the existing database of movie ratings from _Andrew L. Maas, Raymond E. Daly, Peter T. Pham, Dan Huang, Andrew Y. Ng, and Christopher Potts. (2011). Learning Word Vectors for Sentiment Analysis. The 49th Annual Meeting of the Association for Computational Linguistics (ACL 2011)_, create features using NLP and use the features and ground truths to build a supervised learning machine
-	
-	5.1 user interface of the chatbot: a console application, something newly-learned from ComIT
-	
-	5.2 natural language processing: build bags of words as n-gram ... demonstrate working with string commands for tokenization, uses of iterations and conditional statements, understanding of human languages e.g. importance of removing stop words.
-	
-	5.3 training models: split data for training and testing, split data for k-fold cross validation, train models with artificial neural network (either 5.3.1 build ANN algorithm from scratch will be a good review, or 5.3.2 use an opensource package will show ability to develop codes from previous work)
-	
-	Pros: demonstrate skills in NLP and AI, seems feasible as I already did the 5.2 and 5.3 (with stochastic gradient descent) on Python for the AI class at Columbia University. The result done in C# could be comparable.
+	Pros: demonstrate skills in NLP and AI, seems feasible as already did 2.2 and 2.3 (with stochastic gradient descent) on Python for the AI class at Columbia University. The result done in C# could be comparable.
 
 	Cons/Challenges: how to store the large corpus, this may be computationally heavy if model is re-trained every time.
 	
