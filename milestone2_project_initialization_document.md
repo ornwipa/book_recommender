@@ -13,7 +13,7 @@ A brief outline of what the user experience of the final product will be. What u
 
 *This application will serve a chatbot-like responsive graphical user interface through modern web browsers. A Model View Controller design pattern will be used within the ASP.NET Core framework.*
 
-*There will be a number of primary models that define the application data, including:
+*There will be a number of primary models that define the application data, including:*
 - *A pre-loaded dataset of corpura with labels*
 - *A ngram method for building features from corpura and input text*
 - *A training method for sentiment classification based on pre-defined features and labels*
