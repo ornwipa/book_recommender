@@ -1,5 +1,13 @@
-.cache
+# Data to be omitted
+data/books.csv
+data/ratings.csv
+
+# Visual Studio Code
+*.cache
+*.db
 .vscode/
 bin/
 obj/
+
+# Jupyter Lab
 .ipynb_checkpoints/
