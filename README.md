@@ -24,11 +24,19 @@ The recommender system itself is initially built and tested on Python. The proto
 - clone this repository
 ```
 git clone https://github.com/ornwipa/book_recommender.git
+
 ```
 
 - download **books.csv** and **ratings.csv** from [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder [data](https://github.com/ornwipa/book_recommender/tree/master/data).
 
 --- example of books.csv and ratings.csv here
+
+- run the application
+```
+cd book_recommender/recommender
+dotnet run
+```
+
 
 ## Acknowledgement
 
