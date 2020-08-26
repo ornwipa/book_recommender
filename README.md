@@ -1,25 +1,30 @@
-# ComIT
-This repository contains the final project for the ComIT's FULL STACK .NET course from July 20 to October 21, 2020.
+# A recommender system based on collaborative filtering
 
+## Acknowledgement
+
+This repository serves as the final project for [ComIT](https://www.comit.org/)'s FULL STACK .NET course from July 20 to October 21, 2020.
+
+The author would like to thank **ComIT** for this opportunity to showcase her knowledge and aptitude in **artificial intelligence** through the mode of her newly-learned skills in **software development**.
 
 ## About
 
-### Proof of Concept
+### Theoretical Framework
 
---- explain the concept here
+--- explain the proof of concept here
 
 --- figures here: how readers of 50+ books recommend some books to other readers, using principle of cosine similarity.
 
-The recommender system itself is initially built and tested on Python. The prototype is presented in Jupyter Notebook, see [recommender.ipynb](https://github.com/ornwipa/book_recommender/blob/master/recommender.ipynb).
+The server side of the recommender system was initially built and tested on Python. The prototype is presented in Jupyter Notebook, see [recommender.ipynb](https://github.com/ornwipa/book_recommender/blob/master/recommender.ipynb).
 
-### Web Application
+## Web Application
+
+### ASP.NET MVC Pattern
 
 --- explain model-view-controller here
 
 --- screenshots of the view pages here
 
-
-### Installation
+### How to set up
 
 - clone this repository and install required packages
 ```
@@ -27,15 +32,10 @@ git clone https://github.com/ornwipa/book_recommender.git
 dotnet add package TinyCsvParser
 ```
 
-- download **books.csv** and **ratings.csv** from [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder [data](https://github.com/ornwipa/book_recommender/tree/master/data).
+- download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder [data](https://github.com/ornwipa/book_recommender/tree/master/data).
 
 - run the application
 ```
 cd book_recommender/recommender
 dotnet run
 ```
-
-
-## Acknowledgement
-
---- thank to the ComIT program here
