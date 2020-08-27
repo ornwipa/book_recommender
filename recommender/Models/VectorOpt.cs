@@ -1,9 +1,8 @@
 using System;
-using System.Numerics;
 
 namespace recommender.Models
 {
-    public class VectorOpt // to be used for any vectors
+    public class VectorOpt // to be used for any vectors (users and similarities)
     {       
         public static int CountNonZero<T>(T[] arg)
         {
@@ -41,7 +40,7 @@ namespace recommender.Models
             {
                 ssu = ssu + Math.Pow(Convert.ToDouble(argu[k]), 2);
                 ssv = ssv + Math.Pow(Convert.ToDouble(argv[k]), 2);
-                num = Convert.ToDouble(argu[k])*Convert.ToDouble(argv[k]);
+                num = num + Convert.ToDouble(argu[k])*Convert.ToDouble(argv[k]);
             }
             return num/Math.Sqrt(ssu)/Math.Sqrt(ssv);
         }

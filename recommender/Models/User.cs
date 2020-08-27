@@ -4,16 +4,16 @@ namespace recommender.Models
 {
     public class User
     {
-        public int[] rating { set; get; }
+        public double[] rating { set; get; }
 
-        public static int[][] constructUserMatrix()
+        public static double[][] constructUserJaggedArray()
         {
             var ratings = TinyCsvParserRating.ReadRatingCsv();
 
-            int[][] data_matrix = new int[53424][]; // n_users is to be replaced later            
+            double[][] data_matrix = new double[53424][]; // n_users is to be replaced later            
             for (int user_row = 0; user_row < 53424; user_row++)
             {
-                data_matrix[user_row] = new int[10000]; // initialize inner elements to 0
+                data_matrix[user_row] = new double[10000]; // initialize inner elements to 0
             }
             
             for (int m = 0; m < ratings.Count; m++)
@@ -23,13 +23,23 @@ namespace recommender.Models
             return data_matrix;
         }
 
-        public static User accessUser(int[][] user_matrix, int user_index)
+        public static User accessUser(double[][] user_jaggedarray, int user_index)
         {
             User current_user = new User();
-            current_user.rating = user_matrix[user_index];
+            current_user.rating = user_jaggedarray[user_index];
             int no_book_rated = VectorOpt.CountNonZero(current_user.rating);
             Console.WriteLine("The user rated {0} books.", no_book_rated);
             return current_user;
         }  
+
+        public double[] userCosineSimilarity(double[][] user_jaggedarray)
+        {
+            double[] similarity = new double[53424];
+            for (int u = 0; u < similarity.Length; u++)
+            {
+                similarity[u] = VectorOpt.cosineSimilarity(this.rating, user_jaggedarray[u]);
+            }
+            return similarity;
+        }
     } 
 }
