@@ -28,8 +28,8 @@ namespace recommender
             // Console.WriteLine("{0}", current_user.rating[2319]); // test the non-zero one
 
             double[] similarity = current_user.userCosineSimilarity(user_jaggedarray);
-            Console.WriteLine("{0}", similarity[user_index]); // similarity to itself
-            Console.WriteLine("{0}", similarity.Max());
+            // Console.WriteLine("{0}", similarity[user_index]); // similarity to itself
+            // Console.WriteLine("{0}", similarity.Max());
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

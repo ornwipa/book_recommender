@@ -28,7 +28,7 @@ namespace recommender.Models
             User current_user = new User();
             current_user.rating = user_jaggedarray[user_index];
             int no_book_rated = VectorOpt.CountNonZero(current_user.rating);
-            Console.WriteLine("The user rated {0} books.", no_book_rated);
+            // Console.WriteLine("The user rated {0} books.", no_book_rated);
             return current_user;
         }  
 
