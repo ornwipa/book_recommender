@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,8 @@ namespace recommender
         public static void Main(string[] args)
         {
             // CreateHostBuilder(args).Build().Run();
-            testCsvParser();
+            
+            // testCsvParser();
 
             int[][] user_matrix = constructUserMatrix();
 
@@ -79,18 +81,9 @@ namespace recommender
         {
             User current_user = new User();
             current_user.rating = user_matrix[user_index];
-            int no_book_rated = CountNonZero(current_user.rating);
+            int no_book_rated = VectorOpt.CountNonZero(current_user.rating);
             Console.WriteLine("The user rated {0} books.", no_book_rated);
             return current_user;
         }        
-        public static int CountNonZero<T>(T[] arg) // to be used for any vectors
-        {
-            int no_elements = 0;
-            for (int k = 0; k < arg.Length; k++) 
-            {                
-                if (Convert.ToInt32(arg[k]) != 0) no_elements++; 
-            }
-            return no_elements;
-        }
     }
 }
