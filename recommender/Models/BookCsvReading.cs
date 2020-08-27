@@ -6,10 +6,9 @@ using System.Collections.Generic;
 
 namespace recommender.Models
 {
-    public class TinyCsvParserRead
+    public class TinyCsvParserBook
     {
         public static List<Book> ReadBookCsv()
-        // public IEnumerable<Book> ReadBookCsv()
         {
             CsvParserOptions csvParserOptions = new CsvParserOptions(true, ',');
             CsvReaderOptions csvReaderOptions = new CsvReaderOptions(new[] { Environment.NewLine });
