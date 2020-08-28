@@ -14,7 +14,7 @@ namespace recommender.Models
     {
         public static void testCsvParser()
         {
-            var records = TinyCsvParserBook.ReadBookCsv();
+            List<Book> records = TinyCsvParserBook.ReadBookCsv();
             int n_books = records.Count;
             Console.WriteLine("Number of books " + n_books);
             Console.WriteLine("Type of records " + records[0]);
@@ -23,8 +23,12 @@ namespace recommender.Models
             Console.WriteLine("isbn " + records[0].isbn);
             Console.WriteLine("authors " + records[0].authors);
             Console.WriteLine("year " + records[0].year);
+            Console.WriteLine("original title " + records[0].original_title);
             Console.WriteLine("title " + records[0].title);
-            Console.WriteLine("image_url " + records[0].image_url);
+            Console.WriteLine("language code " + records[0].language_code);
+            Console.WriteLine("average rating " + records[0].average_rating);
+            Console.WriteLine("ratings count " + records[0].ratings_count);
+            Console.WriteLine("image URL " + records[0].image_url);
 
             var ratings = TinyCsvParserRating.ReadRatingCsv();
             int n_ratings = ratings.Count;
