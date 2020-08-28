@@ -12,7 +12,11 @@ namespace recommender.Models
             MapProperty(5, x => x.isbn);
             MapProperty(7, x => x.authors);
             MapProperty(8, x => x.year);
-            MapProperty(9, x => x.title);
+            MapProperty(9, x => x.original_title);
+            MapProperty(10, x => x.title);
+            MapProperty(11, x => x.language_code);
+            MapProperty(12, x => x.average_rating);
+            MapProperty(13, x => x.ratings_count);
             MapProperty(21, x => x.image_url);
         }
     }
