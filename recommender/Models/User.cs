@@ -7,10 +7,15 @@ namespace recommender.Models
     public class User
     {
         /// <summary>
+        /// user_id as string input from view home page
+        /// </summary>
+        public string user_id { get; set; }
+
+        /// <summary>
         /// array of 10k elements represent ratings of 10k books by a user
         /// </summary>
-        /// <value></value>
-        public double[] rating { set; get; }
+        public double[] rating { get; set; }
+
         public static double[][] constructUserJaggedArray()
         {
             var ratings = TinyCsvParserRating.ReadRatingCsv();

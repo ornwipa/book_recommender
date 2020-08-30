@@ -2,7 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model recommender.Models.User;
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-6">Welcome to HongSamud Achariya</h1>
+    <p class="lead"> </p>
+    <p class="lead"> </p>
+    <p class="lead">Don't know which book to read next?</p>
+    <p class="lead">Let <b>AI</b> find it for you.</p>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <p>To begin, please enter your <b>User ID: </b> 
+        @Html.TextBoxFor(model => model.user_id)
+        @Html.ValidationMessageFor(model => model.user_id)
+        <button type="submit">Confirm User ID</button>
+        </p>
+    }
+
+    <p>To learn more about the mechanism behind the recommender system, please visit the 
+        <a href="https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering">notebook</a>.</p>
 </div>
