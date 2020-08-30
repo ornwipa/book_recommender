@@ -10,7 +10,6 @@ namespace recommender.Models
         /// <summary>
         /// rating for each book_id by each user_id
         /// </summary>
-        /// <value></value>
         public int rating_ { get; set; }
     }
 }

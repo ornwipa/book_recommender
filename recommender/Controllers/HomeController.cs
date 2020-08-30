@@ -23,6 +23,16 @@ namespace recommender.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Confirm(User current_user)
+        {
+            if (ModelState.IsValid)
+            {
+               
+            }
+            return View("Index", current_user);
+        }
+
         public IActionResult Privacy()
         {
             return View();
