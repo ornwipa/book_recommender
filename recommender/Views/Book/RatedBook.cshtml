@@ -1,0 +1,45 @@
+@model List<recommender.Models.Book>
+
+@{
+    ViewData["Title"] = "RatedBook";
+}
+
+<h1>Books You Rated</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Original Title</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Author(s)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.original_title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.authors)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.id">Edit Rating</a> |                
+                <a asp-action="Delete" asp-route-id="@item.id">Delete Rating</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
