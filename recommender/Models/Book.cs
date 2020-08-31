@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace recommender.Models
 {
     public class Book
     {
+        [Key]
         public int id { get; set; }
         
         public int book_id { get; set; }
