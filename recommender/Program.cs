@@ -14,7 +14,7 @@ namespace recommender
     {
         public static void Main(string[] args)
         {                 
-            double[][] user_jaggedarray = User.constructUserJaggedArray();
+            // double[][] user_jaggedarray = User.constructUserJaggedArray();
             var host = CreateHostBuilder(args).Build();
             host.Run();            
         }
