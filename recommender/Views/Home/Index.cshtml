@@ -11,11 +11,10 @@
     <p class="lead">Don't know which book to read next?</p>
     <p class="lead">Let <b>AI</b> find it for you.</p>
 
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    @using (Html.BeginForm("SetUser", "Home", FormMethod.Post))
     {
         <p>To begin, please enter your <b>User ID: </b> 
         @Html.TextBoxFor(model => model.user_id)
-        @Html.ValidationMessageFor(model => model.user_id)
         <button type="submit">Confirm User ID</button>
         </p>
     }
