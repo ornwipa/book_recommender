@@ -24,13 +24,13 @@ namespace recommender.Controllers
         }
 
         [HttpPost]
-        public ActionResult Confirm(User current_user)
+        public ActionResult SetUser(User current_user)
         {
             if (ModelState.IsValid)
             {
-               
+                return Content(current_user.user_id); // direct to the next page once built
             }
-            return View("Index", current_user);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
