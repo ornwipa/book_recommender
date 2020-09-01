@@ -14,7 +14,7 @@ namespace recommender.Models
         {
             User current_user = User.accessUser(user_jaggedarray, Convert.ToInt32(user_id));
             List<Book> rated_book = current_user.getRatedBook();
-            List<User> similar_user = current_user.similarUser(user_jaggedarray);
+            List<User> similar_user = current_user.similarUser();
             List<Book> recommended_book = current_user.getRecommendedBook(similar_user);
 
             using (var context_rated = new BookContext(

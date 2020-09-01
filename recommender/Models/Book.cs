@@ -51,8 +51,38 @@ namespace recommender.Models
                 // Modern Language Association
                     return this.authors + ". " + this.original_title + this.title + ". " + this.year + ".";
                 default:
-                    return this.id + " " + this.original_title + ", " + this.title;
+                    return this.id + " " + this.original_title + ", " + this.title + ", ISBN " + this.isbn;
             }
+        }
+
+        public override string ToString()
+        {
+            string display_title;
+            if (this.original_title == null)
+            {
+                display_title = this.title;
+            }
+            else if (this.title == null || this.title == this.original_title)
+            {
+                display_title = this.original_title;
+            }
+            else
+            {
+                display_title = this.original_title + " " + this.title;
+            }
+            return display_title + ". (" + this.year + ") " + this.authors + ". ISBN: " + this.isbn;
+        }
+    }
+    
+    public class RatedBook : Book
+    {
+        /// <summary>
+        /// rating of the book by a specific user
+        /// </summary>
+        private double rating;
+        public RatedBook(User user)
+        {
+            this.rating = user.rating[this.id];
         }
     }    
 }

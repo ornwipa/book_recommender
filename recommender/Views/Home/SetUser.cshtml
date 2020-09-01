@@ -1,0 +1,44 @@
+@model List<recommender.Models.Book>
+
+@{
+    ViewData["Title"] = "RatedBookIndex";
+}
+
+<h1>Books You Rated</h1>
+
+    @using (Html.BeginForm("RecommendedBookIndex", "Book", FormMethod.Post))
+    {
+        <button type="submit">Go to List of Recommended Books</button>
+    }
+
+<p>
+    <a asp-action="Search">Search New Book</a> | 
+    <a asp-action="Create">Add Book Rating</a> |
+    <a asp-action="Index">Back to Home</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book(s)</th>
+            <th>Your Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.ToString()
+            </td>
+            <td>
+                dummy @* to be replace with item.rating in RatedBook class *@
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.id">Change Rating</a> |                
+                <a asp-action="Delete" asp-route-id="@item.id">Remove</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

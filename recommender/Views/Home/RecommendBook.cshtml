@@ -1,0 +1,42 @@
+@model List<recommender.Models.Book>
+
+@{
+    ViewData["Title"] = "RecommendedBookIndex";
+}
+
+<h1>Recommended Books for You</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book(s)</th>
+            <th>Average Rating</th>
+            <th>Ratings Count</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.ToString()
+            </td>
+            <td>
+                @item.average_rating
+            </td>
+            <td>
+                @item.ratings_count
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.id">Rate</a> |                
+                <a asp-action="Delete" asp-route-id="@item.id">Remove</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-action="SetUser">Back to the List of Your Rated Books</a> |
+    <a asp-action="Index">Back to Home</a>
+</p>

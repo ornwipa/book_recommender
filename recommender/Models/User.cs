@@ -14,7 +14,24 @@ namespace recommender.Models
         /// <summary>
         /// array of 10k elements represent ratings of 10k books by a user
         /// </summary>
-        public double[] rating { get; set; }
+        public double[] rating; // { get; set; }
+
+        /// <summary>
+        /// constructor for User class
+        /// </summary>
+        /* not using due to problem with MVC
+        public User()
+        {
+            double[][] user_jaggedarray = constructUserJaggedArray();
+            this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
+        }
+        */
+        
+        public void setRatings() // use this method to set ratings instead of constructor
+        {
+            double[][] user_jaggedarray = constructUserJaggedArray();
+            this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
+        }
 
         public static double[][] constructUserJaggedArray()
         {
@@ -42,8 +59,9 @@ namespace recommender.Models
             return current_user;
         } 
 
-        public List<User> similarUser(double[][] user_jaggedarray)
+        public List<User> similarUser()
         {
+            double[][] user_jaggedarray = constructUserJaggedArray();
             List<int> similar_user_index = new List<int>();
             List<User> similar_user = new List<User>();
 
@@ -64,13 +82,14 @@ namespace recommender.Models
         public List<Book> getRatedBook()
         {
             List<Book> rated_book = new List<Book>();
-            for (int b = 0; b < this.rating.Length; b++)
+            for (int b = 0; b < 10000; b++) // replace this.rating.Length with 10000
             {
                 if (this.rating[b] != 0)
                 {
-                    rated_book.Add(Book.selectBook(b));
+                    rated_book.Add(RatedBook.selectBook(b));
                 }
             }
+            rated_book.Remove(null);
             return rated_book;
         }
 

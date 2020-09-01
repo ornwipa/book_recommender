@@ -16,9 +16,8 @@ namespace recommender
     {
         public static void Main(string[] args)
         {                 
-            double[][] user_jaggedarray = User.constructUserJaggedArray();
             var host = CreateHostBuilder(args).Build();
-            
+            /*
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -32,7 +31,7 @@ namespace recommender
                     logger.LogError(ex, "An error occurred seeding the database.");
                 }
             }
-
+            */
             host.Run();            
         }
 
@@ -59,7 +58,7 @@ namespace recommender
 
             List<Book> rated_book = current_user.getRatedBook();
 
-            List<User> similar_user = current_user.similarUser(user_jaggedarray);
+            List<User> similar_user = current_user.similarUser();
 
             List<Book> recommended_book = current_user.getRecommendedBook(similar_user);  
         }
