@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using recommender.Data;
 
-namespace recommender.Migrations
+namespace recommender.Migrations.BookRated
 {
     [DbContext(typeof(BookRatedContext))]
     partial class BookRatedContextModelSnapshot : ModelSnapshot

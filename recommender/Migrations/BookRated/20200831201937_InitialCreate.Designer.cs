@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using recommender.Data;
 
-namespace recommender.Migrations
+namespace recommender.Migrations.BookRated
 {
     [DbContext(typeof(BookRatedContext))]
     [Migration("20200831201937_InitialCreate")]

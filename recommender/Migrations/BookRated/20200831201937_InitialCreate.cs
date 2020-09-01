@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace recommender.Migrations
+namespace recommender.Migrations.BookRated
 {
     public partial class InitialCreate : Migration
     {
