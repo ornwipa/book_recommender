@@ -12,21 +12,18 @@ namespace recommender.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookRatedContext _contextRated;
-        private readonly BookRecommendedContext _contextRecommended;
-        public BookController(BookRatedContext contextRated, 
-                                BookRecommendedContext contextRecommended)
+        private readonly BookContext _context;
+        public BookController(BookContext context)
         {
-            _contextRated = contextRated;
-            _contextRecommended = contextRecommended;
+            _context = context;
         }
         public async Task<IActionResult> RatedBookIndex()
         {
-            return View(await _contextRated.Book.ToListAsync());
+            return View(await _context.Book.ToListAsync());
         }
         public async Task<IActionResult> RecommendedBookIndex()
         {
-            return View(await _contextRecommended.Book.ToListAsync());
+            return View(await _context.Book.ToListAsync());
         }
     }
 }

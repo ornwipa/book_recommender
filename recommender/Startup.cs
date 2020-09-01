@@ -28,21 +28,9 @@ namespace recommender
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<BookRatedContext>(options =>
+            services.AddDbContext<BookContext>(options =>
             {
-                var connectionString = Configuration.GetConnectionString("BookRatedContext");
-                if (Environment.IsDevelopment())
-                {
-                    options.UseSqlite(connectionString);
-                }
-                else
-                {
-                    options.UseSqlServer(connectionString);
-                }
-            });
-            services.AddDbContext<BookRecommendedContext>(options =>
-            {
-                var connectionString = Configuration.GetConnectionString("BookRecommendedContext");
+                var connectionString = Configuration.GetConnectionString("BookContext");
                 if (Environment.IsDevelopment())
                 {
                     options.UseSqlite(connectionString);

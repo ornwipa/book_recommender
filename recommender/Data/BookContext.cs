@@ -3,9 +3,9 @@ using recommender.Models;
 
 namespace recommender.Data
 {
-    public class BookRatedContext : DbContext
+    public class BookContext : DbContext
     {
-        public BookRatedContext (DbContextOptions<BookRatedContext> options)
+        public BookContext (DbContextOptions<BookContext> options)
             : base(options)
         {
         }

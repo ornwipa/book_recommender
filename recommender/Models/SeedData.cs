@@ -17,8 +17,8 @@ namespace recommender.Models
             List<User> similar_user = current_user.similarUser(user_jaggedarray);
             List<Book> recommended_book = current_user.getRecommendedBook(similar_user);
 
-            using (var context_rated = new BookRatedContext(
-                serviceProvider.GetRequiredService<DbContextOptions<BookRatedContext>>()))
+            using (var context_rated = new BookContext(
+                serviceProvider.GetRequiredService<DbContextOptions<BookContext>>()))
                 {                    
                     foreach (Book book in rated_book)
                     {
@@ -28,8 +28,8 @@ namespace recommender.Models
                     context_rated.SaveChanges();
                 }
             
-            using (var context_recommended = new BookRecommendedContext(
-                serviceProvider.GetRequiredService<DbContextOptions<BookRecommendedContext>>()))
+            using (var context_recommended = new BookContext(
+                serviceProvider.GetRequiredService<DbContextOptions<BookContext>>()))
                 {
                     foreach (Book book in recommended_book)
                     {
