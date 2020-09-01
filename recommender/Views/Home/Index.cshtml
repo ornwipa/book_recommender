@@ -14,7 +14,7 @@
     @using (Html.BeginForm("SetUser", "Home", FormMethod.Post))
     {
         <p>To begin, please enter your <b>User ID: </b> 
-        @Html.TextBoxFor(model => model.user_id)
+        @Html.TextBoxFor(model => model.user_id) @* originally using <input type = "text"> *@
         <button type="submit">Confirm User ID</button>
         </p>
     }

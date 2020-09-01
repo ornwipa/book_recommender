@@ -24,11 +24,14 @@ namespace recommender.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetUser(User current_user)
+        public IActionResult SetUser(User read_user) // public IActionResult SetUser(string user_id)
         {
             if (ModelState.IsValid)
             {
-                return Content(current_user.user_id); // direct to the next page once built
+                // return Content(read_user.user_id); // direct to the page showing user_id
+                read_user.setRatings();
+                BookController user_control = new BookController(read_user);
+                return user_control.RatedBookIndex();
             }
             return RedirectToAction("Index");
         }
