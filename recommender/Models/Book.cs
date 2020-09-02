@@ -79,7 +79,7 @@ namespace recommender.Models
         /// <summary>
         /// rating of the book by a specific user
         /// </summary>
-        private double rating;
+        private int rating;
         public RatedBook(User user)
         {
             this.rating = user.rating[this.id];

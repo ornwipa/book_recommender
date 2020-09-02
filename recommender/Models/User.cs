@@ -1,6 +1,8 @@
+using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace recommender.Models
 {
@@ -14,7 +16,7 @@ namespace recommender.Models
         /// <summary>
         /// array of 10k elements represent ratings of 10k books by a user
         /// </summary>
-        public double[] rating; // { get; set; }
+        public int[] rating; // { get; set; }
 
         /// <summary>
         /// constructor for User class
@@ -29,18 +31,18 @@ namespace recommender.Models
         
         public void setRatings() // use this method to set ratings instead of constructor
         {
-            double[][] user_jaggedarray = constructUserJaggedArray();
+            int[][] user_jaggedarray = User.constructUserJaggedArray();
             this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
         }
 
-        public static double[][] constructUserJaggedArray()
+        public static int[][] constructUserJaggedArray()
         {
             var ratings = TinyCsvParserRating.ReadRatingCsv();
 
-            double[][] data_matrix = new double[53424][]; // n_users is to be replaced later            
+            int[][] data_matrix = new int[53424][]; // n_users is to be replaced later            
             for (int user_row = 0; user_row < 53424; user_row++)
             {
-                data_matrix[user_row] = new double[10000]; // initialize inner elements to 0
+                data_matrix[user_row] = new int[10000]; // initialize inner elements to 0
             }
             
             for (int m = 0; m < ratings.Count; m++)
@@ -50,20 +52,22 @@ namespace recommender.Models
             return data_matrix;
         }
 
-        public static User accessUser(double[][] user_jaggedarray, int user_index)
+        public static User accessUser(int[][] user_jaggedarray, int user_index)
         {
             User current_user = new User();
+            current_user.user_id = user_index.ToString();
             current_user.rating = user_jaggedarray[user_index];
             int no_book_rated = VectorOpt.CountNonZero(current_user.rating);
             // Console.WriteLine("The user rated {0} books.", no_book_rated);
             return current_user;
         } 
 
-        public List<User> similarUser()
+        /*// public List<User> similarUser()
+        public List<int> similarUser() // return the indices of similar users instead
         {
-            double[][] user_jaggedarray = constructUserJaggedArray();
+            double[][] user_jaggedarray = User.constructUserJaggedArray();
             List<int> similar_user_index = new List<int>();
-            List<User> similar_user = new List<User>();
+            // List<User> similar_user_list = new List<User>(200);
 
             double[] similarity = new double[53424]; // currently built on existing database
             for (int u = 0; u < similarity.Length; u++)
@@ -72,12 +76,11 @@ namespace recommender.Models
                 if (similarity[u] > 0.1) // arbitary number for the minimum cosine similarity
                 {
                     similar_user_index.Add(u);
-                    similar_user.Add(accessUser(user_jaggedarray, u));
+                    // similar_user_list.Add(accessUser(user_jaggedarray, u));
                 }
             }
-            // Console.WriteLine("There are {0} similar users.", similar_user_index.Count-1);
-            return similar_user;
-        }
+            return similar_user_index;
+        } */
 
         public List<Book> getRatedBook()
         {
@@ -93,22 +96,37 @@ namespace recommender.Models
             return rated_book;
         }
 
-        public List<Book> getRecommendedBook(List<User> similar_user)
+        // public List<Book> getRecommendedBook(List<User> similar_user)
+        // public List<Book> getRecommendedBook(List<int> similar_user_index)
+        public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
-            List<Book> recommended_book = new List<Book>();
-            
-            double[] sum_book_rating = new double[10000];
-            double[] avg_book_rating = new double[10000];
+            List<Book> recommended_book = new List<Book>(); 
+            int[][] user_jaggedarray = User.constructUserJaggedArray();
+            double similarity;
+            int no_similar_users = 0;
+            int[] sum_book_rating = new int[10000];
+            int avg_book_rating;
             int no_recommended_book = 0;
+            
+            for (int u = 0; u < user_jaggedarray.Length; u++)
+            {
+                similarity = VectorOpt.cosineSimilarity(this.rating, user_jaggedarray[u]);
+                if (similarity > 0.1) // arbitary number for the minimum cosine similarity
+                {
+                    no_similar_users += 1;
+                    for (int b = 0; b < 10000; b++)
+                    {
+                        // sum_book_rating[b] += accessUser(user_jaggedarray, u).rating[b];
+                        sum_book_rating[b] = sum_book_rating[b] + user_jaggedarray[u][b];
+                    }
+                }
+            }
+            // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
+
             for (int b = 0; b < 10000; b++)
             {
-                for (int u = 0; u < similar_user.Count; u++)
-                {
-                    sum_book_rating[b] = sum_book_rating[b] + similar_user[u].rating[b];
-                }
-                avg_book_rating[b] = sum_book_rating[b]/similar_user.Count;
-
-                if (avg_book_rating[b] > 0.5 && this.rating[b] != 0)
+                avg_book_rating = sum_book_rating[b]/no_similar_users;
+                if (avg_book_rating > 0.5 && this.rating[b] != 0)
                 {
                     recommended_book.Add(Book.selectBook(b));
                     no_recommended_book += 1;

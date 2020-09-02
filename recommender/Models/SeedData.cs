@@ -10,12 +10,11 @@ namespace recommender.Models
     public static class SeedData
     {
         public static void Initialize(IServiceProvider serviceProvider, 
-                                        string user_id, double[][] user_jaggedarray)
+                                        string user_id, int[][] user_jaggedarray)
         {
             User current_user = User.accessUser(user_jaggedarray, Convert.ToInt32(user_id));
             List<Book> rated_book = current_user.getRatedBook();
-            List<User> similar_user = current_user.similarUser();
-            List<Book> recommended_book = current_user.getRecommendedBook(similar_user);
+            List<Book> recommended_book = current_user.getRecommendedBook();
 
             using (var context_rated = new BookContext(
                 serviceProvider.GetRequiredService<DbContextOptions<BookContext>>()))
