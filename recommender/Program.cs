@@ -49,7 +49,7 @@ namespace recommender
         {
             // Test.testCsvParser();
 
-            double[][] user_jaggedarray = User.constructUserJaggedArray();
+            int[][] user_jaggedarray = User.constructUserJaggedArray();
 
             // Console.Write("Enter user_id: "); // will be replace with UI
             string user_id = "23"; // Console.ReadLine(); // will be replace with UI
@@ -58,9 +58,7 @@ namespace recommender
 
             List<Book> rated_book = current_user.getRatedBook();
 
-            List<User> similar_user = current_user.similarUser();
-
-            List<Book> recommended_book = current_user.getRecommendedBook(similar_user);  
+            List<Book> recommended_book = current_user.getRecommendedBook();  
         }
     }
 }

@@ -40,8 +40,7 @@ namespace recommender.Controllers
         }    
         public IActionResult RecommendedBookIndex()
         {
-            List<User> similar_user = _current_user.similarUser();
-            List<Book> recommended_book = _current_user.getRecommendedBook(similar_user);
+            List<Book> recommended_book = _current_user.getRecommendedBook();
             var model = recommended_book;
             return View(model);
         }
