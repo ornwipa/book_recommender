@@ -58,19 +58,19 @@ namespace recommender.Models
         public override string ToString()
         {
             string display_title;
-            if (this.original_title == null)
+            if (this.original_title == "")
             {
                 display_title = this.title;
             }
-            else if (this.title == null || this.title == this.original_title)
+            else if (this.title == "" || this.title == this.original_title)
             {
                 display_title = this.original_title;
             }
             else
             {
-                display_title = this.original_title + " " + this.title;
+                display_title = this.original_title + ". " + this.title;
             }
-            return display_title + ". (" + this.year + ") " + this.authors + ". ISBN: " + this.isbn;
+            return display_title + ". (" + this.year + ") " + this.authors;
         }
     }
     

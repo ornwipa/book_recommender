@@ -62,26 +62,6 @@ namespace recommender.Models
             return current_user;
         } 
 
-        /*// public List<User> similarUser()
-        public List<int> similarUser() // return the indices of similar users instead
-        {
-            double[][] user_jaggedarray = User.constructUserJaggedArray();
-            List<int> similar_user_index = new List<int>();
-            // List<User> similar_user_list = new List<User>(200);
-
-            double[] similarity = new double[53424]; // currently built on existing database
-            for (int u = 0; u < similarity.Length; u++)
-            {
-                similarity[u] = VectorOpt.cosineSimilarity(this.rating, user_jaggedarray[u]);
-                if (similarity[u] > 0.1) // arbitary number for the minimum cosine similarity
-                {
-                    similar_user_index.Add(u);
-                    // similar_user_list.Add(accessUser(user_jaggedarray, u));
-                }
-            }
-            return similar_user_index;
-        } */
-
         public List<Book> getRatedBook()
         {
             List<Book> rated_book = new List<Book>();
@@ -96,8 +76,6 @@ namespace recommender.Models
             return rated_book;
         }
 
-        // public List<Book> getRecommendedBook(List<User> similar_user)
-        // public List<Book> getRecommendedBook(List<int> similar_user_index)
         public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
             List<Book> recommended_book = new List<Book>(); 
@@ -105,7 +83,6 @@ namespace recommender.Models
             double similarity;
             int no_similar_users = 0;
             int[] sum_book_rating = new int[10000];
-            int avg_book_rating;
             int no_recommended_book = 0;
             
             for (int u = 0; u < user_jaggedarray.Length; u++)
@@ -124,9 +101,8 @@ namespace recommender.Models
             // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
 
             for (int b = 0; b < 10000; b++)
-            {
-                avg_book_rating = sum_book_rating[b]/no_similar_users;
-                if (avg_book_rating > 0.5 && this.rating[b] != 0)
+            {                
+                if (sum_book_rating[b] > sum_book_rating.Max()/50 && this.rating[b] == 0)
                 {
                     recommended_book.Add(Book.selectBook(b));
                     no_recommended_book += 1;
