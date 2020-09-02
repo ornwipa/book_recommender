@@ -5,16 +5,10 @@
 }
 
 <h1>Books You Rated</h1>
-
-    @using (Html.BeginForm("RecommendedBookIndex", "Book", FormMethod.Post))
-    {
-        <button type="submit">Go to List of Recommended Books</button>
-    }
-
 <p>
     <a asp-action="Search">Search New Book</a> | 
     <a asp-action="Create">Add Book Rating</a> |
-    <a asp-action="Index">Back to Home</a>
+    <a asp-action="Index">Back</a>
 </p>
 
 <table class="table">

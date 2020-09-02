@@ -36,6 +36,19 @@ namespace recommender.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public IActionResult RecommendBook(User read_user) // public IActionResult SetUser(string user_id)
+        {
+            if (ModelState.IsValid)
+            {
+                // return Content(read_user.user_id); // direct to the page showing user_id
+                read_user.setRatings();
+                BookController user_control = new BookController(read_user);
+                return user_control.RecommendedBookIndex();
+            }
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();
