@@ -1,14 +1,6 @@
 # Book Recommender
 
-## Acknowledgement
-
-This repository serves as the final project for [ComIT](https://www.comit.org/)'s FULL STACK .NET course from July 20 to October 21, 2020.
-
-The author would like to thank **ComIT** for this opportunity to showcase her aptitude in **artificial intelligence** through the mode of her newly-learned skills in **software development**.
-
-## About
-
-### Theoretical Framework
+## Theoretical Framework
 
 A recommender system based on collaborative filtering
 
@@ -41,3 +33,9 @@ dotnet add package TinyCsvParser
 cd book_recommender/recommender
 dotnet run
 ```
+
+## Acknowledgement
+
+This repository serves as the final project for [ComIT](https://www.comit.org/)'s FULL STACK .NET course from July 20 to October 21, 2020.
+
+The author would like to thank **ComIT** for this opportunity to showcase her aptitude in **artificial intelligence** through the mode of her newly-learned skills in **software development**.

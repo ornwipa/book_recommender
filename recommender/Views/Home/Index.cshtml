@@ -10,15 +10,28 @@
     <p class="lead"> </p>
     <p class="lead">Don't know which book to read next?</p>
     <p class="lead">Let <b>AI</b> find it for you.</p>
+    <p class="lead"> </p>
+    <p class="lead"> </p>
+    <p>To learn more about the mechanism behind the recommender system, please visit this 
+        <a href="https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering">
+        notebook</a>.</p>
+</div>
 
+<div class="row">
+  <div style="width:50%; float:center">
     @using (Html.BeginForm("SetUser", "Home", FormMethod.Post))
     {
-        <p>To begin, please enter your <b>User ID: </b> 
-        @Html.TextBoxFor(model => model.user_id) @* originally using <input type = "text"> *@
-        <button type="submit">Confirm User ID</button>
-        </p>
+        <p>To see the books you <b>rated</b>, please enter <b>User ID: </b> 
+        @Html.TextBoxFor(model => model.user_id) 
+        <button type="submit">Confirm</button</p>
     }
-
-    <p>To learn more about the mechanism behind the recommender system, please visit the 
-        <a href="https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering">notebook</a>.</p>
-</div>
+  </div>
+  <div style="width:50%; float:center">
+    @using (Html.BeginForm("RecommendBook", "Home", FormMethod.Post))
+    {
+        <p>To see books <b>recommended</b> for you, please enter <b>User ID: </b> 
+        @Html.TextBoxFor(model => model.user_id) 
+        <button type="submit">Confirm</button></p>
+    }
+  </div>
+</div> 
