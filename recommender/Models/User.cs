@@ -65,11 +65,23 @@ namespace recommender.Models
         public List<Book> getRatedBook()
         {
             List<Book> rated_book = new List<Book>();
+            // this.setRatings(); // User class set ratings, all books for a user
+
             for (int b = 0; b < 10000; b++) // replace this.rating.Length with 10000
             {
                 if (this.rating[b] != 0)
                 {
-                    rated_book.Add(RatedBook.selectBook(b));
+                    Book selected_book = new Book();
+                    selected_book = Book.selectBook(b); // book without rating
+                    // RatedBook selected_rated_book = new RatedBook(this);
+                    // RatedBook selected_rated_book = (RatedBook)selected_book;
+                    // selected_book.setRating(this); // Book class set rating
+                    // selected_book.setRating(this.rating[b]);
+                    if (selected_book != null) // to prevent null reference
+                    {
+                        selected_book.rating = this.rating[b];
+                    }                   
+                    rated_book.Add(selected_book);
                 }
             }
             rated_book.Remove(null);

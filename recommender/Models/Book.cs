@@ -35,6 +35,12 @@ namespace recommender.Models
         
         public string image_url { get; set; }
         
+        /* can't use this constructor when data is read from csv
+        public Book(int id)
+        {
+            this.id = id;
+        } */ 
+        
         public static Book selectBook(int book_index)
         {
             return TinyCsvParserBook.ReadBookCsv()[book_index];
@@ -72,17 +78,24 @@ namespace recommender.Models
             }
             return display_title + ". (" + this.year + ") " + this.authors;
         }
-    }
+    // }
     
-    public class RatedBook : Book
-    {
+    // public class RatedBook : Book
+    // {
         /// <summary>
         /// rating of the book by a specific user
         /// </summary>
-        private int rating;
-        public RatedBook(User user)
+        public int rating { get; set; }
+        
+        // public RatedBook(User user, int id) : base(id) // not using base constructor
+        // public RatedBook(User user)
+        public void setRating(User user)
         {
             this.rating = user.rating[this.id];
+        }
+        public void setRating(int rating)
+        {
+            this.rating = rating;
         }
     }    
 }
