@@ -8,7 +8,7 @@ A recommender system based on collaborative filtering
 
 --- figures here: how readers of 50+ books recommend some books to other readers, using principle of cosine similarity.
 
-The server side of the recommender system was initially built and tested on Python. The prototype is presented in Jupyter Notebook, see [recommender.ipynb](https://github.com/ornwipa/book_recommender/blob/master/recommender.ipynb).
+The server side of the recommender system was initially built and tested on Python. The prototype is presented in this [notebook](https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering).
 
 ## Web Application
 
