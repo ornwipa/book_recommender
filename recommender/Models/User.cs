@@ -21,10 +21,14 @@ namespace recommender.Models
         /// <summary>
         /// constructor for User class
         /// </summary>
-        /* not using due to problem with MVC
+        /* not using these two constructor due to problem with MVC 
         public User()
         {
-            double[][] user_jaggedarray = constructUserJaggedArray();
+        }
+        public User(string user_id) : this()
+        {
+            this.user_id = user_id;
+            int[][] user_jaggedarray = constructUserJaggedArray();
             this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
         }
         */
@@ -83,7 +87,8 @@ namespace recommender.Models
             double similarity;
             int no_similar_users = 0;
             int[] sum_book_rating = new int[10000];
-            int no_recommended_book = 0;
+            int sum_rating_cutoff;
+            // int no_recommended_book = 0;
             
             for (int u = 0; u < user_jaggedarray.Length; u++)
             {
@@ -98,17 +103,27 @@ namespace recommender.Models
                     }
                 }
             }
-            // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
+            Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
+
+            if (this.rating.Sum() > 30) // for users who rated many books
+            {
+                sum_rating_cutoff = sum_book_rating.Max()/5;
+            }
+            else  // for users who rated a few books, assuming less than 10 books
+            {
+                sum_rating_cutoff = sum_book_rating.Sum()/no_similar_users/3*2;
+            }
 
             for (int b = 0; b < 10000; b++)
             {                
-                if (sum_book_rating[b] > sum_book_rating.Max()/50 && this.rating[b] == 0)
+                if (sum_book_rating[b] > sum_rating_cutoff && this.rating[b] == 0)
                 {
                     recommended_book.Add(Book.selectBook(b));
-                    no_recommended_book += 1;
+                    // no_recommended_book += 1;
                 }
             }
-            // Console.WriteLine("{0} books are recommended.", no_recommended_book);
+            recommended_book.Remove(null);
+            Console.WriteLine("{0} books are recommended.", recommended_book.Count());
             // foreach (Book book in recommended_book)
             // {
             //     Console.WriteLine(book.citeBook("unknown style"));
