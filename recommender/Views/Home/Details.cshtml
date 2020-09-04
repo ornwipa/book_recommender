@@ -1,0 +1,70 @@
+@model recommender.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Book Details</h3>
+<div>
+    <hr />
+    <d1 class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.title)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.title
+        </dd>
+    
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.original_title)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.original_title
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.authors)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.authors
+        </dd>
+    
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.year)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.year
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.language_code)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.language_code
+        </dd>
+    
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.isbn)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.isbn
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.average_rating)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.average_rating
+        </dd>
+    
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(Model => Model.ratings_count)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.ratings_count
+        </dd>
+    </d1>
+    <dl>
+        <img src="@Url.Content(Model.image_url)" />
+    </dl>
+</div>
