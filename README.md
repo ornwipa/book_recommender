@@ -1,34 +1,34 @@
 # Book Recommender
 
+**Update:** web application is working now. Existing users can see the books they rated and the books recommended for them, as well as the books' details. The part for new users is under development.
+
 ## Theoretical Framework
 
-A recommender system based on collaborative filtering
+This recommender system is based on collaborative filtering.
 
---- explain the proof of concept here
+--- explain the proof of concept
 
---- figures here: how readers of 50+ books recommend some books to other readers, using principle of cosine similarity.
+--- figures: how readers recommend books to other readers, using principle of cosine similarity.
 
 The server side of the recommender system was initially built and tested on Python. The prototype is presented in this [notebook](https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering).
 
 ## Web Application
 
-### ASP.NET MVC Pattern
+--- explain model-view-controller
 
---- explain model-view-controller here
+--- screenshots of the view pages
 
---- screenshots of the view pages here
+## How to set up
 
-### How to set up
-
-- clone this repository and install required packages
+- Clone this repository and install required packages
 ```
 git clone https://github.com/ornwipa/book_recommender.git
 dotnet add package TinyCsvParser
 ```
 
-- download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder [data](https://github.com/ornwipa/book_recommender/tree/master/data).
+- Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder [data](https://github.com/ornwipa/book_recommender/tree/master/data).
 
-- run the application
+- Run the application
 ```
 cd book_recommender/recommender
 dotnet run
