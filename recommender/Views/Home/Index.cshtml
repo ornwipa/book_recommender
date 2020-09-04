@@ -18,20 +18,23 @@
 </div>
 
 <div class="row">
-  <div style="width:50%; float:center">
+  <div style="width:35%; float:center">
     @using (Html.BeginForm("SetUser", "Home", FormMethod.Post))
     {
-        <p>To see the books you <b>rated</b>, please enter <b>User ID: </b> 
+        <p>To see the books you <b>rated</b>, enter <b>User ID: </b> 
         @Html.TextBoxFor(model => model.user_id) 
         <button type="submit">Confirm</button</p>
     }
   </div>
-  <div style="width:50%; float:center">
+  <div style="width:40%; float:center">
     @using (Html.BeginForm("RecommendBook", "Home", FormMethod.Post))
     {
-        <p>To see books <b>recommended</b> for you, please enter <b>User ID: </b> 
+        <p>To see books <b>recommended</b> for you, enter <b>User ID: </b> 
         @Html.TextBoxFor(model => model.user_id) 
         <button type="submit">Confirm</button></p>
     }
+  </div>
+  <div style="width:15%; float:center">
+    <p class="lead"><b>New User</b></p>
   </div>
 </div> 

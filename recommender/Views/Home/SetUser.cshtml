@@ -22,7 +22,7 @@
         <tr>
             <td>
                 @item.ToString()
-                | <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                | <a asp-controller="Home" asp-action="Details" asp-route-id="@item.id">Details</a>
             </td>
             <td>
                 @item.rating

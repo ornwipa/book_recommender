@@ -2,47 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using recommender.Data;
 using recommender.Models;
 
 namespace recommender.Controllers
 {
     public class BookController : Controller
     {
-        /*
-        private readonly BookContext _context;
-        public BookController(BookContext context)
+        private readonly Book _book;
+        public BookController(int id)
         {
-            _context = context;
+            _book = Book.selectBook(id);
         }
-        public async Task<IActionResult> RatedBookIndex()
+        public ActionResult Details(int id)
         {
-            return View(await _context.Book.ToListAsync());
-        }
-        public async Task<IActionResult> RecommendedBookIndex()
-        {
-            return View(await _context.Book.ToListAsync());
-        }
-        */
-        private readonly User _current_user;
-        public BookController(User user)
-        {
-            _current_user = user;
-        }
-        public IActionResult RatedBookIndex()
-        {
-            List<Book> rated_book = _current_user.getRatedBook();
-            var model = rated_book;
-            return View(model);
-        }    
-        public IActionResult RecommendedBookIndex()
-        {
-            List<Book> recommended_book = _current_user.getRecommendedBook();
-            var model = recommended_book;
-            return View(model);
+            // BookController book_control = new BookController(id);
+            // var model = book_control._book;
+            var model = Book.selectBook(id);
+            return View("Details", model);
         }
     }
 }
