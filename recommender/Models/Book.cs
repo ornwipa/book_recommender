@@ -24,13 +24,16 @@ namespace recommender.Models
         [Display(Name = "Original Title")]
         public string original_title { get; set; }
         
-        [Display(Name = "Other Title")]
+        [Display(Name = "Title")]
         public string title { get; set; }   
         
+        [Display(Name = "Language")]
         public string language_code { get; set; }
         
+        [Display(Name = "Average Rating")]
         public double average_rating { get; set; }
         
+        [Display(Name = "Ratings Count")]
         public double ratings_count { get; set; }
         
         public string image_url { get; set; }

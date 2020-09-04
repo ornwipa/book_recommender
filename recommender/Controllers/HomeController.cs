@@ -24,29 +24,36 @@ namespace recommender.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetUser(User read_user) // public IActionResult SetUser(string user_id)
+        public IActionResult SetUser(User read_user)
         {
             if (ModelState.IsValid)
             {
                 // return Content(read_user.user_id); // direct to the page showing user_id
                 read_user.setRatings();
-                BookController user_control = new BookController(read_user);
+                UserController user_control = new UserController(read_user);
                 return user_control.RatedBookIndex();
             }
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult RecommendBook(User read_user) // public IActionResult SetUser(string user_id)
+        public IActionResult RecommendBook(User read_user)
         {
             if (ModelState.IsValid)
             {
                 // return Content(read_user.user_id); // direct to the page showing user_id
                 read_user.setRatings();
-                BookController user_control = new BookController(read_user);
+                UserController user_control = new UserController(read_user);
                 return user_control.RecommendedBookIndex();
             }
             return RedirectToAction("Index");
+        }
+
+        // GET: Home/Details/id
+        public ActionResult Details(int id)
+        {
+            var model = Book.selectBook(id);
+            return View("Details", model);
         }
 
         public IActionResult Privacy()
