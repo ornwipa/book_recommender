@@ -84,8 +84,8 @@ namespace recommender.Models
                     if (selected_book != null) // to prevent null reference
                     {
                         selected_book.rating = this.rating[b];
-                    }                   
-                    rated_book.Add(selected_book);
+                        rated_book.Add(selected_book);
+                    }                                       
                 }
             }
             rated_book.Remove(null);
@@ -115,7 +115,7 @@ namespace recommender.Models
                     }
                 }
             }
-            Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
+            // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
 
             if (this.rating.Sum() > 30) // for users who rated many books
             {
@@ -123,19 +123,23 @@ namespace recommender.Models
             }
             else  // for users who rated a few books, assuming less than 10 books
             {
-                sum_rating_cutoff = sum_book_rating.Sum()/no_similar_users/3*2;
+                sum_rating_cutoff = sum_book_rating.Sum()/no_similar_users/2;
             }
 
             for (int b = 0; b < 10000; b++)
             {                
                 if (sum_book_rating[b] > sum_rating_cutoff && this.rating[b] == 0)
                 {
-                    recommended_book.Add(Book.selectBook(b));
-                    // no_recommended_book += 1;
+                    Book selected_book = Book.selectBook(b);
+                    if (selected_book != null)
+                    {
+                        recommended_book.Add(selected_book);
+                        // no_recommended_book += 1;
+                    }
                 }
             }
             recommended_book.Remove(null);
-            Console.WriteLine("{0} books are recommended.", recommended_book.Count());
+            // Console.WriteLine("{0} books are recommended.", recommended_book.Count());
             // foreach (Book book in recommended_book)
             // {
             //     Console.WriteLine(book.citeBook("unknown style"));

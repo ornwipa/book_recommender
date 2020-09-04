@@ -16,21 +16,17 @@
         <tr>
             <th>Book(s)</th>
             <th>Your Rating</th>
-            <th></th>
         </tr>
     </thead>
 @foreach (var item in Model) {
         <tr>
             <td>
                 @item.ToString()
+                | <a asp-action="Details" asp-route-id="@item.id">Details</a>
             </td>
             <td>
                 @item.rating
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Edit" asp-route-id="@item.id">Change Rating</a> |                
-                <a asp-action="Delete" asp-route-id="@item.id">Remove</a>
+                | <a asp-action="Edit" asp-route-id="@item.id">Change</a>
             </td>
         </tr>
 }

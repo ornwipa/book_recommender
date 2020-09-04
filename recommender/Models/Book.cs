@@ -76,7 +76,7 @@ namespace recommender.Models
             {
                 display_title = this.original_title + ". " + this.title;
             }
-            return display_title + ". (" + this.year + ") " + this.authors;
+            return display_title + ". (" + this.year + ") " + this.authors + ". ";
         }
     // }
     

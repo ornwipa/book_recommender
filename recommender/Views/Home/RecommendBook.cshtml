@@ -23,6 +23,7 @@
         <tr>
             <td>
                 @item.ToString()
+                | <a asp-action="Details" asp-route-id="@item.id">Details</a>
             </td>
             <td>
                 @item.average_rating
@@ -31,7 +32,6 @@
                 @item.ratings_count
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
                 <a asp-action="Edit" asp-route-id="@item.id">Rate</a>
             </td>
         </tr>
