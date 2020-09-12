@@ -52,7 +52,7 @@ namespace recommender.Controllers
         // GET: Home/Details/id
         public ActionResult Details(int id)
         {
-            var model = Book.selectBook(id);
+            var model = Book.selectBook(id-1); // pass id 10000 to select row 9999
             return View("Details", model);
         }
 
