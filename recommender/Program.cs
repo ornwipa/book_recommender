@@ -14,7 +14,7 @@ namespace recommender
     public class Program
     {
         public static void Main(string[] args)
-        {                 
+        {
             var host = CreateHostBuilder(args).Build();
             /*
             using (var scope = host.Services.CreateScope())
@@ -42,9 +42,9 @@ namespace recommender
                 });
 
         /// <summary>
-        /// This is the server's recommendation engine, which has been tested.
+        /// Test server's recommendation engine
         /// </summary>
-        public static void recommendationAlgorithm()
+        public static void testRecommendationAlgorithm()
         {
             // Test.testCsvParser();
 
@@ -58,6 +58,25 @@ namespace recommender
             List<Book> rated_book = current_user.getRatedBook();
 
             List<Book> recommended_book = current_user.getRecommendedBook();  
+        }
+
+        /// <summary>
+        /// Test search function
+        /// </summary>
+        public static void testSearch()
+        {
+            List<Book> search = Book.searchBook("J.K. Rowling");
+            if (search.Count == 0)
+            {
+                Console.WriteLine("Not Found");
+            }
+            else
+            {
+                for (int b = 0; b < search.Count; b++)
+                {
+                    Console.WriteLine(search[b].ToString());
+                }
+            }
         }
     }
 }
