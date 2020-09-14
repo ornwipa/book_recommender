@@ -117,14 +117,34 @@ namespace recommender.Models
         /// </summary>
         public int rating { get; set; }
         
-        // public RatedBook(User user, int id) : base(id) // not using base constructor
-        // public RatedBook(User user)
+        // public RatedBook(User user, int id) : base(id) // cannot use constructor
+
+        /// <summary>
+        /// From known rating (existing or new), set rating to this Book object
+        /// </summary>
+        /// <param name="user">object in User class with this.rating[]</param>
         public void setRating(User user)
         {
-            this.rating = user.rating[this.id];
+            this.rating = user.rating[this.id-1];
         }
+        
+        /// <summary>
+        /// Set rating of this Book object, but records in User object is unchanged
+        /// </summary>
+        /// <param name="rating">rating as integer ranging from 0 to 5</param>
         public void setRating(int rating)
         {
+            this.rating = rating; 
+        }
+
+        /// <summary>
+        /// Set rating of this Book object
+        /// </summary>
+        /// <param name="user">the User who rates this Book</param>
+        /// <param name="rating">new or changed rating from 0 to 5</param>
+        public void setRating(User user, int rating)
+        {
+            user.rating[this.id-1] = rating;
             this.rating = rating;
         }
     }    

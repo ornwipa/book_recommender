@@ -33,12 +33,49 @@ namespace recommender.Models
         }
         */
         
-        public void setRatings() // use this method to set ratings instead of constructor
+        /// <summary>
+        /// For existing user, use this method to set ratings instead of constructor
+        /// </summary>
+        public void setRatings()
         {
             int[][] user_jaggedarray = User.constructUserJaggedArray();
             this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
         }
 
+        /// <summary>
+        /// Set ratings for any user (new or existing)
+        /// </summary>
+        /// <param name="ratings">a 1D array of 10k elements of ratings from 0 to 5</param>
+        public void setRatings(int[] ratings)
+        {
+            this.rating = ratings;
+        }
+
+        /// <summary>
+        /// Set this User object's rating, the Book object's rating also changes
+        /// </summary>
+        /// <param name="book">the Book object to which the new rating is set</param>
+        /// <param name="rating">new rating to be set</param>
+        public void setRating(Book book, int rating)
+        {
+            this.rating[book.id-1] = rating;
+            book.rating = rating;
+        }
+
+        /// <summary>
+        /// Set this User object's rating, the Book object's rating remains unchanged
+        /// </summary>
+        /// <param name="col_index">column index in this.rating, equivalent to Book's id-1</param>
+        /// <param name="rating">new rating to be set</param>
+        public void setRating(int col_index, int rating)
+        {
+            this.rating[col_index] = rating;
+        }
+
+        /// <summary>
+        /// From existing data, construct a user(row)-book(column)-rating(value) relationship
+        /// </summary>
+        /// <returns>a jagged array of ratings, by user</returns>
         public static int[][] constructUserJaggedArray()
         {
             var ratings = TinyCsvParserRating.ReadRatingCsv();
@@ -56,6 +93,12 @@ namespace recommender.Models
             return data_matrix;
         }
 
+        /// <summary>
+        /// Get a given user's ratings from existing data
+        /// </summary>
+        /// <param name="user_jaggedarray">user(row)-book(column)-rating(value)</param>
+        /// <param name="user_index">row_id representing the user in the jagged array</param>
+        /// <returns>User class with this.rating extracted from existing data</returns>
         public static User accessUser(int[][] user_jaggedarray, int user_index)
         {
             User current_user = new User();
@@ -66,6 +109,10 @@ namespace recommender.Models
             return current_user;
         } 
 
+        /// <summary>
+        /// Get books that a given user rated
+        /// </summary>
+        /// <returns>a list of rated books</returns>
         public List<Book> getRatedBook()
         {
             List<Book> rated_book = new List<Book>();
@@ -92,6 +139,10 @@ namespace recommender.Models
             return rated_book;
         }
 
+        /// <summary>
+        /// Get books recommended for a given user
+        /// </summary>
+        /// <returns>a list of recommended books</returns>
         public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
             List<Book> recommended_book = new List<Book>(); 
