@@ -56,6 +56,21 @@ namespace recommender.Controllers
             return View("Details", model);
         }
 
+        [HttpGet]
+        public ActionResult Search(string search)
+        {
+            List<Book> search_matched = Book.searchBook(search);
+            if (search_matched == null)
+            {
+                return Content("Not Found");
+            }
+            else
+            {
+                ViewData.Model = search_matched;
+                return View("SearchMatch");
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View();

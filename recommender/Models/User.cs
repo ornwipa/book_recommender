@@ -49,7 +49,7 @@ namespace recommender.Models
                 data_matrix[user_row] = new int[10000]; // initialize inner elements to 0
             }
             
-            for (int m = 0; m < ratings.Count; m++)
+            for (int m = 0; m < ratings.Length; m++)
             {
                 data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
             }

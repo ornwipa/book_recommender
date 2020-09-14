@@ -4,11 +4,13 @@
     ViewData["Title"] = "RatedBookIndex";
 }
 
-<h1>Books You Rated</h1>
+<h3>Books You Rated</h3>
 <p>
-    <a asp-action="Search">Search New Book</a> | 
-    <a asp-action="Create">Add Book Rating</a> |
-    <a asp-action="Index">Back</a>
+    <form method="get" action="@Url.Action("Search", "Home")" >
+        <b>Search book(s) to add new rating(s):</b>
+        <input type="text" name="search" id="search">
+        <button type="submit">Search</button>
+    </form>
 </p>
 
 <table class="table">
@@ -32,3 +34,8 @@
 }
     </tbody>
 </table>
+
+<p>
+    <b>Not you? </b> <a asp-action="Index">Go back to welcome page</a> | 
+    <b>Ready for more reading? </b> <a asp-action="RecommendBook">See recommended books</a>
+</p>
