@@ -11,7 +11,7 @@ namespace recommender.Models
         /// <summary>
         /// user_id as string input from view home page
         /// </summary>
-        public string user_id { get; set; }
+        public string user_id; // { get; set; }
 
         /// <summary>
         /// array of 10k elements represent ratings of 10k books by a user
@@ -20,25 +20,28 @@ namespace recommender.Models
 
         /// <summary>
         /// constructor for User class
-        /// </summary>
-        /* not using these two constructor due to problem with MVC 
+        /// </summary> 
         public User()
         {
         }
+
+        /// <summary>
+        /// constructor for User object with known user_id (existing or new)
+        /// </summary>
+        /// <param name="user_id">user_id to be read during run-time</param>
+        /// <returns>User object with pre-defined ratings and user_id as attributes</returns>
         public User(string user_id) : this()
         {
             this.user_id = user_id;
-            int[][] user_jaggedarray = constructUserJaggedArray();
-            this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
+            this.setRatings(); // for existing user
         }
-        */
         
         /// <summary>
-        /// For existing user, use this method to set ratings instead of constructor
+        /// Set ratings for existing user only
         /// </summary>
         public void setRatings()
         {
-            int[][] user_jaggedarray = User.constructUserJaggedArray();
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
             this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
         }
 
@@ -73,27 +76,6 @@ namespace recommender.Models
         }
 
         /// <summary>
-        /// From existing data, construct a user(row)-book(column)-rating(value) relationship
-        /// </summary>
-        /// <returns>a jagged array of ratings, by user</returns>
-        public static int[][] constructUserJaggedArray()
-        {
-            var ratings = TinyCsvParserRating.ReadRatingCsv();
-
-            int[][] data_matrix = new int[53424][]; // n_users is to be replaced later            
-            for (int user_row = 0; user_row < 53424; user_row++)
-            {
-                data_matrix[user_row] = new int[10000]; // initialize inner elements to 0
-            }
-            
-            for (int m = 0; m < ratings.Length; m++)
-            {
-                data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
-            }
-            return data_matrix;
-        }
-
-        /// <summary>
         /// Get a given user's ratings from existing data
         /// </summary>
         /// <param name="user_jaggedarray">user(row)-book(column)-rating(value)</param>
@@ -116,7 +98,6 @@ namespace recommender.Models
         public List<Book> getRatedBook()
         {
             List<Book> rated_book = new List<Book>();
-            // this.setRatings(); // User class set ratings, all books for a user
 
             for (int b = 0; b < 10000; b++) // replace this.rating.Length with 10000
             {
@@ -124,10 +105,7 @@ namespace recommender.Models
                 {
                     Book selected_book = new Book();
                     selected_book = Book.selectBook(b); // book without rating
-                    // RatedBook selected_rated_book = new RatedBook(this);
-                    // RatedBook selected_rated_book = (RatedBook)selected_book;
-                    // selected_book.setRating(this); // Book class set rating
-                    // selected_book.setRating(this.rating[b]);
+                    
                     if (selected_book != null) // to prevent null reference
                     {
                         selected_book.rating = this.rating[b];
@@ -146,7 +124,7 @@ namespace recommender.Models
         public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
             List<Book> recommended_book = new List<Book>(); 
-            int[][] user_jaggedarray = User.constructUserJaggedArray();
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
             double similarity;
             int no_similar_users = 0;
             int[] sum_book_rating = new int[10000];

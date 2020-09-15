@@ -48,7 +48,7 @@ namespace recommender
         {
             // Test.testCsvParser();
 
-            int[][] user_jaggedarray = User.constructUserJaggedArray();
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
 
             // Console.Write("Enter user_id: "); // will be replace with UI
             string user_id = "23"; // Console.ReadLine(); // will be replace with UI
