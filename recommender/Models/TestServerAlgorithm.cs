@@ -1,17 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace recommender.Models
 {
     public class Test
     {
+        /// <summary>
+        /// Test TinyCsvParser helper library
+        /// </summary>
         public static void testCsvParser()
         {
             Book[] records = TinyCsvParserBook.ReadBookCsv();
@@ -39,6 +35,44 @@ namespace recommender.Models
             Console.WriteLine("Last book_id: " + ratings[n_ratings - 1].book_id);
             Console.WriteLine("Last user_id: " + ratings[n_ratings - 1].user_id);
             Console.WriteLine("Last rating: " + ratings[n_ratings - 1].rating_);
+        }
+
+        /// <summary>
+        /// Test server's recommendation engine
+        /// </summary>
+        public static void testRecommendationAlgorithm()
+        {
+            Test.testCsvParser();
+
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+
+            // Console.Write("Enter user_id: "); // will be replace with UI
+            string user_id = "23"; // Console.ReadLine(); // will be replace with UI
+
+            User current_user = User.accessUser(user_jaggedarray, Convert.ToInt32(user_id));
+
+            List<Book> rated_book = current_user.getRatedBook();
+
+            List<Book> recommended_book = current_user.getRecommendedBook();  
+        }
+        
+        /// <summary>
+        /// Test search function
+        /// </summary>
+        public static void testSearch()
+        {
+            List<Book> search = Book.searchBook("J.K. Rowling");
+            if (search.Count == 0)
+            {
+                Console.WriteLine("Not Found");
+            }
+            else
+            {
+                for (int b = 0; b < search.Count; b++)
+                {
+                    Console.WriteLine(search[b].ToString());
+                }
+            }
         }
     }
 }
