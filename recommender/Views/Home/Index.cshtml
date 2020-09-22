@@ -18,23 +18,17 @@
 </div>
 
 <div class="row">
-  <div style="width:35%; float:center">
-    @using (Html.BeginForm("SetUser", "Home", FormMethod.Post))
-    {
-        <p>To see the books you <b>rated</b>, enter <b>User ID: </b> 
-        @Html.TextBoxFor(model => model.user_id) 
-        <button type="submit">Confirm</button</p>
-    }
+  <div style="width:50%; float:center">
+    <p class="lead"><b>Existing User</b></p>
+    <!-- https://localhost:5001/Home/Welcome?user_id=12345 -->
+    <form method="get" action="@Url.Action("Welcome", "Home")" >
+        <p>To begin, please enter <b>User ID: </b> 
+        <input type="text" name="user_id" id="user_id">
+        <button type="submit">Confirm</button>
+    </form>
   </div>
-  <div style="width:40%; float:center">
-    @using (Html.BeginForm("RecommendBook", "Home", FormMethod.Post))
-    {
-        <p>To see books <b>recommended</b> for you, enter <b>User ID: </b> 
-        @Html.TextBoxFor(model => model.user_id) 
-        <button type="submit">Confirm</button></p>
-    }
-  </div>
-  <div style="width:15%; float:center">
+
+  <div style="width:50%; float:center">
     <p class="lead"><b>New User</b></p>
   </div>
 </div> 

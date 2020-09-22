@@ -173,5 +173,20 @@ namespace recommender.Models
             // }
             return recommended_book;
         }
+        public List<Book> rated_books;
+        public List<Book> recommended_books;
+        public List<Book> search_matched;
+        public void setRatedBook()
+        {
+            this.rated_books = this.getRatedBook();
+        }
+        public void setRecommendedBook()
+        {
+            this.recommended_books = this.getRecommendedBook();
+        }
+        public void setSearchMatched(string text_input)
+        {
+            this.search_matched = Book.searchBook(text_input);
+        }
     } 
 }

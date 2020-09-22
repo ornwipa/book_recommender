@@ -1,4 +1,4 @@
-@model List<recommender.Models.Book>
+@model recommender.Models.User
 
 @{
     ViewData["Title"] = "RatedBookIndex";
@@ -20,7 +20,7 @@
             <th>Your Rating</th>
         </tr>
     </thead>
-@foreach (var item in Model) {
+@foreach (var item in Model.rated_books) {
         <tr>
             <td>
                 @item.ToString()
@@ -36,6 +36,12 @@
 </table>
 
 <p>
-    <b>Not you? </b> <a asp-action="Index">Go back to welcome page</a> | 
-    <b>Ready for more reading? </b> <a asp-action="RecommendBook">See recommended books</a>
+    <b>Ready for more reading?</b>
+    @Html.ActionLink(
+            linkText: "Ask AI to recommend you some books",
+            actionName: "RecommendBook",
+            controllerName: "Home",
+            routeValues: new { user_id = Model.user_id },
+            htmlAttributes: null
+        )
 </p>

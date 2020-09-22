@@ -1,0 +1,34 @@
+@model recommender.Models.User;
+
+<h3>Welcome @Model.user_id!</h3>
+
+What would you like to do today?
+<ul>
+    <li>
+        <form method="get" 
+                action="@Url.Action("Search", "Home",
+                        new { user_id = Model.user_id})">
+            <b>Search for any books:</b>
+            <input type="text" name="search" id="search">
+            <button type="submit">Search</button>
+        </form>
+    </li>
+    <li>
+        @Html.ActionLink(
+            linkText: "See the book(s) you rated",
+            actionName: "SetUser",
+            controllerName: "Home",
+            routeValues: new { user_id = Model.user_id },
+            htmlAttributes: null
+        )
+    </li>
+    <li>
+        @Html.ActionLink(
+            linkText: "Ask AI to recommend you some books",
+            actionName: "RecommendBook",
+            controllerName: "Home",
+            routeValues: new { user_id = Model.user_id },
+            htmlAttributes: null
+        )
+    </li>
+</ul>
