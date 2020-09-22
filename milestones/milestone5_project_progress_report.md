@@ -7,15 +7,16 @@ The server side (collaborative filtering) of the book recommendation engine is c
 ## Work-in-progress
 
 The UI is now being developed/improved. The remaining goals/tasks aimed for completion by the end of the course are:
-- Proper/correct binding(?) of ```User``` instance and List of ```Book``` objects: currently users need to enter some value to retrieve something, e.g. ```user__id``` for rated books or recommended books and search keywords for other books. It would be more convenient and user-friendly if the users could simply enter their ```user_id``` just once and browse both rated books and recommended books.
-- Functionality for users to change their ratings of books. This function will be available in the "search results" page and "recommended books" page.
-- Ability for new users (without ```user_id```) to use the application, e.g. rate books and get recommendation for the next books they could read. This part has not been started.
+- Proper/correct binding(?) of ```User``` instance and List of ```Book``` objects: to make sure that ```user_id``` is passed correctly from view to controller, especially when passing from search results or recommended books back to rated books. 
+- Functionality for users to change their ratings of books: to create "rate" controller method available in the "search results" and "recommended books" page.
+- Ability for new users (without existing ```user_id```) to use the application, e.g. rate books and get recommendation for the next books they could read. This part has not been started.
 
 ## Questions/Problems
 
 Remaining issues (indeed problems) so far are:
-- Passing an object from view to controller: it is advised in [stackoverflow](https://stackoverflow.com/questions/14152575/pass-parameter-to-controller-from-html-actionlink-mvc-4) that the "model" parameter being passed can be ```Model.user__id``` instead of the ```User``` class (```Model```). Now, should a new instance of ```User``` be created each time? Or the record of ```current_user``` cab be retrieved somehow?
+- Passing an object from view to controller: it is advised in [stackoverflow](https://stackoverflow.com/questions/14152575/pass-parameter-to-controller-from-html-actionlink-mvc-4) that the "model" parameter being passed can be ```Model.user__id``` instead of the ```User``` class (```Model```). Now, a new instance of ```User``` is created by a constructor each time calling a controller method. How can a record of ```current_user``` be retrieved? Or is there any other way not to always have a new instance?
 - Using or not using **Microsoft Entity Framework**? The barrier is not only the incompatibility with Ubuntu 20.04 (which was partially solved by using Ubuntu 18.04 for some part of the development, i.e. the initial migration) but also, frankly, I do not understand it deep enough to make use of it; in other words, I am not comfortable using something that I don't truly understand. Without using some kind of database, how a new users can be added or saved for later access? Same thing applies to the change of ratings.
+- A back-up plan in case of not using database, new users can be treated as "guests" (opposite to "members"). They can start with no book ratings and are still able to search for books, rate books, and get recommended books. However, their work will not be stored and they have to re-do the rating each time to see recommended books.
 
 ## Next steps
 
