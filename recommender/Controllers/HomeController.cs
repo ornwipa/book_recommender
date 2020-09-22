@@ -23,28 +23,43 @@ namespace recommender.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult SetUser(User read_user)
+        public IActionResult Welcome(string user_id)
+        {          
+            if (user_id == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else if (Int32.Parse(user_id) >= 0 && Int32.Parse(user_id) < 52424) // temporary condition
+            {
+                User user = new User(user_id);
+                return View(user); 
+            }
+            else
+            {
+                return Content("User ID does not exist.");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult SetUser(string user_id)
         {
             if (ModelState.IsValid)
             {
-                // return Content(read_user.user_id); // direct to the page showing user_id
-                read_user.setRatings();
-                UserController user_control = new UserController(read_user);
-                return user_control.RatedBookIndex();
+                User current_user = new User(user_id);
+                current_user.setRatedBook();
+                return View(current_user);
             }
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public IActionResult RecommendBook(User read_user)
+        [HttpGet]
+        public IActionResult RecommendBook(string user_id)
         {
             if (ModelState.IsValid)
             {
-                // return Content(read_user.user_id); // direct to the page showing user_id
-                read_user.setRatings();
-                UserController user_control = new UserController(read_user);
-                return user_control.RecommendedBookIndex();
+                User current_user = new User(user_id);
+                current_user.setRecommendedBook();
+                return View(current_user);
             }
             return RedirectToAction("Index");
         }
@@ -57,17 +72,17 @@ namespace recommender.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search(string search)
+        public ActionResult Search(string search, string user_id)
         {
-            List<Book> search_matched = Book.searchBook(search);
-            if (search_matched == null)
+            User current_user = new User(user_id);
+            current_user.search_matched = Book.searchBook(search);
+            if (current_user.search_matched == null)
             {
                 return Content("Not Found");
             }
             else
             {
-                ViewData.Model = search_matched;
-                return View("SearchMatch");
+                return View("SearchMatch", current_user);
             }
         }
 
