@@ -5,12 +5,11 @@
 What would you like to do today?
 <ul>
     <li>
-        <form method="get" 
-                action="@Url.Action("Search", "Home",
-                        new { user_id = Model.user_id})">
+        <form method="get" action="@Url.Action("Search", "Home")">
             <b>Search for any books:</b>
             <input type="text" name="search" id="search">
-            <button type="submit">Search</button>
+            <input type="hidden" name="user_id" id="user_id" value=@Model.user_id>
+            <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
         </form>
     </li>
     <li>

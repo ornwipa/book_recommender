@@ -5,14 +5,14 @@
 @model recommender.Models.User;
 
 <div class="text-center">
-    <h1 class="display-6">Welcome to HongSamud Achariya</h1>
+    <h3 class="display-6">Welcome to HongSamud Achariya</h3>
     <p class="lead"> </p>
     <p class="lead"> </p>
     <p class="lead">Don't know which book to read next?</p>
     <p class="lead">Let <b>AI</b> find it for you.</p>
     <p class="lead"> </p>
     <p class="lead"> </p>
-    <p>To learn more about the mechanism behind the recommender system, please visit this 
+    <p class="lead">To learn more about the mechanism behind the recommender system, please visit this 
         <a href="https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering">
         notebook</a>.</p>
 </div>
@@ -22,9 +22,9 @@
     <p class="lead"><b>Existing User</b></p>
     <!-- https://localhost:5001/Home/Welcome?user_id=12345 -->
     <form method="get" action="@Url.Action("Welcome", "Home")" >
-        <p>To begin, please enter <b>User ID: </b> 
+        <p>Enter your <b>User ID: </b> 
         <input type="text" name="user_id" id="user_id">
-        <button type="submit">Confirm</button>
+        <button class="btn btn-outline-primary btn-sm" type="submit">Confirm</button>
     </form>
   </div>
 
