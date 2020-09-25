@@ -26,8 +26,8 @@ Remaining issues (indeed problems) so far are:
 
 This section includes actions that may or may not be done by the delivery of the final project but will be done at some point.
 - Unit tests: the program itself and it's functions was tested over time while the application is being built; however, the test was done via console application or manually in the UI. Ideally, automated tests should also be built at the same time but focusing on too many things might lead to not getting anything done.
-- Learning to use ```Task``` and ```async```/```await```: in case it helps with running several tasks in parallel, this will be used for optimizing the program. Are there other benefit?
-- Deployment on Azure(?): it would be good if this project could the public and anyone can use this application, all not-for-profit.
+- Learning to use ```Task``` and ```async```/```await``` to run several tasks in parallel, this will be used for optimizing the program.
+- Deployment on Azure(?) to the public so anyone can use this application.
 
 ## Summary of project progress meeting
 
@@ -37,9 +37,9 @@ September 24, 2020, 8:00-8:40 pm
 
 Suggestions from Joel's are:
 - **Database** is very important as part of ASP.NET MVC, and it will be good to develop skills that will eventually lead to completed work in building a website.
-- Styling with ```.CSS``` (Cascading Style Sheet): Joel gave a simple demo and reference to [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/).
+- Styling with ```CSS``` (Cascading Style Sheet): Joel gave a simple demo and reference to [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/).
 
 ### Others
 
 In addition to primary suggestions about 
-- With Joel's help, the issue about passing value from ```.cshtml``` View page to a Controller method was solved by using "hidden" type included in the HTML form and pass ```@Model.user_id``` as "value".
+- With Joel's help, the issue about passing value from ```.cshtml``` View page to a Controller method was solved by using "hidden" input type included in the HTML form and pass ```@Model.user_id``` as "value".
