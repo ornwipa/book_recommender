@@ -1,17 +1,10 @@
 @model recommender.Models.User;
 
-<h3>Welcome @Model.user_id!</h3>
+<h3>Hello @Model.user_id!</h3>
 
-What would you like to do today?
+<p class="lead">What would you like to do today?</p>
+
 <ul>
-    <li>
-        <form method="get" action="@Url.Action("Search", "Home")">
-            <b>Search for any books:</b>
-            <input type="text" name="search" id="search">
-            <input type="hidden" name="user_id" id="user_id" value=@Model.user_id>
-            <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
-        </form>
-    </li>
     <li>
         @Html.ActionLink(
             linkText: "See the book(s) you rated",
@@ -29,5 +22,13 @@ What would you like to do today?
             routeValues: new { user_id = Model.user_id },
             htmlAttributes: null
         )
+    </li>
+    <li>
+        <form method="get" action="@Url.Action("Search", "Home")">
+            Search for any books, enter keywords:
+            <input type="text" name="search" id="search">
+            <input type="hidden" name="user_id" id="user_id" value=@Model.user_id>
+            <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
+        </form>
     </li>
 </ul>

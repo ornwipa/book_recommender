@@ -5,21 +5,20 @@
 @model recommender.Models.User;
 
 <div class="text-center">
-    <h3 class="display-6">Welcome to HongSamud Achariya</h3>
-    <p class="lead"> </p>
-    <p class="lead"> </p>
-    <p class="lead">Don't know which book to read next?</p>
-    <p class="lead">Let <b>AI</b> find it for you.</p>
-    <p class="lead"> </p>
-    <p class="lead"> </p>
-    <p class="lead">To learn more about the mechanism behind the recommender system, please visit this 
-        <a href="https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering">
-        notebook</a>.</p>
+  <br><br>
+  <h1 class="display-6">Welcome to <b>NextBook</b></h1>
+  <br><br>
+  <p class="lead">Don't know which book to read next?</p>
+  <p class="lead">Let our <b>AI</b> find it for you.</p>
+  <br><br>
 </div>
 
 <div class="row">
+  <div style="width:5%; float:center">
+    <p></p>
+  </div>
   <div style="width:50%; float:center">
-    <p class="lead"><b>Existing User</b></p>
+    <p><b>Registered Member</b></p>
     <!-- https://localhost:5001/Home/Welcome?user_id=12345 -->
     <form method="get" action="@Url.Action("Welcome", "Home")" >
         <p>Enter your <b>User ID: </b> 
@@ -27,8 +26,18 @@
         <button class="btn btn-outline-primary btn-sm" type="submit">Confirm</button>
     </form>
   </div>
-
-  <div style="width:50%; float:center">
-    <p class="lead"><b>New User</b></p>
+  <div style="width:45%; float:center">
+    <p><b>New User</b></p>
+    <p><a asp-action="CreateUser">Create a new subscription</a></p>
   </div>
 </div> 
+
+<div class="text-muted">
+    <br><br>
+    <p>Our AI is based on collaborative filtering; that is, books are recommended for you by
+       the users who are similar to you and similarities among users are based on their book
+       ratings. The more books you rate, the AI can recommend you books with higher accuracy.</p>
+    <p>To learn more about the mechanism behind the recommender system, please visit this 
+        <a href="https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering">
+        <b>notebook</b></a>.</p>
+</div>
