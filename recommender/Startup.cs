@@ -30,8 +30,16 @@ namespace recommender
         {
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            {
+                var connectionString = Configuration.GetConnectionString("DefaultConnection");
+                if (Environment.IsDevelopment())
+                {
+                    options.UseSqlite(connectionString);
+                }
+                else{
+                    options.UseSqlServer(connectionString);
+                }
+            });                
             services.AddMvc();
             services.AddSingleton<IBookService, BookService>();
             services.AddSingleton<IRatingService, RatingService>();
