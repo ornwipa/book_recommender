@@ -27,7 +27,7 @@ cd book_recommender/recommender
 dotnet add package TinyCsvParser
 ```
 
-- Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder [data](https://github.com/ornwipa/book_recommender/tree/master/data).
+- Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder named [data_source](https://github.com/ornwipa/book_recommender/tree/master/data_source).
 
 - Apply migration to use database
 ```
