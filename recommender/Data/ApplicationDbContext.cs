@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using recommender.Services;
+using recommender.Models;
 
 namespace recommender.Data
 {
@@ -13,24 +13,24 @@ namespace recommender.Data
         }
 
         /// <summary>
-        /// Store BookService entities in a table called Books in database
+        /// Store Book entities in a table called Books in database
         /// </summary>
-        public DbSet<BookService> Books { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         /// <summary>
-        /// Store UserService entities in a table called Users in database
+        /// Store User entities in a table called Users in database
         /// </summary>
-        public DbSet<RatingService> Ratings { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // base.OnModelCreating(builder);
-            builder.Entity<BookService>(eb =>
+            builder.Entity<Book>(eb =>
             {
                 eb.HasNoKey();
                 eb.ToTable("Books");
             });
-            builder.Entity<RatingService>(eb =>
+            builder.Entity<Rating>(eb =>
             {
                 eb.HasNoKey();
                 eb.ToTable("Ratings");
