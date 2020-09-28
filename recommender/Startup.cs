@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using recommender.Data;
+using recommender.Services;
 
 namespace recommender
 {
@@ -27,19 +29,20 @@ namespace recommender
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            /* not using database
-            services.AddDbContext<BookContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options => 
             {
-                var connectionString = Configuration.GetConnectionString("BookContext");
+                var connectionString = Configuration.GetConnectionString("DefaultConnection");
                 if (Environment.IsDevelopment())
                 {
                     options.UseSqlite(connectionString);
                 }
-                else
-                {
+                else{
                     options.UseSqlServer(connectionString);
                 }
-            }); */
+            });                
+            services.AddMvc();
+            services.AddSingleton<IBookService, BookService>();
+            services.AddSingleton<IRatingService, RatingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

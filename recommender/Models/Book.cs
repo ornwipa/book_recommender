@@ -6,7 +6,7 @@ namespace recommender.Models
 {
     public class Book
     {
-        [Key]
+        [Required]
         public int id { get; set; }
         
         public int book_id { get; set; }
