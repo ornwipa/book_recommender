@@ -1,6 +1,6 @@
 # Book Recommender
 
-**Update:** web application is working now. Existing users can see the books they rated and the books recommended for them, as well as the books' details. The part for new users is under development.
+**Update:** web application is working now. Existing users (registered members) can see the books they rated and the books recommended for them, as well as the books' details. The part for new users is under development.
 
 ## Theoretical Framework
 
@@ -23,14 +23,19 @@ The server side of the recommender system was initially built and tested on Pyth
 - Clone this repository and install required packages
 ```
 git clone https://github.com/ornwipa/book_recommender.git
+cd book_recommender/recommender
 dotnet add package TinyCsvParser
 ```
 
 - Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder [data](https://github.com/ornwipa/book_recommender/tree/master/data).
 
+- Apply migration to use database
+```
+dotnet ef database update
+```
+
 - Run the application
 ```
-cd book_recommender/recommender
 dotnet run
 ```
 

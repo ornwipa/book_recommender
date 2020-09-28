@@ -38,6 +38,7 @@ September 24, 2020, 8:00-8:40 pm
 Suggestions from Joel's are:
 - **Database** is very important as part of ASP.NET MVC, and it will be good to develop skills that will eventually lead to completed work in building a website.
 - Styling with ```CSS``` (Cascading Style Sheet): Joel gave a simple demo and reference to [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/).
+- Optionally, there could be a login page for users.
 
 ### Others
 
