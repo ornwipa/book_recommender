@@ -144,9 +144,13 @@ namespace recommender.Models
             }
             // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
 
-            if (this.rating.Sum() > 30) // for users who rated many books
+            if (this.rating.Sum() > 40) // for users who rated many books
             {
-                sum_rating_cutoff = sum_book_rating.Max()/5;
+                sum_rating_cutoff = sum_book_rating.Max()/8;
+            }
+            else if (this.rating.Sum() > 30)
+            {
+                sum_rating_cutoff = sum_book_rating.Max()/4;
             }
             else  // for users who rated a few books, assuming less than 10 books
             {
