@@ -64,11 +64,19 @@ namespace recommender.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Home/Details/id
         public IActionResult Details(int id)
         {
             var model = Book.selectBook(id-1); // pass id 10000 to select row 9999
             return View("Details", model);
+        }
+
+        public IActionResult Rate(int rating_, int book_id, string user_id)
+        {
+            User current_user = new User(user_id); // to be replace by database entity
+            current_user.setRating(book_id-1, rating_);
+            current_user.setRatedBook(); // replace with something in order not to repeat taking rated book list
+            // perform some logic here to remove from recommended book list
+            return View("SetUser", current_user);
         }
 
         [HttpGet]

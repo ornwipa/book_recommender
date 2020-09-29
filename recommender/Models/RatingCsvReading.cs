@@ -14,7 +14,7 @@ namespace recommender.Models
             CsvReaderOptions csvReaderOptions = new CsvReaderOptions(new[] { Environment.NewLine });
             CsvRatingMapping csvMapper = new CsvRatingMapping();
             CsvParser<Rating> csvParser = new CsvParser<Rating>(csvParserOptions, csvMapper);
-            var record = csvParser.ReadFromFile("../data/ratings.csv", Encoding.UTF8).ToList();
+            var record = csvParser.ReadFromFile("../data_source/ratings.csv", Encoding.UTF8).ToList();
             return record.Select(x => x.Result).ToArray();
         }
     }

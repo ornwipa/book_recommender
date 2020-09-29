@@ -18,11 +18,11 @@
     <p></p>
   </div>
   <div style="width:50%; float:center">
-    <p><b>Registered Member</b></p>
+    <p><b>Registered User</b></p>
     <!-- https://localhost:5001/Home/Welcome?user_id=12345 -->
     <form method="get" action="@Url.Action("Welcome", "Home")" >
         <p>Enter your <b>User ID: </b> 
-        <input type="text" name="user_id" id="user_id">
+        <input type="text" name="user_id" id="user_id" style="width:100px">
         <button class="btn btn-outline-primary btn-sm" type="submit">Confirm</button>
     </form>
   </div>
