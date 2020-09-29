@@ -5,6 +5,7 @@
 }
 
 <h3>Books You Rated</h3>
+
 <p>
     <form method="get" action="@Url.Action("Search", "Home")" >
         <b>Search book(s) to add new rating(s):</b>
@@ -19,6 +20,7 @@
         <tr>
             <th>Book(s)</th>
             <th>Your Rating</th>
+            <th>Change Rating</th>
         </tr>
     </thead>
 @foreach (var item in Model.rated_books) {
@@ -29,12 +31,19 @@
             </td>
             <td>
                 @item.rating
-                | <a asp-action="Edit" asp-route-id="@item.id">Change</a>
+            </td>
+            <td>
+                <form method="get" action="@Url.Action("Rate", "Home")">
+                    <input type="number" name="rating_" id="rating_" style="width:50px" min="0" max="5">
+                    <input type="hidden" name="book_id" id="book_id" value=@item.id>
+                    <input type="hidden" name="user_id" id="user_id" value=@Model.user_id>
+                    <button class="btn btn-outline-warning btn-sm" type="submit">Submit</button>
+                </form>
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table><hr>
 
 <p>
     <b>Ready for more reading?</b>

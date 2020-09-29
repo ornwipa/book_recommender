@@ -5,14 +5,9 @@
 }
 
 <h3>Recommended Books for You</h3>
-<p>
-    @Html.ActionLink(
-            linkText: "Back to your the list of books you rated",
-            actionName: "SetUser",
-            controllerName: "Home",
-            routeValues: new { user_id = Model.user_id },
-            htmlAttributes: null
-        )
+
+<p><br>
+    We think you will enjoy the following books.
 </p>
 
 <table class="table">
@@ -38,9 +33,31 @@
                 @item.ratings_count
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Rate</a>
+                <form method="get" action="@Url.Action("Rate", "Home")">
+                    <input type="number" name="rating_" id="rating_" style="width:50px" min="0" max="5">
+                    <input type="hidden" name="book_id" id="book_id" value=@item.id>
+                    <input type="hidden" name="user_id" id="user_id" value=@Model.user_id>
+                    <button class="btn btn-outline-warning btn-sm" type="submit">Submit</button>
+                </form>
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table><hr>
+
+<p>
+    @Html.ActionLink(
+            linkText: "Back to your main menu",
+            actionName: "Welcome",
+            controllerName: "Home",
+            routeValues: new { user_id = Model.user_id },
+            htmlAttributes: null
+        )  |  
+    @Html.ActionLink(
+            linkText: "Back to the books you rated",
+            actionName: "SetUser",
+            controllerName: "Home",
+            routeValues: new { user_id = Model.user_id },
+            htmlAttributes: null
+        )
+</p>
