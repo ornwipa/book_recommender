@@ -31,16 +31,23 @@ namespace recommender.Models
         public User(string user_id) : this()
         {
             this.user_id = user_id;
-            this.setRatings(); // for existing user
+            this.setRatings(); // different for OldUser and NewUser objects
         }
         
         /// <summary>
-        /// Set ratings for existing user only
+        /// Set ratings, different between existing user and guests
         /// </summary>
-        public void setRatings()
+        public virtual void setRatings()
         {
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
-            this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
+            if (Int32.Parse(user_id) >= 0 && Int32.Parse(user_id) < 52424)
+            {
+                int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+                this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
+            }
+            else
+            {
+                this.rating = new int[10000];
+            }
         }
 
         /// <summary>
@@ -74,12 +81,12 @@ namespace recommender.Models
         }
 
         /// <summary>
-        /// Get a given user's ratings from existing data
+        /// Get a given user's ratings from existing data; method cannot be inherited
         /// </summary>
         /// <param name="user_jaggedarray">user(row)-book(column)-rating(value)</param>
         /// <param name="user_index">row_id representing the user in the jagged array</param>
         /// <returns>User class with this.rating extracted from existing data</returns>
-        public static User accessUser(int[][] user_jaggedarray, int user_index)
+        private static User accessUser(int[][] user_jaggedarray, int user_index)
         {
             User current_user = new User();
             current_user.user_id = user_index.ToString();

@@ -19,8 +19,8 @@
     <thead>
         <tr>
             <th>Book(s)</th>
-            <th>Your Rating</th>
-            <th>Change Rating</th>
+            <th style="width:120px">Your Rating</th>
+            <th style="width:150px">Change Rating</th>
         </tr>
     </thead>
 @foreach (var item in Model.rated_books) {
@@ -29,10 +29,10 @@
                 @item.ToString()
                 | <a asp-controller="Home" asp-action="Details" asp-route-id="@item.id">Details</a>
             </td>
-            <td>
+            <td style="width:120px; text-align:center">
                 @item.rating
             </td>
-            <td>
+            <td style="width:150px">
                 <form method="get" action="@Url.Action("Rate", "Home")">
                     <input type="number" name="rating_" id="rating_" style="width:50px" min="0" max="5">
                     <input type="hidden" name="book_id" id="book_id" value=@item.id>
