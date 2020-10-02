@@ -14,12 +14,11 @@
 </div>
 
 <div class="row">
-  <div style="width:5%; float:center">
+  <div style="width:10%; float:center">
     <p></p>
   </div>
-  <div style="width:50%; float:center">
+  <div style="width:45%; float:center">
     <p><b>Registered User</b></p>
-    <!-- https://localhost:5001/Home/Welcome?user_id=12345 -->
     <form method="get" action="@Url.Action("Welcome", "Home")" >
         <p>Enter your <b>User ID: </b> 
         <input type="text" name="user_id" id="user_id" style="width:100px">
@@ -27,8 +26,9 @@
     </form>
   </div>
   <div style="width:45%; float:center">
-    <p><b>New User</b></p>
-    <p><a asp-action="CreateUser">Create a new subscription</a></p>
+    <p><b>Visitor</b></p>
+    <p><a asp-action="AsGuest">Try as guest</a> or 
+       <a href = "mailto: fahornwipa@gmail.com">contact us</a> to subscribe</p>
   </div>
 </div> 
 
