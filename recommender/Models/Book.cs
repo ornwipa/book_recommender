@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using recommender.Data;
 
 namespace recommender.Models
 {
@@ -42,7 +44,7 @@ namespace recommender.Models
         {
             this.id = id;
         } */ 
-        
+      
         /// <summary>
         /// Get a book record from the entire record Book[] array
         /// </summary>
@@ -50,7 +52,9 @@ namespace recommender.Models
         /// <returns>object of a Book class</returns>
         public static Book selectBook(int book_index)
         {
-            return TinyCsvParserBook.ReadBookCsv()[book_index];
+            var context = new ApplicationDbContext();
+            return context.Books.Where(b => b.id == book_index).FirstOrDefault();
+            // return TinyCsvParserBook.ReadBookCsv()[book_index];
         }
 
         /// <summary>
@@ -61,7 +65,9 @@ namespace recommender.Models
         public static List<Book> searchBook(string text_input)
         {
             List<Book> matched = new List<Book>();
-            var book_data = TinyCsvParserBook.ReadBookCsv();
+            var context = new ApplicationDbContext();
+            var book_data = context.Books.ToArray();
+            // var book_data = TinyCsvParserBook.ReadBookCsv();
             for (int b = 0; b < book_data.Length; b++)
             {
                 if (book_data[b] != null && text_input != null)

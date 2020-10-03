@@ -13,14 +13,14 @@ namespace recommender.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private ApplicationDbContext _context;
+        // private ApplicationDbContext _context;
         public User current_user;
 
-        public HomeController(ILogger<HomeController> logger, 
-                                ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger)//, 
+                                //ApplicationDbContext context)
         {
             _logger = logger;
-            _context = context;
+            //_context = context;
         }
 
         public IActionResult Index()
