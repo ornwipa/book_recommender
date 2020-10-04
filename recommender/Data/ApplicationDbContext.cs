@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using recommender.Models;
 
@@ -8,7 +5,7 @@ namespace recommender.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext() : base()
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
