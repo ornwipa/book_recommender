@@ -1,4 +1,5 @@
 using System;
+using recommender.Services;
 
 namespace recommender.Models
 {
@@ -7,7 +8,7 @@ namespace recommender.Models
         /// <summary>
         /// constructor for OldUser class
         /// </summary> 
-        public OldUser(string user_id) : base(user_id)
+        public OldUser(IBookService bookService, string user_id) : base(bookService, user_id)
         {
             this.user_id = user_id;
             this.setRatings(); // different for User and Guest objects

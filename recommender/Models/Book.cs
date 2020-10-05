@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using recommender.Data;
+using recommender.Services;
 
 namespace recommender.Models
 {
@@ -42,15 +46,19 @@ namespace recommender.Models
         {
             this.id = id;
         } */ 
-        
+      
         /// <summary>
         /// Get a book record from the entire record Book[] array
         /// </summary>
         /// <param name="book_index">a row_id ranging from 0 to 9999</param>
         /// <returns>object of a Book class</returns>
-        public static Book selectBook(int book_index)
+        public static Book selectBook(int book_index, IBookService bookservice)
         {
-            return TinyCsvParserBook.ReadBookCsv()[book_index];
+            return bookservice.getBookData()[book_index];
+            // var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            // var context = new ApplicationDbContext(optionBuilder.Options);
+            // return context.Books.Where(b => b.id == (book_index+1)).FirstOrDefault();
+            // return TinyCsvParserBook.ReadBookCsv()[book_index];
         }
 
         /// <summary>
@@ -58,10 +66,14 @@ namespace recommender.Models
         /// </summary>
         /// <param name="input">text to be matched with book information</param>
         /// <returns>a list of matched Book; if not found return an empty list</returns>
-        public static List<Book> searchBook(string text_input)
+        public static List<Book> searchBook(string text_input, IBookService bookservice)
         {
             List<Book> matched = new List<Book>();
-            var book_data = TinyCsvParserBook.ReadBookCsv();
+            Book[] book_data = bookservice.getBookData();
+            // var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            // var context = new ApplicationDbContext(optionBuilder.Options);
+            // var book_data = context.Books.ToArray();
+            // var book_data = TinyCsvParserBook.ReadBookCsv();
             for (int b = 0; b < book_data.Length; b++)
             {
                 if (book_data[b] != null && text_input != null)

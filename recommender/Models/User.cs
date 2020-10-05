@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using recommender.Services;
 
 namespace recommender.Models
 {
@@ -16,11 +17,16 @@ namespace recommender.Models
         /// </summary>
         public int[] rating; // { get; set; }
 
+        private readonly IBookService _bookService;
+
+        public User(){}
+
         /// <summary>
         /// constructor for User class
         /// </summary> 
-        public User()
+        public User(IBookService bookService)
         {
+            _bookService = bookService;
         }
 
         /// <summary>
@@ -28,7 +34,7 @@ namespace recommender.Models
         /// </summary>
         /// <param name="user_id">user_id to be read during run-time</param>
         /// <returns>User object with pre-defined ratings and user_id as attributes</returns>
-        public User(string user_id) : this()
+        public User(IBookService bookService, string user_id) : this(bookService)
         {
             this.user_id = user_id;
             this.setRatings(); // different for OldUser and NewUser objects
@@ -86,15 +92,16 @@ namespace recommender.Models
         /// <param name="user_jaggedarray">user(row)-book(column)-rating(value)</param>
         /// <param name="user_index">row_id representing the user in the jagged array</param>
         /// <returns>User class with this.rating extracted from existing data</returns>
-        private static User accessUser(int[][] user_jaggedarray, int user_index)
+        /* no longer in use, prototyping only
+        private static User accessUser(int[][] user_jaggedarray, int user_index, IBookService bookService)
         {
-            User current_user = new User();
+            User current_user = new User(bookService);
             current_user.user_id = user_index.ToString();
             current_user.rating = user_jaggedarray[user_index];
             int no_book_rated = VectorOpt.CountNonZero(current_user.rating);
             // Console.WriteLine("The user rated {0} books.", no_book_rated);
             return current_user;
-        } 
+        } */ 
 
         /// <summary>
         /// Get books that a given user rated
@@ -109,7 +116,7 @@ namespace recommender.Models
                 if (this.rating[b] != 0)
                 {
                     Book selected_book = new Book();
-                    selected_book = Book.selectBook(b); // book without rating
+                    selected_book = Book.selectBook(b, this._bookService); // book without rating
                     
                     if (selected_book != null) // to prevent null reference
                     {
@@ -168,7 +175,7 @@ namespace recommender.Models
             {                
                 if (sum_book_rating[b] > sum_rating_cutoff && this.rating[b] == 0)
                 {
-                    Book selected_book = Book.selectBook(b);
+                    Book selected_book = Book.selectBook(b, this._bookService);
                     if (selected_book != null)
                     {
                         recommended_book.Add(selected_book);
@@ -197,7 +204,7 @@ namespace recommender.Models
         }
         public void setSearchMatched(string text_input)
         {
-            this.search_matched = Book.searchBook(text_input);
+            this.search_matched = Book.searchBook(text_input, this._bookService);
         }
     } 
 }
