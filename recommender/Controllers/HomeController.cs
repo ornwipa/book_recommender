@@ -15,12 +15,15 @@ namespace recommender.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IBookService _bookService;
+        public IRatingService _ratingService;
+
         public User current_user;
 
-        public HomeController(ILogger<HomeController> logger, IBookService bookService)
+        public HomeController(ILogger<HomeController> logger, IBookService bookService, IRatingService ratingService)
         {
             _logger = logger;
             _bookService = bookService;
+            _ratingService = ratingService;
         }
 
         public IActionResult Index()
@@ -40,7 +43,7 @@ namespace recommender.Controllers
                 {
                     if (user_id_int >= 0 && user_id_int < 52424)
                     {
-                        current_user = new OldUser(this._bookService, user_id);
+                        current_user = new OldUser(this._bookService, this._ratingService, user_id);
                         return View(current_user);
                     }
                     else
@@ -57,7 +60,7 @@ namespace recommender.Controllers
 
         public IActionResult AsGuest()
         {
-            current_user = new NewUser(this._bookService);
+            current_user = new NewUser(this._bookService, this._ratingService);
             current_user.setRatedBook();
             return View("SetUser", current_user);
         }
@@ -67,7 +70,7 @@ namespace recommender.Controllers
         {
             if (ModelState.IsValid)
             {
-                current_user = new User(this._bookService, user_id);
+                current_user = new User(this._bookService, this._ratingService, user_id);
                 current_user.setRatedBook();
                 return View(current_user);
             }
@@ -79,7 +82,7 @@ namespace recommender.Controllers
         {
             if (ModelState.IsValid)
             {
-                current_user = new User(this._bookService, user_id);
+                current_user = new User(this._bookService, this._ratingService, user_id);
                 current_user.setRecommendedBook();
                 return View(current_user);
             }
@@ -94,8 +97,9 @@ namespace recommender.Controllers
 
         public IActionResult Rate(int rating_, int book_id, string user_id)
         {
-            current_user = new User(this._bookService, user_id); // to be replace by database entity
+            current_user = new User(this._bookService, this._ratingService, user_id); // to be replace by database entity
             current_user.setRating(book_id-1, rating_);
+            // perform some logic here to save rating to database (not only controller)
             current_user.setRatedBook(); 
             // perform some logic here to remove from recommended book list
             return View("SetUser", current_user);
@@ -104,7 +108,7 @@ namespace recommender.Controllers
         [HttpGet]
         public IActionResult Search(string search, string user_id)
         {
-            current_user = new User(this._bookService, user_id);
+            current_user = new User(this._bookService, this._ratingService, user_id);
             current_user.search_matched = Book.searchBook(search, this._bookService);
             if (current_user.search_matched == null)
             {
