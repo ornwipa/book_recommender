@@ -7,20 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using recommender.Models;
 using recommender.Data;
+using recommender.Services;
 
 namespace recommender.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        // private ApplicationDbContext _context;
+        private readonly IBookService _bookService;
         public User current_user;
 
-        public HomeController(ILogger<HomeController> logger)//, 
-                                //ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, IBookService bookService)
         {
             _logger = logger;
-            //_context = context;
+            _bookService = bookService;
         }
 
         public IActionResult Index()
@@ -40,7 +40,7 @@ namespace recommender.Controllers
                 {
                     if (user_id_int >= 0 && user_id_int < 52424)
                     {
-                        current_user = new OldUser(user_id);
+                        current_user = new OldUser(this._bookService, user_id);
                         return View(current_user);
                     }
                     else
@@ -57,7 +57,7 @@ namespace recommender.Controllers
 
         public IActionResult AsGuest()
         {
-            current_user = new NewUser();
+            current_user = new NewUser(this._bookService);
             current_user.setRatedBook();
             return View("SetUser", current_user);
         }
@@ -67,7 +67,7 @@ namespace recommender.Controllers
         {
             if (ModelState.IsValid)
             {
-                current_user = new User(user_id);
+                current_user = new User(this._bookService, user_id);
                 current_user.setRatedBook();
                 return View(current_user);
             }
@@ -79,7 +79,7 @@ namespace recommender.Controllers
         {
             if (ModelState.IsValid)
             {
-                current_user = new User(user_id);
+                current_user = new User(this._bookService, user_id);
                 current_user.setRecommendedBook();
                 return View(current_user);
             }
@@ -88,13 +88,13 @@ namespace recommender.Controllers
 
         public IActionResult Details(int id)
         {
-            var model = Book.selectBook(id-1); // pass id 10000 to select row 9999
+            var model = Book.selectBook(id-1, this._bookService); // pass id 10000 to select row 9999
             return View("Details", model);
         }
 
         public IActionResult Rate(int rating_, int book_id, string user_id)
         {
-            current_user = new User(user_id); // to be replace by database entity
+            current_user = new User(this._bookService, user_id); // to be replace by database entity
             current_user.setRating(book_id-1, rating_);
             current_user.setRatedBook(); 
             // perform some logic here to remove from recommended book list
@@ -104,8 +104,8 @@ namespace recommender.Controllers
         [HttpGet]
         public IActionResult Search(string search, string user_id)
         {
-            current_user = new User(user_id);
-            current_user.search_matched = Book.searchBook(search);
+            current_user = new User(this._bookService, user_id);
+            current_user.search_matched = Book.searchBook(search, this._bookService);
             if (current_user.search_matched == null)
             {
                 return Content("Not Found");

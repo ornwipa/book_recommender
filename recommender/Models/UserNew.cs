@@ -1,13 +1,16 @@
 using System;
+using recommender.Services;
 
 namespace recommender.Models
 {
     public class NewUser : User
     {
+        public NewUser() : base() {}
+        
         /// <summary>
         /// constructor for NewUser class
         /// </summary> 
-        public NewUser() : base()
+        public NewUser(IBookService bookService) : base(bookService)
         {
             this.user_id = "55555"; // default
             this.rating = new int[10000]; // defaut values are zeros

@@ -5,6 +5,11 @@ namespace recommender.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        /// <summary>
+        /// Constructor for the context to use database
+        /// </summary>
+        /// <param name="options">DbContextOptionsBuilder().Options</param>
+        /// <returns>DbContext; to use it, call a table: context.Books or context.Ratings</returns>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

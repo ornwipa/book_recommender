@@ -42,7 +42,7 @@ namespace recommender
             });                
             services.AddMvc();
             services.AddSingleton<IBookService, BookService>();
-            services.AddSingleton<IRatingService, RatingService>();
+            services.AddScoped<IRatingService, RatingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
