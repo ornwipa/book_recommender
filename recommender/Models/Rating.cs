@@ -1,4 +1,5 @@
 using System;
+using recommender.Services;
 
 namespace recommender.Models
 {
@@ -16,9 +17,10 @@ namespace recommender.Models
         /// From existing data, construct a user(row)-book(column)-rating(value) relationship
         /// </summary>
         /// <returns>a jagged array of ratings (an array of users' arrays of ratings)</returns>
-        public static int[][] constructUserJaggedArray()
+        public static int[][] constructUserJaggedArray(IRatingService ratingservice)
         {
-            var ratings = TinyCsvParserRating.ReadRatingCsv();
+            // var ratings = TinyCsvParserRating.ReadRatingCsv();
+            Rating[] ratings = ratingservice.getRatingData();
 
             int[][] data_matrix = new int[53424][]; // n_users is to be replaced later            
             for (int user_row = 0; user_row < 53424; user_row++)

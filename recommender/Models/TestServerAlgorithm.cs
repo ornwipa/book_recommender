@@ -43,12 +43,13 @@ namespace recommender.Models
         /// </summary>
         public static void testRecommendationAlgorithm()
         {
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+            IRatingService ratingService = new RatingService();
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray(ratingService);
             // Console.Write("Enter user_id: "); // will be replace with UI
             string user_id = "23"; // Console.ReadLine(); // will be replace with UI
             // User current_user = User.accessUser(user_jaggedarray, Convert.ToInt32(user_id));
             IBookService bookService = new BookService();
-            User current_user = new User(bookService, user_id);
+            User current_user = new User(bookService, ratingService, user_id);
             List<Book> rated_book = current_user.getRatedBook();
             List<Book> recommended_book = current_user.getRecommendedBook();  
         }

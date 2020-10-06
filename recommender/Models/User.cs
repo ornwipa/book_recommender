@@ -17,16 +17,25 @@ namespace recommender.Models
         /// </summary>
         public int[] rating; // { get; set; }
 
+        /// <summary>
+        /// Book data from database connected via IBookService interface, will never change
+        /// </summary>
         private readonly IBookService _bookService;
+
+        /// <summary>
+        /// Rating data from database connected via IRatingService interface, can be changed by User and inherited to guest
+        /// </summary>
+        protected IRatingService _ratingService;
 
         public User(){}
 
         /// <summary>
         /// constructor for User class
         /// </summary> 
-        public User(IBookService bookService)
+        public User(IBookService bookService, IRatingService ratingService)
         {
             _bookService = bookService;
+            _ratingService = ratingService;
         }
 
         /// <summary>
@@ -34,7 +43,7 @@ namespace recommender.Models
         /// </summary>
         /// <param name="user_id">user_id to be read during run-time</param>
         /// <returns>User object with pre-defined ratings and user_id as attributes</returns>
-        public User(IBookService bookService, string user_id) : this(bookService)
+        public User(IBookService bookService, IRatingService ratingService, string user_id) : this(bookService, ratingService)
         {
             this.user_id = user_id;
             this.setRatings(); // different for OldUser and NewUser objects
@@ -47,7 +56,7 @@ namespace recommender.Models
         {
             if (Int32.Parse(user_id) >= 0 && Int32.Parse(user_id) < 52424)
             {
-                int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+                int[][] user_jaggedarray = Rating.constructUserJaggedArray(this._ratingService);
                 this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
             }
             else
@@ -136,7 +145,7 @@ namespace recommender.Models
         public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
             List<Book> recommended_book = new List<Book>(); 
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray(this._ratingService);
             double similarity;
             int no_similar_users = 0;
             int[] sum_book_rating = new int[10000];
@@ -146,7 +155,7 @@ namespace recommender.Models
             for (int u = 0; u < user_jaggedarray.Length; u++)
             {
                 similarity = VectorOpt.cosineSimilarity(this.rating, user_jaggedarray[u]);
-                if (similarity > 0.1) // arbitary number for the minimum cosine similarity
+                if (similarity > 0.1) // arbitrary number for the minimum cosine similarity
                 {
                     no_similar_users += 1;
                     for (int b = 0; b < 10000; b++)
