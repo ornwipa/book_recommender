@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using recommender.Models;
 
 namespace recommender.Data
@@ -24,19 +27,28 @@ namespace recommender.Data
         /// </summary>
         public DbSet<Rating> Ratings { get; set; }
         
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // base.OnModelCreating(builder);
-            builder.Entity<Book>(eb =>
+            modelBuilder.Entity<Book>(eb =>
             {
                 eb.HasNoKey();
                 eb.ToTable("Books");
             });
-            builder.Entity<Rating>(eb =>
+            modelBuilder.Entity<Rating>(eb =>
             {
                 eb.HasNoKey();
                 eb.ToTable("Ratings");
             });
+            base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (optionsBuilder.IsConfigured == false)
+            {
+                optionsBuilder.UseSqlite("DataSource=app.db");
+            }   
+            base.OnConfiguring(optionsBuilder);         
         }
     }
 }
