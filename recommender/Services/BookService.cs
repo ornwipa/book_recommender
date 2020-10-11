@@ -12,6 +12,7 @@ namespace  recommender.Services
     {
         public Book[] getBookData()
         {
+            // return _context.Books.ToArray();
             return TinyCsvParserBook.ReadBookCsv();
         }
     }

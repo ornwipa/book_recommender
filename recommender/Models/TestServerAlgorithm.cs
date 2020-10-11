@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using recommender.Data;
 using recommender.Services;
 
 namespace recommender.Models

@@ -108,7 +108,7 @@ namespace recommender.Controllers
         {
             current_user = new User(this._bookService, this._ratingService, user_id); // to be replace by database entity
             current_user.setRating(book_id-1, rating_);
-            // perform some logic here to save rating to database
+            /* perform some logic here to save rating to database, currently unavailable
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             using (ApplicationDbContext db = new ApplicationDbContext(optionBuilder.Options))
             {
@@ -116,7 +116,7 @@ namespace recommender.Controllers
                 if (row == null) throw new Exception("Rating record is not found. Something wrong with indexing");
                 row.rating_ = rating_;
                 db.SaveChanges();
-            }
+            } */
             current_user.setRatedBook(); 
             return View("SetUser", current_user);
         }

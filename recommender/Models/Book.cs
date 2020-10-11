@@ -54,10 +54,10 @@ namespace recommender.Models
         /// <returns>object of a Book class</returns>
         public static Book selectBook(int book_index, IBookService bookservice)
         {
-            return bookservice.getBookData()[book_index];
-            // var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            // var context = new ApplicationDbContext(optionBuilder.Options);
-            // return context.Books.Where(b => b.id == (book_index+1)).FirstOrDefault();
+            // return bookservice.getBookData()[book_index];
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            return context.Books.Where(b => b.id == (book_index+1)).FirstOrDefault();
             // return TinyCsvParserBook.ReadBookCsv()[book_index];
         }
 

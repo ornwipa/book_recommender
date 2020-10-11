@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using recommender.Data;
 using recommender.Models;
 
 namespace recommender
@@ -22,7 +23,7 @@ namespace recommender
                 var services = scope.ServiceProvider;
                 try
                 {
-                    SeedData.Initialize(services, "23", user_jaggedarray);
+                    SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {

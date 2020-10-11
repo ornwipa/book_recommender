@@ -4,7 +4,6 @@ data/ratings.csv
 
 # Visual Studio Code
 *.cache
-*.db
 .vscode/
 bin/
 obj/
