@@ -31,7 +31,7 @@ namespace recommender.Data
         {
             modelBuilder.Entity<Book>(eb =>
             {
-                eb.HasNoKey();
+                // eb.HasNoKey();
                 eb.ToTable("Books");
             });
             modelBuilder.Entity<Rating>(eb =>

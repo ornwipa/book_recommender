@@ -17,6 +17,10 @@ namespace recommender.Migrations
 
             modelBuilder.Entity("recommender.Models.Book", b =>
                 {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("authors")
                         .HasColumnType("TEXT");
 
@@ -24,9 +28,6 @@ namespace recommender.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<int>("book_id")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("id")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("image_url")
@@ -52,6 +53,8 @@ namespace recommender.Migrations
 
                     b.Property<double>("year")
                         .HasColumnType("REAL");
+
+                    b.HasKey("id");
 
                     b.ToTable("Books");
                 });
