@@ -15,13 +15,16 @@ Created on Sun Oct 11 15:11:09 2020
 
 # resource: https://stackoverflow.com/questions/2887878/importing-a-csv-file-into-a-sqlite3-database-table-using-python
 
-import csv, sqlite3, pandas
+import csv, sqlite3, pandas, numpy
 
 con = sqlite3.connect("recommender.db")
 cur = con.cursor()
 
 df = pandas.read_csv("books.csv")
-df.to_sql("Books", con, if_exists='append', index=False)
+df['rating'] = pandas.Series(numpy.zeros(52424))
+df=df.rename(columns = {'original_publication_year':'year'})
+df.to_sql("Books", con, index=False)
 
 df = pandas.read_csv("ratings.csv")
-df.to_sql("Ratings", con, if_exists='append', index=False)
+df=df.rename(columns = {'rating':'rating_'})
+df.to_sql("Ratings", con, index=False)

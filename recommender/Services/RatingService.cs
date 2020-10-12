@@ -12,7 +12,6 @@ namespace  recommender.Services
     {       
         public Rating[] getRatingData()
         {
-           // return _context.Ratings.ToArray();
            return TinyCsvParserRating.ReadRatingCsv();
         }
     }
