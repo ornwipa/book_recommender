@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace  recommender.Services
 {
     public class RatingService : IRatingService
-    {
+    {       
         public Rating[] getRatingData()
         {
            return TinyCsvParserRating.ReadRatingCsv();

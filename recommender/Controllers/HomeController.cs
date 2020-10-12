@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using recommender.Models;
 using recommender.Data;
@@ -107,9 +108,16 @@ namespace recommender.Controllers
         {
             current_user = new User(this._bookService, this._ratingService, user_id); // to be replace by database entity
             current_user.setRating(book_id-1, rating_);
-            // perform some logic here to save rating to database (not only controller)
+            /* perform some logic here to save rating to database, currently unavailable
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            using (ApplicationDbContext db = new ApplicationDbContext(optionBuilder.Options))
+            {
+                var row = db.Ratings.Where(r => r.book_id == book_id && r.user_id == Convert.ToInt32(user_id)).FirstOrDefault();
+                if (row == null) throw new Exception("Rating record is not found. Something wrong with indexing");
+                row.rating_ = rating_;
+                db.SaveChanges();
+            } */
             current_user.setRatedBook(); 
-            // perform some logic here to remove from recommended book list
             return View("SetUser", current_user);
         }
 
