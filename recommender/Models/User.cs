@@ -184,12 +184,18 @@ namespace recommender.Models
             {                
                 if (sum_book_rating[b] > sum_rating_cutoff && this.rating[b] == 0)
                 {
-                    Book selected_book = Book.selectBook(b, this._bookService);
-                    if (selected_book != null)
+                    try {
+                        Book selected_book = Book.selectBook(b, this._bookService);
+                        recommended_book.Add(selected_book);
+                    }
+                    catch {
+                        continue;
+                    }
+                    /* if (selected_book != null)
                     {
                         recommended_book.Add(selected_book);
                         // no_recommended_book += 1;
-                    }
+                    } */
                 }
             }
             recommended_book.Remove(null);

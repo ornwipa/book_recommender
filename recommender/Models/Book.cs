@@ -71,16 +71,14 @@ namespace recommender.Models
             List<Book> matched = new List<Book>();    
             for (int b = 0; b < 10000; b++)
             {
-                try
-                { 
+                try { 
                     Book book = Book.selectBook(b, bookservice);
                     if (book.ToString().ToLower().Contains(text_input.ToLower()))
                     {
                         matched.Add(book);
                     } 
                 }
-                catch
-                { 
+                catch { 
                     continue; 
                 }
             }        

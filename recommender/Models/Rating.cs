@@ -1,4 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using recommender.Data;
 using recommender.Services;
 
 namespace recommender.Models
@@ -19,8 +24,11 @@ namespace recommender.Models
         /// <returns>a jagged array of ratings (an array of users' arrays of ratings)</returns>
         public static int[][] constructUserJaggedArray(IRatingService ratingservice)
         {
-            // var ratings = TinyCsvParserRating.ReadRatingCsv();
-            Rating[] ratings = ratingservice.getRatingData();
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            Rating[] ratings = context.Ratings.ToArray();
+            // Rating[] ratings = ratingservice.getRatingData();
+            // var ratings = TinyCsvParserRating.ReadRatingCsv();            
 
             int[][] data_matrix = new int[53424][]; // n_users is to be replaced later            
             for (int user_row = 0; user_row < 53424; user_row++)
