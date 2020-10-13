@@ -56,7 +56,7 @@ namespace recommender.Models
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var context = new ApplicationDbContext(optionBuilder.Options);
-            return context.Books.Where(b => b.id == (book_index+1)).FirstOrDefault();
+            return context.Books.Where(x => x.id == (book_index+1)).FirstOrDefault();
             // return bookservice.getBookData()[book_index];
             // return TinyCsvParserBook.ReadBookCsv()[book_index];
         }
@@ -68,16 +68,30 @@ namespace recommender.Models
         /// <returns>a list of matched Book; if not found return an empty list</returns>
         public static List<Book> searchBook(string text_input, IBookService bookservice)
         {
-            List<Book> matched = new List<Book>();            
-            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            var context = new ApplicationDbContext(optionBuilder.Options);
-            matched = context.Books.AsEnumerable().                                    
-                                    Where(b => b.ToString().ToLower().Contains(text_input.ToLower()))
-                                    .ToList();
-            /* var book_data = context.Books.ToArray();
+            List<Book> matched = new List<Book>();    
+            for (int b = 0; b < 10000; b++)
+            {
+                try
+                { 
+                    Book book = Book.selectBook(b, bookservice);
+                    if (book.ToString().ToLower().Contains(text_input.ToLower()))
+                    {
+                        matched.Add(book);
+                    } 
+                }
+                catch
+                { 
+                    continue; 
+                }
+            }        
+            // var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            // var context = new ApplicationDbContext(optionBuilder.Options);
+            // matched = context.Books.AsEnumerable().
+            //         Where(b => b.ToString().ToLower().Contains(text_input.ToLower())).ToList();
+            // var book_data = context.Books.ToArray();
             // var book_data = bookservice.getBookData();
-            // var book_data = TinyCsvParserBook.ReadBookCsv();
-            for (int b = 0; b < book_data.Length; b++)
+            // var book_data = TinyCsvParserBook.ReadBookCsv();            
+            /* for (int b = 0; b < book_data.Length; b++)
             {
                 if (book_data[b] != null && text_input != null)
                 {
@@ -85,7 +99,8 @@ namespace recommender.Models
                     {
                         matched.Add(book_data[b]);
                     }
-                }
+                    }
+                }                
             } */
             return matched;
         }
@@ -108,11 +123,11 @@ namespace recommender.Models
         public override string ToString()
         {
             string display_title;
-            if (this.original_title == "")
+            if (this.original_title == null)
             {
                 display_title = this.title;
             }
-            else if (this.title == "" || this.title == this.original_title)
+            else if (this.title == null || this.title == this.original_title)
             {
                 display_title = this.original_title;
             }
