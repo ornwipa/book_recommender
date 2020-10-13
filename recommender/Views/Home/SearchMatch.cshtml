@@ -15,6 +15,15 @@
         </form>
 </p>
 
+@{
+    if (ViewBag.search_string != null)
+    {
+        <div class = "alert alert-primary">
+            Your search term is <b>"@ViewBag.search_string"</b>.
+        </div>
+    }
+}
+
 <table class="table">
     <thead>
         <tr>

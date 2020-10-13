@@ -124,6 +124,7 @@ namespace recommender.Controllers
         [HttpGet]
         public IActionResult Search(string search, string user_id)
         {
+            ViewBag.search_string = search;
             current_user = new User(this._bookService, this._ratingService, user_id);
             current_user.search_matched = Book.searchBook(search, this._bookService);
             if (current_user.search_matched == null)
