@@ -17,7 +17,7 @@ namespace recommender
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            /*
+            
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -31,7 +31,7 @@ namespace recommender
                     logger.LogError(ex, "An error occurred seeding the database.");
                 }
             }
-            */
+            
             host.Run();            
         }
 
