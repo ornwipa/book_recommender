@@ -2,7 +2,7 @@
 
 namespace recommender.Migrations
 {
-    public partial class existingData : Migration
+    public partial class initialCommit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,7 +10,8 @@ namespace recommender.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false),
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     book_id = table.Column<int>(nullable: false),
                     isbn = table.Column<int>(nullable: false),
                     authors = table.Column<string>(nullable: true),
@@ -25,6 +26,7 @@ namespace recommender.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Books", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
