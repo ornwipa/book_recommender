@@ -61,6 +61,10 @@ namespace recommender.Migrations
 
             modelBuilder.Entity("recommender.Models.Rating", b =>
                 {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("book_id")
                         .HasColumnType("INTEGER");
 
@@ -69,6 +73,8 @@ namespace recommender.Migrations
 
                     b.Property<int>("user_id")
                         .HasColumnType("INTEGER");
+
+                    b.HasKey("id");
 
                     b.ToTable("Ratings");
                 });

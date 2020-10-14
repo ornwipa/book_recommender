@@ -36,7 +36,7 @@ namespace recommender.Data
             });
             modelBuilder.Entity<Rating>(eb =>
             {
-                eb.HasNoKey();
+                // eb.HasNoKey();
                 eb.ToTable("Ratings");
             });
             base.OnModelCreating(modelBuilder);

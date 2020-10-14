@@ -8,7 +8,7 @@ using recommender.Data;
 namespace recommender.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201014165331_initialCommit")]
+    [Migration("20201014203202_initialCommit")]
     partial class initialCommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,10 @@ namespace recommender.Migrations
 
             modelBuilder.Entity("recommender.Models.Rating", b =>
                 {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("book_id")
                         .HasColumnType("INTEGER");
 
@@ -71,6 +75,8 @@ namespace recommender.Migrations
 
                     b.Property<int>("user_id")
                         .HasColumnType("INTEGER");
+
+                    b.HasKey("id");
 
                     b.ToTable("Ratings");
                 });

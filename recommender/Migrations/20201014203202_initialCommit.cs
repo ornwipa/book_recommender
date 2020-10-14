@@ -33,12 +33,15 @@ namespace recommender.Migrations
                 name: "Ratings",
                 columns: table => new
                 {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     book_id = table.Column<int>(nullable: false),
                     user_id = table.Column<int>(nullable: false),
                     rating_ = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_Ratings", x => x.id);
                 });
         }
 
