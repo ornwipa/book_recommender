@@ -43,8 +43,9 @@ namespace recommender.Controllers
                 {
                     if (user_id_int >= 0 && user_id_int < 52424)
                     {
-                        current_user = new OldUser(this._bookService, this._ratingService, user_id);
-                        return View(current_user);
+                        string current_user = user_id; // pass only user_id string, no longer the entire User object
+                        // current_user = new OldUser(this._bookService, this._ratingService, user_id);
+                        return View("Welcome", current_user);
                     }
                     else
                     {
@@ -72,13 +73,9 @@ namespace recommender.Controllers
         [HttpGet]
         public IActionResult SetUser(string user_id)
         {
-            if (ModelState.IsValid)
-            {
-                current_user = new User(this._bookService, this._ratingService, user_id);
-                current_user.setRatedBook();
-                return View(current_user);
-            }
-            return RedirectToAction("Index");
+            current_user = new User(this._bookService, this._ratingService, user_id);
+            current_user.setRatedBook();
+            return View(current_user);
         }
 
         [HttpGet]
@@ -106,7 +103,7 @@ namespace recommender.Controllers
         public IActionResult Rate(int rating_, int book_id, string user_id)
         {
             _ratingService.Rate(rating_, book_id, user_id); // perform logic here to save rating to database
-            return RedirectToAction("SetUser", user_id);
+            return RedirectToAction("SetUser", new { user_id = user_id });
             // current_user = new User(this._bookService, this._ratingService, user_id);
             // current_user.setRating(book_id-1, rating_);             
             // current_user.setRatedBook(); 

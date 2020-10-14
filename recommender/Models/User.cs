@@ -148,9 +148,9 @@ namespace recommender.Models
             int[][] user_jaggedarray = Rating.constructUserJaggedArray(this._ratingService);
             double similarity;
             int no_similar_users = 0;
-            int[] sum_book_rating = new int[10000];
+            int[] sum_book_rating = new int[user_jaggedarray[0].Length]; // new int[10000];
             int sum_rating_cutoff;
-            // int no_recommended_book = 0;
+            int no_recommended_book = 0;
             
             for (int u = 0; u < user_jaggedarray.Length; u++)
             {
@@ -186,16 +186,15 @@ namespace recommender.Models
                 {
                     try {
                         Book selected_book = Book.selectBook(b, this._bookService);
-                        recommended_book.Add(selected_book);
+                        if (selected_book != null)
+                        {
+                            recommended_book.Add(selected_book);
+                            no_recommended_book += 1;
+                        }
                     }
                     catch {
                         continue;
                     }
-                    /* if (selected_book != null)
-                    {
-                        recommended_book.Add(selected_book);
-                        // no_recommended_book += 1;
-                    } */
                 }
             }
             recommended_book.Remove(null);

@@ -34,15 +34,21 @@ namespace recommender.Models
             // Rating[] ratings = ratingservice.getRatingData();
             // var ratings = TinyCsvParserRating.ReadRatingCsv();            
 
-            int[][] data_matrix = new int[53424][]; // n_users is to be replaced later            
+            int[][] data_matrix = new int[53424][];            
             for (int user_row = 0; user_row < 53424; user_row++)
             {
-                data_matrix[user_row] = new int[10000]; // initialize inner elements to 0
+                data_matrix[user_row] = new int[10000];
             }
             
             for (int m = 0; m < ratings.Length; m++)
             {
-                data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
+                try {
+                    data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
+                }
+                catch (System.IndexOutOfRangeException e) {
+                    Console.WriteLine("{} null book is not included", e);
+                    continue;
+                }
             }
             return data_matrix;
         }

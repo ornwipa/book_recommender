@@ -1,6 +1,7 @@
-@model recommender.Models.User;
+<!-- recommender.Models.User; -->
+@model string; 
 
-<h3>Hello @Model.user_id!</h3>
+<h3>Hello @Model!</h3>
 
 <p class="lead">What would you like to do today?</p>
 
@@ -10,7 +11,7 @@
             linkText: "See the book(s) you rated",
             actionName: "SetUser",
             controllerName: "Home",
-            routeValues: new { user_id = Model.user_id },
+            routeValues: new { user_id = Model },
             htmlAttributes: null
         )
     </li>
@@ -19,7 +20,7 @@
             linkText: "Ask AI to recommend you some books",
             actionName: "RecommendBook",
             controllerName: "Home",
-            routeValues: new { user_id = Model.user_id },
+            routeValues: new { user_id = Model },
             htmlAttributes: null
         )
     </li>
@@ -27,7 +28,7 @@
         <form method="get" action="@Url.Action("Search", "Home")">
             Search for any books, enter keywords:
             <input type="text" name="search" id="search">
-            <input type="hidden" name="user_id" id="user_id" value=@Model.user_id>
+            <input type="hidden" name="user_id" id="user_id" value=@Model>
             <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
         </form>
     </li>
