@@ -17,7 +17,6 @@ namespace recommender.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IBookService _bookService;
         public IRatingService _ratingService;
-
         public User current_user;
 
         public HomeController(ILogger<HomeController> logger, IBookService bookService, IRatingService ratingService)
@@ -106,19 +105,12 @@ namespace recommender.Controllers
 
         public IActionResult Rate(int rating_, int book_id, string user_id)
         {
-            current_user = new User(this._bookService, this._ratingService, user_id); // to be replace by database entity
-            current_user.setRating(book_id-1, rating_);
-            /* perform some logic here to save rating to database, currently unavailable
-            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            using (ApplicationDbContext db = new ApplicationDbContext(optionBuilder.Options))
-            {
-                var row = db.Ratings.Where(r => r.book_id == book_id && r.user_id == Convert.ToInt32(user_id)).FirstOrDefault();
-                if (row == null) throw new Exception("Rating record is not found. Something wrong with indexing");
-                row.rating_ = rating_;
-                db.SaveChanges();
-            } */
-            current_user.setRatedBook(); 
-            return View("SetUser", current_user);
+            _ratingService.Rate(rating_, book_id, user_id); // perform logic here to save rating to database
+            return RedirectToAction("SetUser", user_id);
+            // current_user = new User(this._bookService, this._ratingService, user_id);
+            // current_user.setRating(book_id-1, rating_);             
+            // current_user.setRatedBook(); 
+            // return View("SetUser", current_user);
         }
 
         [HttpGet]

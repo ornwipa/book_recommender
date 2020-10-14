@@ -45,7 +45,8 @@ namespace recommender.Models
         /// </summary>
         public static void testRecommendationAlgorithm()
         {
-            IRatingService ratingService = new RatingService();
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            IRatingService ratingService = new RatingService(new ApplicationDbContext(optionBuilder.Options));
             int[][] user_jaggedarray = Rating.constructUserJaggedArray(ratingService);
             // Console.Write("Enter user_id: "); // will be replace with UI
             string user_id = "23"; // Console.ReadLine(); // will be replace with UI

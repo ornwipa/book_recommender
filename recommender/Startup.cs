@@ -30,7 +30,7 @@ namespace recommender
         {
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options => 
-                options.UseSqlite("DataSource=../data_source/recommender.db"));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             /* use SQLite only at this time
             {
                 var connectionString = Configuration.GetConnectionString("DefaultConnection");
