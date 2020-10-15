@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using recommender.Data;
 using recommender.Services;
 
 namespace recommender.Models
@@ -43,13 +45,11 @@ namespace recommender.Models
         /// </summary>
         public static void testRecommendationAlgorithm()
         {
-            IRatingService ratingService = new RatingService();
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray(ratingService);
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
             // Console.Write("Enter user_id: "); // will be replace with UI
             string user_id = "23"; // Console.ReadLine(); // will be replace with UI
             // User current_user = User.accessUser(user_jaggedarray, Convert.ToInt32(user_id));
-            IBookService bookService = new BookService();
-            User current_user = new User(bookService, ratingService, user_id);
+            User current_user = new User(user_id);
             List<Book> rated_book = current_user.getRatedBook();
             List<Book> recommended_book = current_user.getRecommendedBook();  
         }
@@ -59,8 +59,7 @@ namespace recommender.Models
         /// </summary>
         public static void testSearch()
         {
-            IBookService bookService = new BookService();
-            List<Book> search = Book.searchBook("J.K. Rowling", bookService);
+            List<Book> search = Book.searchBook("J.K. Rowling");
             if (search.Count == 0)
             {
                 Console.WriteLine("Not Found");

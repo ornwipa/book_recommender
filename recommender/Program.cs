@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using recommender.Data;
 using recommender.Models;
 
 namespace recommender
@@ -16,13 +17,13 @@ namespace recommender
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            /*
+            
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
                 {
-                    SeedData.Initialize(services, "23", user_jaggedarray);
+                    SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {
@@ -30,7 +31,7 @@ namespace recommender
                     logger.LogError(ex, "An error occurred seeding the database.");
                 }
             }
-            */
+            
             host.Run();            
         }
 

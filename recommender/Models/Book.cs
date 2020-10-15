@@ -10,7 +10,7 @@ namespace recommender.Models
 {
     public class Book
     {
-        [Required]
+        [Key]
         public int id { get; set; }
         
         public int book_id { get; set; }
@@ -52,12 +52,13 @@ namespace recommender.Models
         /// </summary>
         /// <param name="book_index">a row_id ranging from 0 to 9999</param>
         /// <returns>object of a Book class</returns>
-        public static Book selectBook(int book_index, IBookService bookservice)
+        // public static Book selectBook(int book_index, IBookService bookservice)
+        public static Book selectBook(int book_index)
         {
-            return bookservice.getBookData()[book_index];
-            // var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            // var context = new ApplicationDbContext(optionBuilder.Options);
-            // return context.Books.Where(b => b.id == (book_index+1)).FirstOrDefault();
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            return context.Books.Where(x => x.id == (book_index+1)).FirstOrDefault();
+            // return bookservice.getBookData()[book_index];
             // return TinyCsvParserBook.ReadBookCsv()[book_index];
         }
 
@@ -66,15 +67,18 @@ namespace recommender.Models
         /// </summary>
         /// <param name="input">text to be matched with book information</param>
         /// <returns>a list of matched Book; if not found return an empty list</returns>
-        public static List<Book> searchBook(string text_input, IBookService bookservice)
+        // public static List<Book> searchBook(string text_input, IBookService bookservice)
+        public static List<Book> searchBook(string text_input)
         {
-            List<Book> matched = new List<Book>();
-            Book[] book_data = bookservice.getBookData();
-            // var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            // var context = new ApplicationDbContext(optionBuilder.Options);
+            List<Book> matched = new List<Book>();           
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            matched = context.Books.AsEnumerable().
+                    Where(b => b.ToString().ToLower().Contains(text_input.ToLower())).ToList();
             // var book_data = context.Books.ToArray();
-            // var book_data = TinyCsvParserBook.ReadBookCsv();
-            for (int b = 0; b < book_data.Length; b++)
+            // var book_data = bookservice.getBookData();
+            // var book_data = TinyCsvParserBook.ReadBookCsv();            
+            /* for (int b = 0; b < book_data.Length; b++)
             {
                 if (book_data[b] != null && text_input != null)
                 {
@@ -82,8 +86,9 @@ namespace recommender.Models
                     {
                         matched.Add(book_data[b]);
                     }
-                }
-            }
+                    }
+                }                
+            } */
             return matched;
         }
         
@@ -105,11 +110,11 @@ namespace recommender.Models
         public override string ToString()
         {
             string display_title;
-            if (this.original_title == "")
+            if (this.original_title == null)
             {
                 display_title = this.title;
             }
-            else if (this.title == "" || this.title == this.original_title)
+            else if (this.title == null || this.title == this.original_title)
             {
                 display_title = this.original_title;
             }
