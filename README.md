@@ -22,7 +22,12 @@ The server side of this recommender system was initially built and tested on Pyt
 
 This web application was built using ASP.NET Core framework, Model-View-Controller pattern. The examples of web pages are:
 
---- screenshots of the view pages
+![first page](https://github.com/ornwipa/book_recommender/blob/master/figures/index.png){ width=50% }
+![main menu](https://github.com/ornwipa/book_recommender/blob/master/figures/welcome.png){ width=50% }
+![user's rated books](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png){ width=50% }
+![book search](https://github.com/ornwipa/book_recommender/blob/master/figures/search.png){ width=50% }
+![books recommended to user](https://github.com/ornwipa/book_recommender/blob/master/figures/recommended.png){ width=50% }
+![book details](https://github.com/ornwipa/book_recommender/blob/master/figures/details.png){ width=50% }
 
 ## How to set up
 
