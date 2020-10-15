@@ -125,7 +125,7 @@ namespace recommender.Models
                 if (this.rating[b] != 0)
                 {
                     Book selected_book = new Book();
-                    selected_book = Book.selectBook(b, this._bookService); // book without rating
+                    selected_book = Book.selectBook(b); // book without rating
                     
                     if (selected_book != null) // to prevent null reference
                     {
@@ -185,7 +185,7 @@ namespace recommender.Models
                 if (sum_book_rating[b] > sum_rating_cutoff && this.rating[b] == 0)
                 {
                     try {
-                        Book selected_book = Book.selectBook(b, this._bookService);
+                        Book selected_book = Book.selectBook(b);
                         if (selected_book != null)
                         {
                             recommended_book.Add(selected_book);
@@ -218,7 +218,7 @@ namespace recommender.Models
         }
         public void setSearchMatched(string text_input)
         {
-            this.search_matched = Book.searchBook(text_input, this._bookService);
+            this.search_matched = Book.searchBook(text_input);
         }
     } 
 }

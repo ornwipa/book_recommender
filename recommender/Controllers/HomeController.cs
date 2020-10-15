@@ -81,22 +81,18 @@ namespace recommender.Controllers
         [HttpGet]
         public IActionResult RecommendBook(string user_id)
         {
-            if (ModelState.IsValid)
+            current_user = new User(this._bookService, this._ratingService, user_id);
+            if (current_user.rating.Sum() == 0) // in case of new users (redundancy to prevent ZeroDivisionError)
             {
-                current_user = new User(this._bookService, this._ratingService, user_id);
-                if (current_user.rating.Sum() == 0) // in case of new users (redundancy to prevent ZeroDivisionError)
-                {
-                    return Content("You have not rated any books. Please rate some books so that our AI can recommend you books.");
-                }
-                current_user.setRecommendedBook();
-                return View(current_user);
+                return Content("You have not rated any books. Please rate some books so that our AI can recommend you books.");
             }
-            return RedirectToAction("Index");
+            current_user.setRecommendedBook();
+            return View(current_user);
         }
 
         public IActionResult Details(int id)
         {
-            var model = Book.selectBook(id-1, this._bookService); // pass id 10000 to select row 9999
+            var model = Book.selectBook(id-1); // pass id 10000 to select row 9999
             return View("Details", model);
         }
 
@@ -115,7 +111,7 @@ namespace recommender.Controllers
         {
             ViewBag.search_string = search;
             current_user = new User(this._bookService, this._ratingService, user_id);
-            current_user.search_matched = Book.searchBook(search, this._bookService);
+            current_user.search_matched = Book.searchBook(search);
             if (current_user.search_matched == null)
             {
                 return Content("Not Found");

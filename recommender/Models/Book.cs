@@ -52,7 +52,8 @@ namespace recommender.Models
         /// </summary>
         /// <param name="book_index">a row_id ranging from 0 to 9999</param>
         /// <returns>object of a Book class</returns>
-        public static Book selectBook(int book_index, IBookService bookservice)
+        // public static Book selectBook(int book_index, IBookService bookservice)
+        public static Book selectBook(int book_index)
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var context = new ApplicationDbContext(optionBuilder.Options);
@@ -66,26 +67,14 @@ namespace recommender.Models
         /// </summary>
         /// <param name="input">text to be matched with book information</param>
         /// <returns>a list of matched Book; if not found return an empty list</returns>
-        public static List<Book> searchBook(string text_input, IBookService bookservice)
+        // public static List<Book> searchBook(string text_input, IBookService bookservice)
+        public static List<Book> searchBook(string text_input)
         {
-            List<Book> matched = new List<Book>();    
-            for (int b = 0; b < 10000; b++)
-            {
-                try { 
-                    Book book = Book.selectBook(b, bookservice);
-                    if (book.ToString().ToLower().Contains(text_input.ToLower()))
-                    {
-                        matched.Add(book);
-                    } 
-                }
-                catch { 
-                    continue; 
-                }
-            }        
-            // var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            // var context = new ApplicationDbContext(optionBuilder.Options);
-            // matched = context.Books.AsEnumerable().
-            //         Where(b => b.ToString().ToLower().Contains(text_input.ToLower())).ToList();
+            List<Book> matched = new List<Book>();           
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            matched = context.Books.AsEnumerable().
+                    Where(b => b.ToString().ToLower().Contains(text_input.ToLower())).ToList();
             // var book_data = context.Books.ToArray();
             // var book_data = bookservice.getBookData();
             // var book_data = TinyCsvParserBook.ReadBookCsv();            

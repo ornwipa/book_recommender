@@ -62,8 +62,8 @@ namespace recommender.Models
         /// </summary>
         public static void testSearch()
         {
-            IBookService bookService = new BookService();
-            List<Book> search = Book.searchBook("J.K. Rowling", bookService);
+            // IBookService bookService = new BookService();
+            List<Book> search = Book.searchBook("J.K. Rowling");
             if (search.Count == 0)
             {
                 Console.WriteLine("Not Found");

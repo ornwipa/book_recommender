@@ -46,7 +46,7 @@ namespace recommender.Models
                     data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
                 }
                 catch (System.IndexOutOfRangeException e) {
-                    Console.WriteLine("{} null book is not included", e);
+                    Console.WriteLine("{0}: book index {1} is null, thus not included", e, ratings[m].book_id-1);
                     continue;
                 }
             }
