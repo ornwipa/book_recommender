@@ -45,14 +45,11 @@ namespace recommender.Models
         /// </summary>
         public static void testRecommendationAlgorithm()
         {
-            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            IRatingService ratingService = new RatingService(new ApplicationDbContext(optionBuilder.Options));
             int[][] user_jaggedarray = Rating.constructUserJaggedArray();
             // Console.Write("Enter user_id: "); // will be replace with UI
             string user_id = "23"; // Console.ReadLine(); // will be replace with UI
             // User current_user = User.accessUser(user_jaggedarray, Convert.ToInt32(user_id));
-            IBookService bookService = new BookService();
-            User current_user = new User(bookService, ratingService, user_id);
+            User current_user = new User(user_id);
             List<Book> rated_book = current_user.getRatedBook();
             List<Book> recommended_book = current_user.getRecommendedBook();  
         }
@@ -62,7 +59,6 @@ namespace recommender.Models
         /// </summary>
         public static void testSearch()
         {
-            // IBookService bookService = new BookService();
             List<Book> search = Book.searchBook("J.K. Rowling");
             if (search.Count == 0)
             {

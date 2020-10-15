@@ -8,7 +8,8 @@ namespace recommender.Models
         /// <summary>
         /// constructor for OldUser class
         /// </summary> 
-        public OldUser(IBookService bookService, IRatingService ratingService, string user_id) : base(bookService, ratingService, user_id)
+        // public OldUser(IBookService bookService, IRatingService ratingService, string user_id) : base(bookService, ratingService, user_id)
+        public OldUser(string user_id) : base()
         {
             this.user_id = user_id;
         }

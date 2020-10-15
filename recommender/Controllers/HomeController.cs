@@ -63,7 +63,7 @@ namespace recommender.Controllers
         {
             if (ModelState.IsValid)
             {
-                current_user = new NewUser(this._bookService, this._ratingService);
+                current_user = new NewUser();
                 current_user.setRatings();
                 current_user.setRatedBook();
                 return View("SetUser", current_user);
@@ -74,7 +74,7 @@ namespace recommender.Controllers
         [HttpGet]
         public IActionResult SetUser(string user_id)
         {
-            current_user = new User(this._bookService, this._ratingService, user_id);
+            current_user = new User(user_id);
             current_user.setRatings();
             current_user.setRatedBook();
             return View(current_user);
@@ -83,7 +83,7 @@ namespace recommender.Controllers
         [HttpGet]
         public IActionResult RecommendBook(string user_id)
         {
-            current_user = new User(this._bookService, this._ratingService, user_id);
+            current_user = new User(user_id);
             current_user.setRatings();
             if (current_user.rating.Sum() == 0) // in case of new users (redundancy to prevent ZeroDivisionError)
             {
@@ -102,18 +102,25 @@ namespace recommender.Controllers
         public IActionResult Rate(int rating_, int book_id, string user_id)
         {
             _ratingService.Rate(rating_, book_id, user_id); // perform logic here to save rating to database
-            return RedirectToAction("SetUser", new { user_id = user_id });
-            // current_user = new User(this._bookService, this._ratingService, user_id);
-            // current_user.setRating(book_id-1, rating_);             
-            // current_user.setRatedBook(); 
-            // return View("SetUser", current_user);
+            if (user_id != "55555") // existing user
+            {
+                return RedirectToAction("SetUser", new { user_id = user_id });
+            }
+            else // temporary solution for new user
+            {
+                current_user = new NewUser();
+                current_user.setRatings();
+                current_user.setRating(book_id-1, rating_);             
+                current_user.setRatedBook(); 
+                return View("SetUser", current_user);
+            } 
         }
 
         [HttpGet]
         public IActionResult Search(string search, string user_id)
         {
             ViewBag.search_string = search;
-            current_user = new User(this._bookService, this._ratingService, user_id);
+            current_user = new User(user_id);
             current_user.search_matched = Book.searchBook(search);
             if (current_user.search_matched == null)
             {

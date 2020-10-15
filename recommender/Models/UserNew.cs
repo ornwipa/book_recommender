@@ -5,12 +5,11 @@ namespace recommender.Models
 {
     public class NewUser : User
     {
-        public NewUser() : base() {}
-
         /// <summary>
         /// constructor for NewUser class
         /// </summary> 
-        public NewUser(IBookService bookService, IRatingService ratingService) : base(bookService, ratingService)
+        // public NewUser(IBookService bookService, IRatingService ratingService) : base(bookService, ratingService)
+        public NewUser() : base()
         {
             this.user_id = "55555"; // default
         }

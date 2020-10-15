@@ -20,30 +20,31 @@ namespace recommender.Models
         /// <summary>
         /// Book data from database connected via IBookService interface, will never change
         /// </summary>
-        private readonly IBookService _bookService;
+        // private readonly IBookService _bookService;
 
         /// <summary>
         /// Rating data from database connected via IRatingService interface, can be changed by User and inherited to guest
         /// </summary>
-        protected IRatingService _ratingService;
+        // protected IRatingService _ratingService;
 
         public User(){}
 
         /// <summary>
         /// constructor for User class
         /// </summary> 
-        public User(IBookService bookService, IRatingService ratingService)
+        /* public User(IBookService bookService, IRatingService ratingService)
         {
             _bookService = bookService;
             _ratingService = ratingService;
-        }
+        } */
 
         /// <summary>
         /// constructor for User object with known user_id (existing or new)
         /// </summary>
         /// <param name="user_id">user_id to be read during run-time</param>
         /// <returns>User object with pre-defined ratings and user_id as attributes</returns>
-        public User(IBookService bookService, IRatingService ratingService, string user_id) : this(bookService, ratingService)
+        // public User(IBookService bookService, IRatingService ratingService, string user_id) : this(bookService, ratingService)
+        public User(string user_id) : this()
         {
             this.user_id = user_id;
         }
@@ -53,18 +54,12 @@ namespace recommender.Models
         /// </summary>
         public virtual void setRatings()
         {
-            if (Int32.Parse(user_id) >= 0 && Int32.Parse(user_id) < 52424 || user_id == "55555")
+            if (Int32.Parse(user_id) >= 0 && Int32.Parse(user_id) < 52424)
             {
                 int[][] user_jaggedarray = Rating.constructUserJaggedArray();
-                try {
-                    this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
-                }
-                catch (System.IndexOutOfRangeException e) {
-                    this.rating = user_jaggedarray[user_jaggedarray.Count()-1];
-                    Console.WriteLine("{0} new user", e);
-                }
+                this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
             }
-            else
+            else // temporary solution for new user
             {
                 this.rating = new int[10000];
             }
