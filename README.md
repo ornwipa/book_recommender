@@ -16,18 +16,14 @@ In contrast to content-based recommender system where the descriptions of each i
 
 More "academic" readings about collaborative filtering in recommender systems are in [ScienceDirect](https://www.sciencedirect.com/topics/computer-science/collaborative-filtering).
 
-The server side of this recommender system was initially built and tested on Python. The prototype is presented in this [Kaggle Notebook](https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering).
+The prototype of this recommender system was initially built and tested as presented in this [Kaggle Notebook](https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering).
 
 ## Web Application
 
-This web application was built using ASP.NET Core framework, Model-View-Controller pattern. The examples of web pages are:
+This web application was built using ASP.NET Core framework, Model-View-Controller pattern. The examples of web pages are shown in the [figures](https://github.com/ornwipa/book_recommender/tree/master/figures) folder and as below:
 
-![first page](https://github.com/ornwipa/book_recommender/blob/master/figures/index.png){ width=50% }
-![main menu](https://github.com/ornwipa/book_recommender/blob/master/figures/welcome.png){ width=50% }
-![user's rated books](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png){ width=50% }
-![book search](https://github.com/ornwipa/book_recommender/blob/master/figures/search.png){ width=50% }
-![books recommended to user](https://github.com/ornwipa/book_recommender/blob/master/figures/recommended.png){ width=50% }
-![book details](https://github.com/ornwipa/book_recommender/blob/master/figures/details.png){ width=50% }
+![user's rated books](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png)
+![books recommended to user](https://github.com/ornwipa/book_recommender/blob/master/figures/recommended.png)
 
 ## How to set up
 
