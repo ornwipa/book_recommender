@@ -13,7 +13,6 @@ namespace recommender.Models
         public NewUser(IBookService bookService, IRatingService ratingService) : base(bookService, ratingService)
         {
             this.user_id = "55555"; // default
-            this.rating = new int[10000]; // defaut values are zeros
         }
         
         /// <summary>

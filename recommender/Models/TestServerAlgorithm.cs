@@ -47,7 +47,7 @@ namespace recommender.Models
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             IRatingService ratingService = new RatingService(new ApplicationDbContext(optionBuilder.Options));
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray(ratingService);
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
             // Console.Write("Enter user_id: "); // will be replace with UI
             string user_id = "23"; // Console.ReadLine(); // will be replace with UI
             // User current_user = User.accessUser(user_jaggedarray, Convert.ToInt32(user_id));

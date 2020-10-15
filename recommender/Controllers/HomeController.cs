@@ -64,6 +64,7 @@ namespace recommender.Controllers
             if (ModelState.IsValid)
             {
                 current_user = new NewUser(this._bookService, this._ratingService);
+                current_user.setRatings();
                 current_user.setRatedBook();
                 return View("SetUser", current_user);
             }
@@ -74,6 +75,7 @@ namespace recommender.Controllers
         public IActionResult SetUser(string user_id)
         {
             current_user = new User(this._bookService, this._ratingService, user_id);
+            current_user.setRatings();
             current_user.setRatedBook();
             return View(current_user);
         }
@@ -82,6 +84,7 @@ namespace recommender.Controllers
         public IActionResult RecommendBook(string user_id)
         {
             current_user = new User(this._bookService, this._ratingService, user_id);
+            current_user.setRatings();
             if (current_user.rating.Sum() == 0) // in case of new users (redundancy to prevent ZeroDivisionError)
             {
                 return Content("You have not rated any books. Please rate some books so that our AI can recommend you books.");

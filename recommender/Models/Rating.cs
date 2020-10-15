@@ -26,7 +26,7 @@ namespace recommender.Models
         /// From existing data, construct a user(row)-book(column)-rating(value) relationship
         /// </summary>
         /// <returns>a jagged array of ratings (an array of users' arrays of ratings)</returns>
-        public static int[][] constructUserJaggedArray(IRatingService ratingservice)
+        public static int[][] constructUserJaggedArray()
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var context = new ApplicationDbContext(optionBuilder.Options);

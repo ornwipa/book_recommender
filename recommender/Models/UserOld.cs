@@ -11,7 +11,6 @@ namespace recommender.Models
         public OldUser(IBookService bookService, IRatingService ratingService, string user_id) : base(bookService, ratingService, user_id)
         {
             this.user_id = user_id;
-            this.setRatings(); // different for User and Guest objects
         }
         
         /// <summary>
@@ -19,7 +18,7 @@ namespace recommender.Models
         /// </summary>
         public override void setRatings()
         {
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray(this._ratingService);
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
             this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
         }
     }
