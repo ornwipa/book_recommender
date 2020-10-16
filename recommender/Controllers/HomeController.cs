@@ -84,12 +84,11 @@ namespace recommender.Controllers
         public IActionResult RecommendBook(string user_id)
         {
             current_user = new User(user_id);
-            current_user.setRatings();
-            if (current_user.rating.Sum() == 0) // in case of new users (redundancy to prevent ZeroDivisionError)
-            {
-                return Content("You have not rated any books. Please rate some books so that our AI can recommend you books.");
-            }
             current_user.setRecommendedBook();
+            if (current_user.recommended_books.Count() == 0) // in case of new users
+            {
+                return Content("You have not rated any enough books to get results.");
+            }
             return View(current_user);
         }
 

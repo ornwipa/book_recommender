@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using recommender.Services;
 
 namespace recommender.Models
@@ -145,14 +147,27 @@ namespace recommender.Models
         public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
             List<Book> recommended_book = new List<Book>(); 
+
             int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+            try {
+                this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
+            }
+            catch (IndexOutOfRangeException) {
+                this.rating = new int[10000];
+            }
+            if (this.rating.Sum() == 0) // redundancy to prevent ZeroDivisionError later
+            {
+                return recommended_book;
+            }
+
             double similarity;
             int no_similar_users = 0;
             int[] sum_book_rating = new int[user_jaggedarray[0].Length]; // new int[10000];
             int sum_rating_cutoff;
             int no_recommended_book = 0;
             
-            for (int u = 0; u < user_jaggedarray.Length; u++)
+            // for (int u = 0; u < user_jaggedarray.Length; u++)
+            Parallel.For(0, user_jaggedarray.Length, u =>
             {
                 similarity = VectorOpt.cosineSimilarity(this.rating, user_jaggedarray[u]);
                 if (similarity > 0.1) // arbitrary number for the minimum cosine similarity
@@ -164,7 +179,7 @@ namespace recommender.Models
                         sum_book_rating[b] = sum_book_rating[b] + user_jaggedarray[u][b];
                     }
                 }
-            }
+            });
             // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
 
             if (this.rating.Sum() > 40) // for users who rated many books

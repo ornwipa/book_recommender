@@ -34,8 +34,8 @@ namespace recommender.Models
             // Rating[] ratings = ratingservice.getRatingData();
             // var ratings = TinyCsvParserRating.ReadRatingCsv();            
 
-            int[][] data_matrix = new int[53424][];            
-            for (int user_row = 0; user_row < 53424; user_row++)
+            int[][] data_matrix = new int[53425][]; // add one more row to spare for new user           
+            for (int user_row = 0; user_row < 53425; user_row++)
             {
                 data_matrix[user_row] = new int[10000];
             }
@@ -45,8 +45,7 @@ namespace recommender.Models
                 try {
                     data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
                 }
-                catch (System.IndexOutOfRangeException e) {
-                    Console.WriteLine("{0}: book index {1} is null, thus not included", e, ratings[m].book_id-1);
+                catch (System.IndexOutOfRangeException) {
                     continue;
                 }
             }
