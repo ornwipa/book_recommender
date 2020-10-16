@@ -101,7 +101,8 @@ namespace recommender.Controllers
         public IActionResult Rate(int rating_, int book_id, string user_id)
         {
             _ratingService.Rate(rating_, book_id, user_id); // perform logic here to save rating to database
-            if (user_id != "55555") // existing user
+            return RedirectToAction("SetUser", new { user_id = user_id });
+            /* if (user_id != "55555") // existing user
             {
                 return RedirectToAction("SetUser", new { user_id = user_id });
             }
@@ -112,7 +113,7 @@ namespace recommender.Controllers
                 current_user.setRating(book_id-1, rating_);             
                 current_user.setRatedBook(); 
                 return View("SetUser", current_user);
-            } 
+            } */
         }
 
         [HttpGet]

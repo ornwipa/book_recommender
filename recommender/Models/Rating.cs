@@ -46,10 +46,31 @@ namespace recommender.Models
                     data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
                 }
                 catch (System.IndexOutOfRangeException) {
+                    data_matrix[53424][ratings[m].book_id-1] = ratings[m].rating_; // new user
                     continue;
                 }
             }
             return data_matrix;
+        }
+
+        /// <summary>
+        /// From database context, Rating entity, extract ratings by a specific user
+        /// </summary>
+        /// <param name="user_id">string of user_id</param>
+        /// <returns>one-dimensional array of 10000 elements of book ratings by a user</returns>
+        public static int[] getRatingByUser(string user_id)
+        {
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            Rating[] ratings = context.Ratings.Where(x => x.user_id == (Convert.ToInt32(user_id)+1)).ToArray();
+
+            int[] user_ratings = new int[10000];
+
+            for (int m = 0; m < ratings.Length; m++)
+            {
+                user_ratings[ratings[m].book_id-1] = ratings[m].rating_;
+            }
+            return user_ratings;
         }
     }
 }

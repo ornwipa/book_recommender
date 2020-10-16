@@ -56,15 +56,16 @@ namespace recommender.Models
         /// </summary>
         public virtual void setRatings()
         {
-            if (Int32.Parse(user_id) >= 0 && Int32.Parse(user_id) < 52424)
-            {
-                int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+            this.rating = Rating.getRatingByUser(this.user_id);
+            /* int[][] user_jaggedarray = Rating.constructUserJaggedArray();
+            try // if (Int32.Parse(user_id) >= 0 && Int32.Parse(user_id) < 52424)
+            {                
                 this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
             }
-            else // temporary solution for new user
+            catch (IndexOutOfRangeException) // else
             {
-                this.rating = new int[10000];
-            }
+                this.rating = user_jaggedarray[user_jaggedarray.Count()-1];
+            } */
         }
 
         /// <summary>
@@ -149,12 +150,8 @@ namespace recommender.Models
             List<Book> recommended_book = new List<Book>(); 
 
             int[][] user_jaggedarray = Rating.constructUserJaggedArray();
-            try {
-                this.rating = user_jaggedarray[Convert.ToInt32(this.user_id)];
-            }
-            catch (IndexOutOfRangeException) {
-                this.rating = new int[10000];
-            }
+            
+            this.setRatings();
             if (this.rating.Sum() == 0) // redundancy to prevent ZeroDivisionError later
             {
                 return recommended_book;
@@ -190,9 +187,13 @@ namespace recommender.Models
             {
                 sum_rating_cutoff = sum_book_rating.Max()/4;
             }
-            else  // for users who rated a few books, assuming less than 10 books
+            else if (this.rating.Sum() > 10) // for users who rated a few books
             {
                 sum_rating_cutoff = sum_book_rating.Sum()/no_similar_users/2;
+            }
+            else  
+            {
+                sum_rating_cutoff = 15;
             }
 
             for (int b = 0; b < 10000; b++)
