@@ -6,30 +6,43 @@
 <p class="lead">What would you like to do today?</p>
 
 <ul>
-    <li>
+    <div class="container">
+        <div class="jumbotron">
+            <h4>Rate</h4>
+            <p>You can see the books you rated, modify your book ratings, 
+                or add new ratings to your list of rated books.
         @Html.ActionLink(
-            linkText: "See the book(s) you rated",
+            linkText: "See the books you rated.",
             actionName: "SetUser",
             controllerName: "Home",
             routeValues: new { user_id = Model },
             htmlAttributes: null
-        )
-    </li>
-    <li>
+        )</p></div>    
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h4>Get Recommended</h4>
+            <p>As you already rated some books, AI can calculate for books you may like.
+                 You can go directly to see the list of books recommended for you.
         @Html.ActionLink(
-            linkText: "Ask AI to recommend you some books",
+            linkText: "Ask AI to recommend you some books.",
             actionName: "RecommendBook",
             controllerName: "Home",
             routeValues: new { user_id = Model },
             htmlAttributes: null
-        )
-    </li>
-    <li>
+        )</p></div>
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h4>Search</h4>
+            <p>You can search for books quickly and see the book details including 
+                 the average and number of ratings. You can also rate books here.
         <form method="get" action="@Url.Action("Search", "Home")">
-            Search for any books, enter keywords:
+            To search for any books, please enter keywords:
             <input type="text" name="search" id="search">
             <input type="hidden" name="user_id" id="user_id" value=@Model>
             <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
         </form>
-    </li>
+    </p></div>
+    </div>
 </ul>
