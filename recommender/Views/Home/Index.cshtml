@@ -24,6 +24,11 @@
         <input type="text" name="user_id" id="user_id" style="width:100px">
         <button class="btn btn-outline-primary btn-sm" type="submit">Confirm</button>
     </form>
+    @{
+    if (ViewBag.error_message != null) 
+      { <p class="text-danger">Invalid input: @ViewBag.error_message</p>
+      }
+    }
   </div>
   <div class="well" style="width:45%; float:center">
     <p><b>Visitor</b></p>

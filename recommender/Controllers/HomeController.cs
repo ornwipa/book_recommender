@@ -49,12 +49,14 @@ namespace recommender.Controllers
                     }
                     else
                     {
-                        return Content("User ID does not exist. IDs are between 0 and 52423.");
+                        ViewBag.error_message = "User ID does not exist. IDs are between 0 and 52423.";
+                        return View("Index");
                     }
                 }
                 else
                 {
-                    return Content("User ID can only be numers, not characters.");
+                    ViewBag.error_message = "User ID can only be numers, not characters.";
+                    return View("Index");
                 }
             }
         }
@@ -66,6 +68,7 @@ namespace recommender.Controllers
                 current_user = new NewUser();
                 current_user.setRatings();
                 current_user.setRatedBook();
+                ViewBag.new_user = true;
                 return View("SetUser", current_user);
             }
             return RedirectToAction("Index");
@@ -85,7 +88,7 @@ namespace recommender.Controllers
         {
             current_user = new User(user_id);
             current_user.setRecommendedBook();
-            if (current_user.recommended_books.Count() == 0) // in case of new users
+            if (current_user.recommended_books.Count() == 0) // in case of new users (redundant, no longer need)
             {
                 return Content("You have not rated any enough books to get results.");
             }
