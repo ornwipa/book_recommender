@@ -30,6 +30,7 @@ namespace recommender
                     var logger = services.GetRequiredService<ILogger<Program>>();
                     logger.LogError(ex, "An error occurred seeding the database.");
                 }
+                CleanData.RemoveZeroRating(services);
             }
             
             host.Run();            

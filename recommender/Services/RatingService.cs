@@ -25,15 +25,22 @@ namespace  recommender.Services
         {
             Rating row = _context.Ratings.
                         Where(r => r.book_id == book_id && r.user_id == (Convert.ToInt32(user_id)+1)).FirstOrDefault();
+            
             // if (row == null) throw new Exception("Rating record is not found. Add new rating instead.");
             if (row == null)
             {
                 row = new Rating();
                 row.book_id = book_id;
                 row.user_id = (Convert.ToInt32(user_id)+1);
-                _context.Add(row);
+                _context.Add(row); // add new row for new rating
             }
+
             row.rating_ = rating_;
+            if (row.rating_ == 0)
+            {
+                _context.Remove(row); // do not retain data when rating = 0
+            }
+            
             var saveResult = _context.SaveChanges();
             return saveResult == 1;
         }

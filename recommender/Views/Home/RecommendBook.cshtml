@@ -6,12 +6,19 @@
 
 <h3>Recommended Books for You</h3>
 
-<p><br>
-    AI thinks you will enjoy the following books.
-</p>
+@{
+    if (ViewBag.error_message != null)
+    {
+        <p><br><div class = "text-danger">@ViewBag.error_message</div></p>
+    }
+    else
+    {
+        <p><br>AI thinks you will enjoy the following books.</p>
+    }
+}
 
 <table class="table">
-    <thead>
+    <thead></div>
         <tr>
             <th>Book(s)</th>
             <th>Average Rating</th>

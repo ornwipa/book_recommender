@@ -148,14 +148,13 @@ namespace recommender.Models
         public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
             List<Book> recommended_book = new List<Book>(); 
-
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray();
-            
             this.setRatings();
             if (this.rating.Sum() == 0) // redundancy to prevent ZeroDivisionError later
             {
                 return recommended_book;
-            }
+            }          
+            
+            int[][] user_jaggedarray = Rating.constructUserJaggedArray();          
 
             double similarity;
             int no_similar_users = 0;
@@ -193,7 +192,7 @@ namespace recommender.Models
             }
             else  
             {
-                sum_rating_cutoff = 15;
+                sum_rating_cutoff = 10;
             }
 
             for (int b = 0; b < 10000; b++)

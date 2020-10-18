@@ -90,7 +90,7 @@ namespace recommender.Controllers
             current_user.setRecommendedBook();
             if (current_user.recommended_books.Count() == 0) // in case of new users (redundant, no longer need)
             {
-                return Content("You have not rated any enough books to get results.");
+                ViewBag.error_message = "Sorry, you have not rated any enough books to get results.";
             }
             return View(current_user);
         }
