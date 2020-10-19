@@ -30,7 +30,7 @@ namespace recommender.Models
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var context = new ApplicationDbContext(optionBuilder.Options);
-            Rating[] ratings = context.Ratings.ToArray();
+            Rating[] ratings = context.Ratings.ToArray(); // bottle-neck here
             // Rating[] ratings = ratingservice.getRatingData();
             // var ratings = TinyCsvParserRating.ReadRatingCsv();            
 
@@ -54,9 +54,30 @@ namespace recommender.Models
         }
 
         /// <summary>
+        /// From existing data, construct a user(row)-book(column)-rating(value) relationship
+        /// </summary>
+        /// <param name="user_rating">an array of ratings of a specific user</param>
+        /// <returns>a jagged array only from ratings array that contains any given books</returns>
+        public static int[][] getJaggedArrayByUser(int[] user_rating)
+        {
+            int[][] data_matrix = constructUserJaggedArray();
+            // keep only the row where there is at least one of books that the user rated
+            List<int> books = new List<int>();
+            for (int i = 0; i < user_rating.Length; i++)
+            {
+                if (user_rating[i] != 0)
+                {
+                    books.Add(i); // i is the column in the array
+                }
+            }
+            data_matrix = data_matrix.Where(row => books.Any(col => row[col] != 0)).ToArray();
+            return data_matrix;
+        }
+
+        /// <summary>
         /// From database context, Rating entity, extract ratings by a specific user
         /// </summary>
-        /// <param name="user_id">string of user_id</param>
+        /// <param name="user_id">a string of user_id</param>
         /// <returns>one-dimensional array of 10000 elements of book ratings by a user</returns>
         public static int[] getRatingByUser(string user_id)
         {

@@ -148,56 +148,39 @@ namespace recommender.Models
         public List<Book> getRecommendedBook() // combine similarUser() into this method
         {
             List<Book> recommended_book = new List<Book>(); 
+
             this.setRatings();
             if (this.rating.Sum() == 0) // redundancy to prevent ZeroDivisionError later
             {
                 return recommended_book;
             }          
             
-            int[][] user_jaggedarray = Rating.constructUserJaggedArray();          
+            int[][] user_jaggedarray = Rating.getJaggedArrayByUser(this.rating); 
+            // int[][] user_jaggedarray = Rating.constructUserJaggedArray();         
 
             double similarity;
             int no_similar_users = 0;
-            int[] sum_book_rating = new int[user_jaggedarray[0].Length]; // new int[10000];
-            int sum_rating_cutoff;
+            double[] sum_book_rating = new double[user_jaggedarray[0].Length];
             int no_recommended_book = 0;
             
-            // for (int u = 0; u < user_jaggedarray.Length; u++)
             Parallel.For(0, user_jaggedarray.Length, u =>
             {
                 similarity = VectorOpt.cosineSimilarity(this.rating, user_jaggedarray[u]);
-                if (similarity > 0.1) // arbitrary number for the minimum cosine similarity
+                if (similarity > 0.1) // minimum cosine similarity
                 {
                     no_similar_users += 1;
                     for (int b = 0; b < 10000; b++)
                     {
                         // sum_book_rating[b] += accessUser(user_jaggedarray, u).rating[b];
-                        sum_book_rating[b] = sum_book_rating[b] + user_jaggedarray[u][b];
+                        sum_book_rating[b] = sum_book_rating[b] + user_jaggedarray[u][b]*similarity;
                     }
                 }
             });
             // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
-
-            if (this.rating.Sum() > 40) // for users who rated many books
-            {
-                sum_rating_cutoff = sum_book_rating.Max()/8;
-            }
-            else if (this.rating.Sum() > 30)
-            {
-                sum_rating_cutoff = sum_book_rating.Max()/4;
-            }
-            else if (this.rating.Sum() > 10) // for users who rated a few books
-            {
-                sum_rating_cutoff = sum_book_rating.Sum()/no_similar_users/2;
-            }
-            else  
-            {
-                sum_rating_cutoff = 10;
-            }
-
+            
             for (int b = 0; b < 10000; b++)
             {                
-                if (sum_book_rating[b] > sum_rating_cutoff && this.rating[b] == 0)
+                if (sum_book_rating[b] > 5 && this.rating[b] == 0)
                 {
                     try {
                         Book selected_book = Book.selectBook(b);
