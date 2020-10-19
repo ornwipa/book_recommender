@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using recommender.Data;
 using recommender.Services;
@@ -30,7 +32,8 @@ namespace recommender.Models
         {
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             var context = new ApplicationDbContext(optionBuilder.Options);
-            Rating[] ratings = context.Ratings.ToArray(); // bottle-neck here
+            var ratings = context.Ratings.AsEnumerable();
+            // Rating[] ratings = context.Ratings.ToArray(); // bottle-neck here
             // Rating[] ratings = ratingservice.getRatingData();
             // var ratings = TinyCsvParserRating.ReadRatingCsv();            
 
@@ -40,13 +43,16 @@ namespace recommender.Models
                 data_matrix[user_row] = new int[10000];
             }
             
-            for (int m = 0; m < ratings.Length; m++)
+            foreach (var m in ratings) 
+            // for (int m = 0; m < ratings.Length; m++)
             {
                 try {
-                    data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
+                    data_matrix[m.user_id-1][m.book_id-1] = m.rating_;
+                    // data_matrix[ratings[m].user_id-1][ratings[m].book_id-1] = ratings[m].rating_;
                 }
                 catch (System.IndexOutOfRangeException) {
-                    data_matrix[53424][ratings[m].book_id-1] = ratings[m].rating_; // new user
+                    data_matrix[53424][m.book_id-1] = m.rating_;
+                    // data_matrix[53424][ratings[m].book_id-1] = ratings[m].rating_; // new user
                     continue;
                 }
             }
@@ -54,14 +60,14 @@ namespace recommender.Models
         }
 
         /// <summary>
-        /// From existing data, construct a user(row)-book(column)-rating(value) relationship
+        /// Use matrix factorization to construct a user(row)-book(column)-rating(value) relationship
         /// </summary>
         /// <param name="user_rating">an array of ratings of a specific user</param>
         /// <returns>a jagged array only from ratings array that contains any given books</returns>
         public static int[][] getJaggedArrayByUser(int[] user_rating)
         {
-            int[][] data_matrix = constructUserJaggedArray();
-            // keep only the row where there is at least one of books that the user rated
+            // int[][] data_matrix = constructUserJaggedArray();
+            
             List<int> books = new List<int>();
             for (int i = 0; i < user_rating.Length; i++)
             {
@@ -70,6 +76,30 @@ namespace recommender.Models
                     books.Add(i); // i is the column in the array
                 }
             }
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            IEnumerable<int> users = context.Ratings.AsEnumerable()
+                                    .Where(x => books.Any(b => b+1 == x.book_id)).Select(x => x.user_id);
+            var ratings = context.Ratings.Where(x => users.Any(u => u == x.user_id)).ToArray();
+            // int no_users = users.Distinct().Count();
+
+            int[][] data_matrix = new int[53425][];           
+            for (int user_row = 0; user_row < 53425; user_row++)
+            {
+                data_matrix[user_row] = new int[10000];
+            }
+
+            Parallel.ForEach(ratings, m =>
+            {
+                try {
+                    data_matrix[m.user_id-1][m.book_id-1] = m.rating_;
+                }
+                catch (System.IndexOutOfRangeException) {
+                    data_matrix[53424][m.book_id-1] = m.rating_;
+                }
+            });
+
+            // keep only the row where there is at least one of books that the user rated
             data_matrix = data_matrix.Where(row => books.Any(col => row[col] != 0)).ToArray();
             return data_matrix;
         }
