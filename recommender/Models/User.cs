@@ -196,6 +196,36 @@ namespace recommender.Models
                 }
             }
             recommended_book.Remove(null);
+
+            // guarantee finding at least 3 books, though not always accurate
+            if (no_recommended_book < 3)
+            {
+                List<double> sum_book_rating_list = sum_book_rating.ToList();
+                bool search_cont = true;
+                while (search_cont)
+                {
+                    double maxValue = sum_book_rating_list.Max();
+                    int maxIndex = sum_book_rating_list.IndexOf(maxValue);
+                    if (this.rating[maxIndex] == 0)
+                    {
+                        try {
+                            Book selected_book = Book.selectBook(maxIndex);
+                            if (selected_book != null)
+                            {
+                                recommended_book.Add(selected_book);
+                            }
+                        }
+                        catch {
+                            continue;
+                        }
+                        if (recommended_book.Count() == 3)
+                        {
+                            search_cont = false;
+                        }
+                    }
+                    sum_book_rating_list.RemoveAt(maxIndex);   
+                }
+            }
             // Console.WriteLine("{0} books are recommended.", recommended_book.Count());
             // foreach (Book book in recommended_book)
             // {
