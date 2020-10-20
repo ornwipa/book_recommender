@@ -124,15 +124,18 @@ namespace recommender.Controllers
         {
             ViewBag.search_string = search;
             current_user = new User(user_id);
-            current_user.search_matched = Book.searchBook(search);
-            if (current_user.search_matched == null)
-            {
-                return Content("Not Found");
+            try {
+                current_user.search_matched = Book.searchBook(search);
+                if (current_user.search_matched.Count() == 0)
+                {
+                    ViewBag.error_message = "Sorry, there is no book matched your search term.";
+                }
             }
-            else
+            catch (NullReferenceException) // when search == null
             {
-                return View("SearchMatch", current_user);
+                ViewBag.error_message = "You have not entered any keywords.";
             }
+            return View("SearchMatch", current_user);
         }
 
         public IActionResult Privacy()

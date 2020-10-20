@@ -22,6 +22,12 @@
             Your search term is <b>"@ViewBag.search_string"</b>.
         </div>
     }
+    if (ViewBag.error_message != null)
+    {
+        <div class = "alert alert-danger">
+            <b>@ViewBag.error_message</b>
+        </div>
+    }
 }
 
 <table class="table">
@@ -34,6 +40,8 @@
         </tr>
     </thead>
     <tbody>
+
+@if (Model.search_matched != null) {
 @foreach (var item in Model.search_matched) {
         <tr>
             <td>
@@ -55,6 +63,7 @@
                 </form>
             </td>
         </tr>
+}
 }
     </tbody>
 </table><hr>
