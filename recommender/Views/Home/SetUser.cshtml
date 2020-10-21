@@ -56,6 +56,13 @@
 }
 
 <p>
+    @Html.ActionLink(
+            linkText: "Back to your main menu",
+            actionName: "Welcome",
+            controllerName: "Home",
+            routeValues: new { user_id = Model.user_id },
+            htmlAttributes: null
+        )  |  
     <b>Ready for more reading?</b>
     @Html.ActionLink(
             linkText: "Ask AI to recommend you some books",

@@ -49,7 +49,10 @@ namespace recommender.Controllers
                     }
                     else
                     {
-                        ViewBag.error_message = "User ID does not exist. IDs are between 0 and 52423.";
+                        if (user_id_int != 55555) // except the case of guest, when tryign the application
+                        {
+                            ViewBag.error_message = "User ID does not exist. IDs are between 0 and 53423.";
+                        }                        
                         return View("Index");
                     }
                 }

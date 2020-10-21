@@ -197,8 +197,8 @@ namespace recommender.Models
             }
             recommended_book.Remove(null);
 
-            // guarantee finding at least 3 books, though not always accurate
-            if (no_recommended_book < 3)
+            // guarantee finding at least one book (not more to prevent duplication)
+            if (no_recommended_book == 0)
             {
                 List<double> sum_book_rating_list = sum_book_rating.ToList();
                 bool search_cont = true;
