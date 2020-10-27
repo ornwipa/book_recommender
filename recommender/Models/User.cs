@@ -178,6 +178,7 @@ namespace recommender.Models
             });
             // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
             
+            /* this algorithm doesn't rank the book, this is the area to be improved
             for (int b = 0; b < 10000; b++)
             {                
                 if (sum_book_rating[b] > 5 && this.rating[b] == 0)
@@ -195,36 +196,35 @@ namespace recommender.Models
                     }
                 }
             }
-            recommended_book.Remove(null);
+            recommended_book.Remove(null); */
 
-            // guarantee finding at least one book (not more to prevent duplication)
-            if (no_recommended_book == 0)
+            // rank the book by similarity-weighted sum of book ratings
+            double[] input = sum_book_rating;
+            int[] indice = Enumerable.Range(0, input.Length).ToArray();
+            Array.Sort(input, indice);
+            Array.Reverse(indice);
+            int index = 0;
+            while (true)
             {
-                List<double> sum_book_rating_list = sum_book_rating.ToList();
-                bool search_cont = true;
-                while (search_cont)
+                if (this.rating[indice[index]] == 0)
                 {
-                    double maxValue = sum_book_rating_list.Max();
-                    int maxIndex = sum_book_rating_list.IndexOf(maxValue);
-                    if (this.rating[maxIndex] == 0)
-                    {
-                        try {
-                            Book selected_book = Book.selectBook(maxIndex);
-                            if (selected_book != null)
-                            {
-                                recommended_book.Add(selected_book);
-                            }
-                        }
-                        catch {
-                            continue;
-                        }
-                        if (recommended_book.Count() == 3)
+                    try {
+                        Book selected_book = Book.selectBook(indice[index]);
+                        if (selected_book != null)
                         {
-                            search_cont = false;
+                            recommended_book.Add(selected_book);
+                            no_recommended_book += 1;
                         }
                     }
-                    sum_book_rating_list.RemoveAt(maxIndex);   
+                    catch {
+                        continue;
+                    }
                 }
+                if (no_recommended_book == 10)
+                {
+                    break;
+                }
+                index += 1;
             }
             // Console.WriteLine("{0} books are recommended.", recommended_book.Count());
             // foreach (Book book in recommended_book)
