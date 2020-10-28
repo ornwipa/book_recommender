@@ -1,6 +1,51 @@
 # Book Recommender
 
-**Update:** web application is working now. Existing users can see the books they rated, the books recommended for them, and the details of each book. They can also change ratings of the books they gave then the algorithm will be re-executed to get new book recommendation. The part for new users is under development.
+## Acknowledgement
+
+This repository serves as the final project for [ComIT](https://www.comit.org/)'s FULL STACK .NET course from July 20 to October 21, 2020.
+
+The author would like to thank **ComIT** for this opportunity to combine the previously-developed knowledge/ability in **artificial intelligence** and the newly-learned skills in **software development** into an application that can reach the public.
+
+## Web Application
+
+This web application was built using ASP.NET Core framework, Model-View-Controller pattern with three main functionalities:
+1. Users can see the list of books they rated and change the ratings they gave to the books.
+2. Users can get recommendation for books they may like. In the list of recommended books, users can also add their book ratings.
+3. Users can search for other books in the database of 10k books by entering keywords of authors, title and ISBN, and add ratings to them.
+
+The examples of web pages are shown in the [figures](https://github.com/ornwipa/book_recommender/tree/master/figures) folder and one as below:
+
+![user's rated books](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png)
+
+## How to set up
+
+- Clone this repository
+```
+git clone https://github.com/ornwipa/book_recommender.git
+cd book_recommender/recommender
+```
+
+- Install required packages by running the following codes:
+```
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SQLite
+dotnet add package TinyCsvParser
+```
+
+- Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder named [data_source](https://github.com/ornwipa/book_recommender/tree/master/data_source). The data will be seeded once at the first time the application is run.
+
+- Optionally, to start fresh, remove all .db file and everything in the [Migrations](https://github.com/ornwipa/book_recommender/tree/master/recommender/Migrations) folder then re-create the database by running the following codes:
+```
+dotnet ef migrations remove
+dotnet ef migrations add existingData
+dotnet ef database update
+```
+
+- Run the application
+```
+dotnet run
+```
 
 ## Theoretical Framework
 
@@ -17,46 +62,3 @@ In contrast to content-based recommender system where the descriptions of each i
 More "academic" readings about collaborative filtering in recommender systems are in [ScienceDirect](https://www.sciencedirect.com/topics/computer-science/collaborative-filtering).
 
 The prototype of this recommender system was initially built and tested as presented in this [Kaggle Notebook](https://www.kaggle.com/ornwipathamsuwan/book-recommender-using-collaborative-filtering).
-
-## Web Application
-
-This web application was built using ASP.NET Core framework, Model-View-Controller pattern with three main functionalities:
-1. Users can see the list of books they rated and change the ratings they gave to the books.
-2. Users can get recommendation for books they may like. In the list of recommended books, users can also add their book ratings.
-3. Users can search for other books in the database of 10k books by entering keywords of authors, title and ISBN, and add ratings to them.
-
-The examples of web pages are shown in the [figures](https://github.com/ornwipa/book_recommender/tree/master/figures) folder and one as below:
-
-![user's rated books](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png)
-
-## How to set up
-
-- Clone this repository and install required packages
-```
-git clone https://github.com/ornwipa/book_recommender.git
-cd book_recommender/recommender
-dotnet tool install --global dotnet-ef
-dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet add package Microsoft.EntityFrameworkCore.SQLite
-dotnet add package TinyCsvParser
-```
-
-- Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder named [data_source](https://github.com/ornwipa/book_recommender/tree/master/data_source).
-
-- (Optionally, to start fresh), remove all .db file and everything in the [Migrations](https://github.com/ornwipa/book_recommender/tree/master/recommender/Migrations) folder. Then re-create the database by running the following codes:
-```
-dotnet ef migrations remove
-dotnet ef migrations add existingData
-dotnet ef database update
-```
-
-- Run the application
-```
-dotnet run
-```
-
-## Acknowledgement
-
-This repository serves as the final project for [ComIT](https://www.comit.org/)'s FULL STACK .NET course from July 20 to October 21, 2020.
-
-The author would like to thank **ComIT** for this opportunity to combine the previously-developed knowledge/ability in **artificial intelligence** and the newly-learned skills in **software development** into an application that can reach the public.
