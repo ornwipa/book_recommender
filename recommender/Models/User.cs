@@ -161,6 +161,8 @@ namespace recommender.Models
             double similarity;
             int no_similar_users = 0;
             double[] sum_book_rating = new double[user_jaggedarray[0].Length];
+            double[] cnt_book_rating = new double[user_jaggedarray[0].Length];
+            double[] avg_book_rating = new double[user_jaggedarray[0].Length];
             int no_recommended_book = 0;
             
             Parallel.For(0, user_jaggedarray.Length, u =>
@@ -172,11 +174,19 @@ namespace recommender.Models
                     for (int b = 0; b < 10000; b++)
                     {
                         // sum_book_rating[b] += accessUser(user_jaggedarray, u).rating[b];
-                        sum_book_rating[b] = sum_book_rating[b] + user_jaggedarray[u][b]*similarity;
+                        sum_book_rating[b] += user_jaggedarray[u][b]*similarity;
+                        if (user_jaggedarray[u][b] != 0) cnt_book_rating[b] += similarity; 
                     }
                 }
             });
-            // Console.WriteLine("There are {0} similar users.", no_similar_users-1);                    
+            // Console.WriteLine("There are {0} similar users.", no_similar_users-1);  
+            for (int b = 0; b < user_jaggedarray[0].Length; b++)    
+            {
+                if (cnt_book_rating[b] >= 0.5) // only include avg rating from high similarity
+                {
+                    avg_book_rating[b] = sum_book_rating[b]/cnt_book_rating[b];
+                }
+            }              
             
             /* this algorithm doesn't rank the book, this is the area to be improved
             for (int b = 0; b < 10000; b++)
@@ -199,14 +209,20 @@ namespace recommender.Models
             recommended_book.Remove(null); */
 
             // rank the book by similarity-weighted sum of book ratings
-            double[] input = sum_book_rating;
+            double[] input = new double[user_jaggedarray[0].Length]; 
+            avg_book_rating.CopyTo(input, 0);
             int[] indice = Enumerable.Range(0, input.Length).ToArray();
             Array.Sort(input, indice);
             Array.Reverse(indice);
+            Array.Reverse(input);
             int index = 0;
             while (true)
-            {
-                if (this.rating[indice[index]] == 0)
+            {   
+                if (input[index] < 3.5) // stop when reach low rating, unlimited books
+                {
+                    break;
+                }
+                if (this.rating[indice[index]] == 0 && input[index] > 3.5)
                 {
                     try {
                         Book selected_book = Book.selectBook(indice[index]);
@@ -219,11 +235,7 @@ namespace recommender.Models
                     catch {
                         continue;
                     }
-                }
-                if (no_recommended_book == 10)
-                {
-                    break;
-                }
+                }                
                 index += 1;
             }
             // Console.WriteLine("{0} books are recommended.", recommended_book.Count());
