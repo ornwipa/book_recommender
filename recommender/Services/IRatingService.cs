@@ -7,5 +7,6 @@ namespace  recommender.Services
     {
         Rating[] getRatingData();
         bool Rate(int rating_, int book_id, string user_id);
+        int getLastUser();
     }
 }

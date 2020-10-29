@@ -1,4 +1,6 @@
 using System;
+using Microsoft.EntityFrameworkCore;
+using recommender.Data;
 using recommender.Services;
 
 namespace recommender.Models
@@ -11,7 +13,10 @@ namespace recommender.Models
         // public NewUser(IBookService bookService, IRatingService ratingService) : base(bookService, ratingService)
         public NewUser() : base()
         {
-            this.user_id = "55555"; // default
+            var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var context = new ApplicationDbContext(optionBuilder.Options);
+            RatingService rating_service = new RatingService(context);
+            this.user_id = Convert.ToString(rating_service.getLastUser() + 1);
         }
         
         /// <summary>

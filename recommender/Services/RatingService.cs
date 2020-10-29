@@ -44,5 +44,12 @@ namespace  recommender.Services
             var saveResult = _context.SaveChanges();
             return saveResult == 1;
         }
+
+        public int getLastUser()
+        {
+            IEnumerable<int> new_users = _context.Ratings.Where(r => r.user_id >= 53423).ToArray().Select(x => x.user_id);
+            int last_user = new_users.Max();
+            return last_user;
+        }
     }
 }

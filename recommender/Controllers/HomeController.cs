@@ -41,7 +41,7 @@ namespace recommender.Controllers
             {
                 if (Int32.TryParse(user_id, out int user_id_int))
                 {
-                    if (user_id_int >= 0 && user_id_int < 52424)
+                    if (user_id_int >= 0 && user_id_int < _ratingService.getLastUser())
                     {
                         string current_user = user_id; // pass only user_id string, no longer the entire User object
                         // current_user = new OldUser(this._bookService, this._ratingService, user_id);
@@ -49,16 +49,13 @@ namespace recommender.Controllers
                     }
                     else
                     {
-                        if (user_id_int != 55555) // except the case of guest, when tryign the application
-                        {
-                            ViewBag.error_message = "User ID does not exist. IDs are between 0 and 53423.";
-                        }                        
+                        ViewBag.error_message = "User ID does not exist. Please try as guest.";                    
                         return View("Index");
                     }
                 }
                 else
                 {
-                    ViewBag.error_message = "User ID can only be numers, not characters.";
+                    ViewBag.error_message = "User ID can only be numbers, not characters.";
                     return View("Index");
                 }
             }
