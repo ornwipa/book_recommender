@@ -69,7 +69,8 @@ namespace recommender.Controllers
                 current_user.setRatings();
                 current_user.setRatedBook();
                 ViewBag.new_user = true;
-                return View("SetUser", current_user);
+                return View("Welcome", current_user.user_id);
+                // return View("SetUser", current_user);
             }
             return RedirectToAction("Index");
         }
@@ -137,7 +138,7 @@ namespace recommender.Controllers
             }
             return View("SearchMatch", current_user);
         }
-
+   
         public IActionResult Privacy()
         {
             return View();
