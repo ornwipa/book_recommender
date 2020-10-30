@@ -45,16 +45,6 @@
     </tbody>
 </table><hr>
 
-@{
-    if (ViewBag.new_user == true)
-    {
-        <div class = "alert alert-warning">
-            <div class="lead">Thanks for trying out the application. &#128516
-            Please rate some books so that AI can suggest you other books you may like.</div>
-        </div>
-    }
-}
-
 <p>
     @Html.ActionLink(
             linkText: "Back to your main menu",

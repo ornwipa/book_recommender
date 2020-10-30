@@ -3,6 +3,17 @@
 
 <h3>Hello @Model!</h3>
 
+@{
+    if (ViewBag.new_user == true)
+    {
+        <div class = "alert alert-warning">
+            <div class="lead">Thank you for trying the application. &#128516
+            Please rate some books so that AI can suggest you other books you may like.
+             You can start by searching the book you would like to rate.</div>
+        </div>
+    }
+}
+
 <p class="lead">What would you like to do today?</p>
 
 <ul>
