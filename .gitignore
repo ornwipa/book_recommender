@@ -8,5 +8,6 @@ data/ratings.csv
 bin/
 obj/
 
-# Jupyter Lab
+# Jupyter Lab & Notebook
 .ipynb_checkpoints/
+notebooks/
