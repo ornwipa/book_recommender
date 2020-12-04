@@ -46,7 +46,7 @@ namespace recommender.Data
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlite("DataSource=../data_source/recommender.db");
+                optionsBuilder.UseSqlite("DataSource=recommender.db");
             }   
             base.OnConfiguring(optionsBuilder);         
         }
