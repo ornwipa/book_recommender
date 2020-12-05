@@ -7,10 +7,7 @@ WORKDIR /app/recommender
 RUN dotnet restore
 
 # copy everything else and build app
-WORKDIR /app
 COPY recommender/. ./
-COPY data_source/recommender.db ./
-WORKDIR /app/recommender
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS runtime
