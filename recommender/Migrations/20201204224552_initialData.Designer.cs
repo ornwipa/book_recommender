@@ -8,8 +8,8 @@ using recommender.Data;
 namespace recommender.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201014203202_initialCommit")]
-    partial class initialCommit
+    [Migration("20201204224552_initialData")]
+    partial class initialData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
