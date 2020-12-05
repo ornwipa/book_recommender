@@ -2,7 +2,7 @@
 
 namespace recommender.Migrations
 {
-    public partial class initialCommit : Migration
+    public partial class initialData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
