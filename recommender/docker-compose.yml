@@ -1,5 +1,5 @@
 nginx:
-    build: ./recommender/nginx
+    build: ./nginx
     links:
         - kestrel:kestrel
     ports:
