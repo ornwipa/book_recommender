@@ -17,8 +17,6 @@ The examples of web pages are shown in the [figures](https://github.com/ornwipa/
 
 ![](https://github.com/ornwipa/book_recommender/blob/master/figures/search.png)
 
-![](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png)
-
 ## How to set up
 
 - Clone this repository
