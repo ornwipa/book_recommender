@@ -15,8 +15,6 @@ This web application was built using ASP.NET Core framework, Model-View-Controll
 
 The examples of web pages are shown in the [figures](https://github.com/ornwipa/book_recommender/tree/master/figures) folder and one as below:
 
-![user's rated books](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png)
-
 ## How to set up
 
 - Clone this repository
