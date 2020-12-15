@@ -47,6 +47,8 @@ dotnet ef database update
 dotnet run
 ```
 
+Note that a Docker container image is also published on [Docker Hub](https://hub.docker.com/repository/docker/ornwipa/book_recommender).
+
 ## Theoretical Framework
 
 This recommender system is based on collaborative filtering. That is, a user receives their book recommendation from a set of "similar" users, determined by cosine similarity.
