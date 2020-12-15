@@ -13,6 +13,10 @@ COPY . ./
 WORKDIR /app
 
 # Build a release artifact.
+RUN dotnet tool install -g dotnet-ef
+ENV PATH="${PATH}:/root/.dotnet/tools"
+#RUN dotnet ef migrations remove
+#RUN dotnet ef migrations add existingData
 RUN dotnet ef database update
 RUN dotnet publish -c Release -o out
 
