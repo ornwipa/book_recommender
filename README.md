@@ -13,7 +13,10 @@ This web application was built using ASP.NET Core framework, Model-View-Controll
 2. Users can get recommendation for books they may like. In the list of recommended books, users can also add their book ratings.
 3. Users can search for other books in the database of 10k books by entering keywords of authors, title and ISBN, and add ratings to them.
 
-The examples of web pages are shown in the [figures](https://github.com/ornwipa/book_recommender/tree/master/figures) folder and one as below:
+The examples of web pages are shown in the [figures](https://github.com/ornwipa/book_recommender/tree/master/figures) folder and as below:
+
+![](https://github.com/ornwipa/book_recommender/blob/master/figures/search.png)
+
 ![](https://github.com/ornwipa/book_recommender/blob/master/figures/rated.png)
 
 ## How to set up
