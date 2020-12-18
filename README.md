@@ -33,9 +33,9 @@ dotnet add package Microsoft.EntityFrameworkCore.SQLite
 dotnet add package TinyCsvParser
 ```
 
-- Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder named [data_source](https://github.com/ornwipa/book_recommender/tree/master/data_source). The data will be seeded once at the first time the application is run.
+- Download **books.csv** and **ratings.csv** from **goodbooks-10k** dataset available on [Kaggle](https://www.kaggle.com/zygmunt/goodbooks-10k) and save them to the folder named [recommender/Data](https://github.com/ornwipa/book_recommender/tree/master/recommender/Data). The data will be seeded once at the first time the application is run.
 
-- Optionally, to start fresh, remove all .db file and everything in the [Migrations](https://github.com/ornwipa/book_recommender/tree/master/recommender/Migrations) folder then re-create the database by running the following codes:
+- Optionally, to start fresh, remove all .db file and everything in the [recommender/Migrations](https://github.com/ornwipa/book_recommender/tree/master/recommender/Migrations) folder then re-create the database by running the following codes:
 ```
 dotnet ef migrations remove
 dotnet ef migrations add existingData
