@@ -182,9 +182,10 @@ namespace recommender.Models
             // Console.WriteLine("There are {0} similar users.", no_similar_users-1);  
             for (int b = 0; b < user_jaggedarray[0].Length; b++)    
             {
-                if (cnt_book_rating[b] >= 0.5) // only include avg rating from high similarity
+                if (cnt_book_rating[b] > 0.8) // only include avg rating from book with high similarity
                 {
-                    avg_book_rating[b] = sum_book_rating[b]/cnt_book_rating[b];
+                    // avg_book_rating[b] = sum_book_rating[b]/cnt_book_rating[b];
+                    avg_book_rating[b] = sum_book_rating[b]; // consider weighted sum as avg for ranking
                 }
             }              
             
@@ -218,11 +219,11 @@ namespace recommender.Models
             int index = 0;
             while (true)
             {   
-                if (input[index] < 3.5) // stop when reach low rating, unlimited books
+                if (input[index] < 5) // stop when reach low rating, unlimited books
                 {
                     break;
                 }
-                if (this.rating[indice[index]] == 0 && input[index] > 3.5)
+                if (this.rating[indice[index]] == 0 && input[index] > 5)
                 {
                     try {
                         Book selected_book = Book.selectBook(indice[index]);
